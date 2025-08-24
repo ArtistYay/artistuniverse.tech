@@ -126,15 +126,8 @@ help        - Show this help message
     }
 
     whoami() {
-        const info = `
-<span class="response success">Artist Universe Terminal User</span>
-Username: artist
-Domain: universe.tech
-Status: A sophisticated mofo who likes all things different
-Location: The Internet
-Shell: /bin/bash (Artist Universe Edition)
-        `;
-        this.addToOutput(info);
+        this.addToOutput('Status: A sophisticated mofo who likes all things different');
+        this.addToOutput('Location: The Internet');
     }
 
     about() {
@@ -225,7 +218,7 @@ Type 'contact' to collaborate on projects!
 Email: artist@universe.tech
 GitHub: github.com/artistuniverse
 Portfolio: artistuniverse.tech
-LinkedIn: linkedin.com/in/artistuniverse
+LinkedIn: linkedin.com/in/athinat
 
 <span class="response info">Open to:</span>
 • Creative collaborations
@@ -372,21 +365,10 @@ Type any command to continue exploring! 🚀
     }
 
     ls() {
-        this.addToOutput(`
-<span class="response success">Directory Contents:</span>
-drwxr-xr-x  projects/
-drwxr-xr-x  artwork/
-drwxr-xr-x  experiments/
-drwxr-xr-x  notes/ -> https://notes.artistuniverse.tech
--rw-r--r--  README.md
--rw-r--r--  portfolio.json
--rw-r--r--  creative-brief.txt
--rw-r--r--  inspiration.md
--rw-r--r--  resume.pdf
-
-<span class="response info">💡 Use 'notes' command to access the knowledge base</span>
-<span class="response info">📄 Use 'cat resume.pdf' to view my resume</span>
-        `);
+        this.addToOutput('-rw-r--r--  resume.pdf');
+        this.addToOutput('');
+        this.addToOutput('💡 Use \'notes\' command to access the knowledge base', 'response info');
+        this.addToOutput('📄 Use \'cat resume.pdf\' to view my resume', 'response info');
     }
 
     cat(args) {
@@ -396,124 +378,148 @@ drwxr-xr-x  notes/ -> https://notes.artistuniverse.tech
             'portfolio.json': '{"name": "Artist Universe", "type": "Creative Developer", "passion": "Digital Art"}',
             'creative-brief.txt': 'Mission: Create digital experiences that inspire and engage users through innovative technology.',
             'inspiration.md': '# Daily Inspiration\n\n"The best way to predict the future is to create it." - Peter Drucker',
-            'notes': '🔗 Symbolic link to: https://notes.artistuniverse.tech\n\nThis is my knowledge base built with MkDocs from Obsidian notes.\nUse the "notes" command for full access.',
-            'resume.pdf': `
-<span class="response success">════════════════════════════════════════════════════════════</span>
-<span class="response success">                        ARTIST UNIVERSE                        </span>
-<span class="response success">                   Creative Developer & Digital Artist        </span>
-<span class="response success">════════════════════════════════════════════════════════════</span>
-
-📧 artist@universe.tech              🌐 artistuniverse.tech
-🐙 github.com/artistuniverse         📍 The Internet
-💼 linkedin.com/in/artistuniverse    📱 @artistuniverse
-
-<span class="response info">────────────────────────────────────────────────────────────</span>
-<span class="response info">PROFESSIONAL SUMMARY</span>
-<span class="response info">────────────────────────────────────────────────────────────</span>
-
-A sophisticated mofo who likes all things different. Passionate creative 
-developer with 5+ years of experience bridging the gap between technology 
-and art. Specialized in creating immersive digital experiences that inspire 
-and engage users through innovative web technologies.
-
-<span class="response info">────────────────────────────────────────────────────────────</span>
-<span class="response info">TECHNICAL SKILLS</span>
-<span class="response info">────────────────────────────────────────────────────────────</span>
-
-<span class="response success">Languages:</span>
-• JavaScript (ES6+)     • Python              • HTML5/CSS3
-• TypeScript            • PHP                 • SQL
-
-<span class="response success">Frameworks & Libraries:</span>
-• React/Next.js         • Vue.js              • Node.js
-• Three.js/WebGL        • p5.js/Processing    • Express
-
-<span class="response success">Creative Tools:</span>
-• Adobe Creative Suite  • Blender 3D          • Figma
-• After Effects         • Cinema 4D           • Sketch
-
-<span class="response success">Development Tools:</span>
-• Git/GitHub            • Docker              • AWS
-• VS Code               • Webpack             • Vite
-
-<span class="response info">────────────────────────────────────────────────────────────</span>
-<span class="response info">EXPERIENCE</span>
-<span class="response info">────────────────────────────────────────────────────────────</span>
-
-<span class="response success">Senior Creative Developer</span> | Digital Art Collective | 2022-Present
-• Lead development of interactive web installations
-• Created real-time audio visualizers using Web Audio API
-• Collaborated with artists on 15+ digital art projects
-• Increased user engagement by 300% through interactive features
-
-<span class="response success">Frontend Developer</span> | Creative Agency | 2020-2022
-• Developed responsive websites for creative professionals
-• Implemented 3D web experiences using Three.js
-• Optimized performance resulting in 40% faster load times
-• Mentored junior developers in creative coding techniques
-
-<span class="response success">Freelance Digital Artist</span> | Self-Employed | 2019-Present
-• Created custom interactive installations for events
-• Developed AI-powered art generation tools
-• Built digital poetry platform with 1000+ active users
-• Published creative coding tutorials with 50k+ views
-
-<span class="response info">────────────────────────────────────────────────────────────</span>
-<span class="response info">FEATURED PROJECTS</span>
-<span class="response info">────────────────────────────────────────────────────────────</span>
-
-<span class="response success">🎨 Interactive Art Gallery</span>
-Web-based virtual gallery with 3D navigation and immersive experiences
-Tech: Three.js, WebGL, React | Status: Live
-
-<span class="response success">🤖 AI Art Generator</span>
-Machine learning powered artwork creation platform
-Tech: Python, TensorFlow, Flask | Status: Development
-
-<span class="response success">🎵 Music Visualizer</span>
-Real-time audio visualization in the browser
-Tech: Web Audio API, Canvas, JavaScript | Status: Live
-
-<span class="response success">📝 Digital Poetry Platform</span>
-Interactive platform for digital poetry and creative writing
-Tech: Vue.js, Node.js, MongoDB | Status: Beta
-
-<span class="response info">────────────────────────────────────────────────────────────</span>
-<span class="response info">EDUCATION & CERTIFICATIONS</span>
-<span class="response info">────────────────────────────────────────────────────────────</span>
-
-<span class="response success">Bachelor of Fine Arts</span> | Digital Media & Technology | 2019
-University of Creative Arts
-
-<span class="response success">Certifications:</span>
-• AWS Certified Developer Associate
-• Google Cloud Professional Cloud Architect
-• Adobe Certified Expert (Photoshop, After Effects)
-
-<span class="response info">────────────────────────────────────────────────────────────</span>
-<span class="response info">ACHIEVEMENTS & RECOGNITION</span>
-<span class="response info">────────────────────────────────────────────────────────────</span>
-
-• Featured in "Top 30 Under 30" Creative Technologists (2023)
-• Winner - Digital Art Innovation Award (2022)
-• Speaker at CreativeTech Conference (2021, 2022, 2023)
-• 20+ articles published on creative coding and digital art
-• Open source contributions: 500+ GitHub stars across projects
-
-<span class="response success">════════════════════════════════════════════════════════════</span>
-<span class="response info">💡 "Code is poetry in motion" - Artist Universe Motto</span>
-<span class="response success">════════════════════════════════════════════════════════════</span>
-            `
+            'notes': '🔗 Symbolic link to: https://notes.artistuniverse.tech\n\nThis is my knowledge base built with MkDocs from Obsidian notes.\nUse the "notes" command for full access.'
         };
         
         if (file && files[file.toLowerCase()]) {
-            this.addToOutput(`<span class="response success">Contents of ${file}:</span>`);
-            this.addToOutput(files[file.toLowerCase()]);
+            this.addToOutput(`Contents of ${file}:`, 'response success');
+            
+            if (file.toLowerCase() === 'resume.pdf') {
+                // Special handling for resume to output line by line
+                this.displayResume();
+            } else {
+                this.addToOutput(files[file.toLowerCase()]);
+            }
         } else if (file) {
             this.addToOutput(`cat: ${file}: No such file or directory`, 'response error');
         } else {
             this.addToOutput('Usage: cat [filename]', 'response info');
         }
+    }
+
+    displayResume() {
+        // Header
+        this.addToOutput('════════════════════════════════════════════════════════════', 'response success');
+        this.addToOutput('                        ARTIST UNIVERSE                        ', 'response success');
+        this.addToOutput('                   Creative Developer & Digital Artist        ', 'response success');
+        this.addToOutput('════════════════════════════════════════════════════════════', 'response success');
+        this.addToOutput('');
+        
+        // Contact Info
+        this.addToOutput('📧 artist@universe.tech              🌐 artistuniverse.tech');
+        this.addToOutput('🐙 github.com/artistuniverse         📍 The Internet');
+        this.addToOutput('💼 linkedin.com/in/artistuniverse    📱 @artistuniverse');
+        this.addToOutput('');
+        
+        // Professional Summary
+        this.addToOutput('────────────────────────────────────────────────────────────', 'response info');
+        this.addToOutput('PROFESSIONAL SUMMARY', 'response info');
+        this.addToOutput('────────────────────────────────────────────────────────────', 'response info');
+        this.addToOutput('');
+        this.addToOutput('A sophisticated mofo who likes all things different. Passionate creative');
+        this.addToOutput('developer with 5+ years of experience bridging the gap between technology');
+        this.addToOutput('and art. Specialized in creating immersive digital experiences that inspire');
+        this.addToOutput('and engage users through innovative web technologies.');
+        this.addToOutput('');
+        
+        // Technical Skills
+        this.addToOutput('────────────────────────────────────────────────────────────', 'response info');
+        this.addToOutput('TECHNICAL SKILLS', 'response info');
+        this.addToOutput('────────────────────────────────────────────────────────────', 'response info');
+        this.addToOutput('');
+        this.addToOutput('Languages:', 'response success');
+        this.addToOutput('• JavaScript (ES6+)     • Python              • HTML5/CSS3');
+        this.addToOutput('• TypeScript            • PHP                 • SQL');
+        this.addToOutput('');
+        this.addToOutput('Frameworks & Libraries:', 'response success');
+        this.addToOutput('• React/Next.js         • Vue.js              • Node.js');
+        this.addToOutput('• Three.js/WebGL        • p5.js/Processing    • Express');
+        this.addToOutput('');
+        this.addToOutput('Creative Tools:', 'response success');
+        this.addToOutput('• Adobe Creative Suite  • Blender 3D          • Figma');
+        this.addToOutput('• After Effects         • Cinema 4D           • Sketch');
+        this.addToOutput('');
+        this.addToOutput('Development Tools:', 'response success');
+        this.addToOutput('• Git/GitHub            • Docker              • AWS');
+        this.addToOutput('• VS Code               • Webpack             • Vite');
+        this.addToOutput('');
+        
+        // Experience
+        this.addToOutput('────────────────────────────────────────────────────────────', 'response info');
+        this.addToOutput('EXPERIENCE', 'response info');
+        this.addToOutput('────────────────────────────────────────────────────────────', 'response info');
+        this.addToOutput('');
+        this.addToOutput('Senior Creative Developer | Digital Art Collective | 2022-Present', 'response success');
+        this.addToOutput('• Lead development of interactive web installations');
+        this.addToOutput('• Created real-time audio visualizers using Web Audio API');
+        this.addToOutput('• Collaborated with artists on 15+ digital art projects');
+        this.addToOutput('• Increased user engagement by 300% through interactive features');
+        this.addToOutput('');
+        this.addToOutput('Frontend Developer | Creative Agency | 2020-2022', 'response success');
+        this.addToOutput('• Developed responsive websites for creative professionals');
+        this.addToOutput('• Implemented 3D web experiences using Three.js');
+        this.addToOutput('• Optimized performance resulting in 40% faster load times');
+        this.addToOutput('• Mentored junior developers in creative coding techniques');
+        this.addToOutput('');
+        this.addToOutput('Freelance Digital Artist | Self-Employed | 2019-Present', 'response success');
+        this.addToOutput('• Created custom interactive installations for events');
+        this.addToOutput('• Developed AI-powered art generation tools');
+        this.addToOutput('• Built digital poetry platform with 1000+ active users');
+        this.addToOutput('• Published creative coding tutorials with 50k+ views');
+        this.addToOutput('');
+        
+        // Featured Projects
+        this.addToOutput('────────────────────────────────────────────────────────────', 'response info');
+        this.addToOutput('FEATURED PROJECTS', 'response info');
+        this.addToOutput('────────────────────────────────────────────────────────────', 'response info');
+        this.addToOutput('');
+        this.addToOutput('🎨 Interactive Art Gallery', 'response success');
+        this.addToOutput('   Web-based virtual gallery with 3D navigation and immersive experiences');
+        this.addToOutput('   Tech: Three.js, WebGL, React | Status: Live');
+        this.addToOutput('');
+        this.addToOutput('🤖 AI Art Generator', 'response success');
+        this.addToOutput('   Machine learning powered artwork creation platform');
+        this.addToOutput('   Tech: Python, TensorFlow, Flask | Status: Development');
+        this.addToOutput('');
+        this.addToOutput('🎵 Music Visualizer', 'response success');
+        this.addToOutput('   Real-time audio visualization in the browser');
+        this.addToOutput('   Tech: Web Audio API, Canvas, JavaScript | Status: Live');
+        this.addToOutput('');
+        this.addToOutput('📝 Digital Poetry Platform', 'response success');
+        this.addToOutput('   Interactive platform for digital poetry and creative writing');
+        this.addToOutput('   Tech: Vue.js, Node.js, MongoDB | Status: Beta');
+        this.addToOutput('');
+        
+        // Education
+        this.addToOutput('────────────────────────────────────────────────────────────', 'response info');
+        this.addToOutput('EDUCATION & CERTIFICATIONS', 'response info');
+        this.addToOutput('────────────────────────────────────────────────────────────', 'response info');
+        this.addToOutput('');
+        this.addToOutput('Bachelor of Fine Arts | Digital Media & Technology | 2019', 'response success');
+        this.addToOutput('University of Creative Arts');
+        this.addToOutput('');
+        this.addToOutput('Certifications:', 'response success');
+        this.addToOutput('• AWS Certified Developer Associate');
+        this.addToOutput('• Google Cloud Professional Cloud Architect');
+        this.addToOutput('• Adobe Certified Expert (Photoshop, After Effects)');
+        this.addToOutput('');
+        
+        // Achievements
+        this.addToOutput('────────────────────────────────────────────────────────────', 'response info');
+        this.addToOutput('ACHIEVEMENTS & RECOGNITION', 'response info');
+        this.addToOutput('────────────────────────────────────────────────────────────', 'response info');
+        this.addToOutput('');
+        this.addToOutput('• Featured in "Top 30 Under 30" Creative Technologists (2023)');
+        this.addToOutput('• Winner - Digital Art Innovation Award (2022)');
+        this.addToOutput('• Speaker at CreativeTech Conference (2021, 2022, 2023)');
+        this.addToOutput('• 20+ articles published on creative coding and digital art');
+        this.addToOutput('• Open source contributions: 500+ GitHub stars across projects');
+        this.addToOutput('');
+        
+        // Footer
+        this.addToOutput('════════════════════════════════════════════════════════════', 'response success');
+        this.addToOutput('💡 "Code is poetry in motion" - Artist Universe Motto', 'response info');
+        this.addToOutput('════════════════════════════════════════════════════════════', 'response success');
     }
 
     echo(args) {
@@ -530,7 +536,7 @@ University of Creative Arts
 
     date() {
         const now = new Date();
-        this.addToOutput(`<span class="response success">Current Date & Time:</span>`);
+        this.addToOutput('Current Date & Time:', 'response success');
         this.addToOutput(now.toString());
     }
 
