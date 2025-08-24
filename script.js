@@ -7,6 +7,7 @@ class Terminal {
             'whoami': this.whoami.bind(this),
             'about': this.about.bind(this),
             'skills': this.skills.bind(this),
+            'tools': this.tools.bind(this),
             'clear': this.clear.bind(this),
             'date': this.date.bind(this),
             'matrix': this.matrix.bind(this),
@@ -96,6 +97,7 @@ class Terminal {
         this.addToOutput('whoami      - Display user information');
         this.addToOutput('about       - Learn about me');
         this.addToOutput('skills      - View my technical skills');
+        this.addToOutput('tools       - Cloud security tools & resources');
         this.addToOutput('social      - View social media links');
         this.addToOutput('notes       - Access my knowledge base & notes');
         this.addToOutput('art         - Display ASCII art');
@@ -137,30 +139,30 @@ class Terminal {
         this.addToOutput('');
         this.addToOutput('💡 Check out my notes and documentation with the \'notes\' command!', 'response info');
         this.addToOutput('');
-        this.addToOutput('"Code is poetry in motion" - The Artist Universe Motto', 'response info');
+        this.addToOutput('"Music is poetry in motion" - The Artist Universe Motto', 'response info');
     }
 
     skills() {
         this.addToOutput('Technical Skills', 'response success');
         this.addToOutput('');
         this.addToOutput('Cloud Security & Infrastructure:', 'response info');
-        this.addToOutput('• Microsoft 365 & Azure    ████████████ 95%');
+        this.addToOutput('• Microsoft 365 & Azure     ████████████ 95%');
         this.addToOutput('• Amazon Web Services (AWS) ██████████   85%');
-        this.addToOutput('• Terraform/IaC            █████        50%');
+        this.addToOutput('• Terraform/IaC             █████        50%');
         this.addToOutput('');
-    /*    this.addToOutput('Threat Detection & Protection:', 'response info');
-        this.addToOutput('• SIEM/SOAR Platforms      ████████████ 95%');
-        this.addToOutput('• Splunk/Elastic Stack     ██████████   85%');
-        this.addToOutput('• EDR/XDR Solutions        █████████    90%');
-        this.addToOutput('• Threat Intelligence      ████████     80%');
-        this.addToOutput('• Incident Response        ██████████   85%');
+/*        this.addToOutput('Threat Detection & Protection:', 'response info');
+        this.addToOutput('• SIEM/SOAR Platforms       ████████████ 95%');
+        this.addToOutput('• Splunk/Elastic Stack      ██████████   85%');
+        this.addToOutput('• EDR/XDR Solutions         █████████    90%');
+        this.addToOutput('• Threat Intelligence       ████████     80%');
+        this.addToOutput('• Incident Response         ██████████   85%');
         this.addToOutput('');
         this.addToOutput('DevSecOps & Automation:', 'response info');
-        this.addToOutput('• Python Security Scripts  ████████████ 95%');
-        this.addToOutput('• Bash/PowerShell          ██████████   85%');
-        this.addToOutput('• CI/CD Security           █████████    90%');
-        this.addToOutput('• GitLab/GitHub Actions    ████████     80%');
-        this.addToOutput('• Security as Code         ██████████   85%');
+        this.addToOutput('• Python Security Scripts   ████████████ 95%');
+        this.addToOutput('• Bash/PowerShell           ██████████   85%');
+        this.addToOutput('• CI/CD Security            █████████    90%');
+        this.addToOutput('• GitLab/GitHub Actions     ████████     80%');
+        this.addToOutput('• Security as Code          ██████████   85%');
         this.addToOutput('');
         this.addToOutput('Security Tools & Frameworks:', 'response info');
         this.addToOutput('• Nessus/Qualys/OpenVAS');
@@ -170,18 +172,50 @@ class Terminal {
         this.addToOutput('• MITRE ATT&CK Framework');
         this.addToOutput('');
         this.addToOutput('Programming & Scripting:', 'response info');
-        this.addToOutput('• Python               ████████████ 95%');
-        this.addToOutput('• Bash/Shell Scripting ██████████   85%');
-        this.addToOutput('• PowerShell           ████████     80%');
-        this.addToOutput('• JavaScript           █████████    90%');
-        this.addToOutput('• Go/Rust              ██████       60%');
-        this.addToOutput(''); */
+        this.addToOutput('• Python                    ████████████ 95%');
+        this.addToOutput('• Bash/Shell Scripting      ██████████   85%');
+        this.addToOutput('• PowerShell                ████████     80%');
+        this.addToOutput('• JavaScript                █████████    90%');
+        this.addToOutput('• Go/Rust                   ██████       60%');
+        this.addToOutput('');
         this.addToOutput('Certifications & Standards:', 'response info');
         this.addToOutput('• AWS Certified Security - Specialty');
         this.addToOutput('• CompTIA Security+');
-    /*    this.addToOutput('• NIST Cybersecurity Framework');
+        this.addToOutput('• NIST Cybersecurity Framework');
         this.addToOutput('• ISO 27001/SOC 2 Compliance');
         this.addToOutput('• CIS Controls Implementation'); */
+    }
+
+    tools() {
+        this.addToOutput('☁️ Cloud Security Arsenal', 'response success');
+        this.addToOutput('');
+        this.addToOutput('🛡️ Cloud Security Platforms:', 'response info');
+        this.addToOutput('• <a href="https://aws.amazon.com/security-hub/" target="_blank">AWS Security Hub</a> - Centralized security findings dashboard');
+        this.addToOutput('• <a href="https://cloud.google.com/security-command-center" target="_blank">Google Cloud Security Command Center</a> - Unified security management');
+        this.addToOutput('• <a href="https://azure.microsoft.com/en-us/products/defender-for-cloud/" target="_blank">Microsoft Defender for Cloud</a> - Multi-cloud security posture management');
+        this.addToOutput('');
+        this.addToOutput('🔍 Cloud Assessment & Compliance:', 'response info');
+        this.addToOutput('• <a href="https://github.com/prowler-cloud/prowler" target="_blank">Prowler</a> - Open source cloud security tool');
+        this.addToOutput('• <a href="https://github.com/Netflix/security_monkey" target="_blank">Security Monkey</a> - AWS security configuration monitoring');
+        this.addToOutput('• <a href="https://github.com/aquasecurity/cloudsploit" target="_blank">CloudSploit</a> - Cloud security configuration scanner');
+        this.addToOutput('• <a href="https://github.com/RhinoSecurityLabs/pacu" target="_blank">Pacu</a> - AWS exploitation framework');
+        this.addToOutput('');
+        this.addToOutput('🔐 Identity & Access Management:', 'response info');
+        this.addToOutput('• <a href="https://github.com/salesforce/cloudsplaining" target="_blank">Cloudsplaining</a> - AWS IAM security assessment');
+        this.addToOutput('• <a href="https://github.com/nccgroup/PMapper" target="_blank">PMapper</a> - AWS IAM privilege escalation analysis');
+        this.addToOutput('• <a href="https://github.com/cyberark/SkyArk" target="_blank">SkyArk</a> - Azure security assessment tool');
+        this.addToOutput('');
+        this.addToOutput('🏗️ Infrastructure as Code Security:', 'response info');
+        this.addToOutput('• <a href="https://www.checkov.io/" target="_blank">Checkov</a> - Static analysis for Terraform, CloudFormation, Kubernetes');
+        this.addToOutput('• <a href="https://github.com/Checkmarx/kics" target="_blank">KICS</a> - Infrastructure as code scanner');
+        this.addToOutput('• <a href="https://github.com/aquasecurity/tfsec" target="_blank">tfsec</a> - Terraform security scanner');
+        this.addToOutput('');
+        this.addToOutput('📊 Monitoring & SIEM:', 'response info');
+        this.addToOutput('• <a href="https://docs.aws.amazon.com/cloudtrail/" target="_blank">AWS CloudTrail</a> - API activity logging and monitoring');
+        this.addToOutput('• <a href="https://www.elastic.co/security" target="_blank">Elastic Security</a> - SIEM and endpoint protection platform');
+        this.addToOutput('• <a href="https://grafana.com/" target="_blank">Grafana</a> - Observability and monitoring dashboards');
+        this.addToOutput('');
+        this.addToOutput('💡 "Security is not a product, but a process" - Bruce Schneier', 'response success');
     }
 
     social() {
@@ -456,30 +490,28 @@ snd    / |   |____)
     }
 
     universe() {
-        this.addToOutput(`
-<span class="response success">🌌 Welcome to the Artist Universe 🌌</span>
-
-In this digital realm, creativity knows no bounds...
-
-<pre class="ascii-art">
-    ⭐ ─── ✦ ─── ⭐ ─── ✧ ─── ⭐
-        │               │
-        │   EXPLORE     │
-        │   CREATE      │
-        │   INSPIRE     │
-        │               │
-    ⭐ ─── ✧ ─── ⭐ ─── ✦ ─── ⭐
-</pre>
-
-<span class="response info">This universe contains:</span>
-• Infinite creative possibilities
-• Collaborative spaces
-• Digital art galleries
-• Interactive experiences
-• Community connections
-
-Type any command to continue exploring! 🚀
-        `);
+        this.addToOutput('🌌 Welcome to the Artist Universe 🌌', 'response success');
+        this.addToOutput('');
+        this.addToOutput('In this digital realm, creativity knows no bounds...');
+        this.addToOutput('');
+        this.addToOutput('<pre class="ascii-art">');
+        this.addToOutput('    ⭐ ─── ✦ ─── ⭐ ─── ✧ ─── ⭐');
+        this.addToOutput('        │               │');
+        this.addToOutput('        │   EXPLORE     │');
+        this.addToOutput('        │   CREATE      │');
+        this.addToOutput('        │   INSPIRE     │');
+        this.addToOutput('        │               │');
+        this.addToOutput('    ⭐ ─── ✧ ─── ⭐ ─── ✦ ─── ⭐');
+        this.addToOutput('</pre>');
+        this.addToOutput('');
+        this.addToOutput('This universe contains:', 'response info');
+        this.addToOutput('• Infinite creative possibilities');
+        this.addToOutput('• Collaborative spaces');
+        this.addToOutput('• Digital art galleries');
+        this.addToOutput('• Interactive experiences');
+        this.addToOutput('• Community connections');
+        this.addToOutput('');
+        this.addToOutput('Type any command to continue exploring! 🚀');
     }
 
     ls() {
@@ -519,16 +551,10 @@ Type any command to continue exploring! 🚀
         // Header
         this.addToOutput('════════════════════════════════════════════════════════════', 'response success');
         this.addToOutput('                        ARTIST UNIVERSE                        ', 'response success');
-        this.addToOutput('                   Creative Developer & Digital Artist        ', 'response success');
+        this.addToOutput('                   The real Artist        ', 'response success');
         this.addToOutput('════════════════════════════════════════════════════════════', 'response success');
         this.addToOutput('');
-        
-        // Contact Info
-        this.addToOutput('📧 artist@universe.tech              🌐 artistuniverse.tech');
-        this.addToOutput('🐙 github.com/artistuniverse         📍 The Internet');
-        this.addToOutput('💼 linkedin.com/in/artistuniverse    📱 @artistuniverse');
-        this.addToOutput('');
-        
+
         // Professional Summary
         this.addToOutput('────────────────────────────────────────────────────────────', 'response info');
         this.addToOutput('PROFESSIONAL SUMMARY', 'response info');
@@ -636,7 +662,7 @@ Type any command to continue exploring! 🚀
         
         // Footer
         this.addToOutput('════════════════════════════════════════════════════════════', 'response success');
-        this.addToOutput('💡 "Code is poetry in motion" - Artist Universe Motto', 'response info');
+        this.addToOutput('💡 "Music is poetry in motion" - Artist Universe Motto', 'response info');
         this.addToOutput('════════════════════════════════════════════════════════════', 'response success');
     }
 
