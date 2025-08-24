@@ -7,8 +7,6 @@ class Terminal {
             'whoami': this.whoami.bind(this),
             'about': this.about.bind(this),
             'skills': this.skills.bind(this),
-            'projects': this.projects.bind(this),
-            'contact': this.contact.bind(this),
             'clear': this.clear.bind(this),
             'date': this.date.bind(this),
             'matrix': this.matrix.bind(this),
@@ -16,8 +14,6 @@ class Terminal {
             'art': this.art.bind(this),
             'universe': this.universe.bind(this),
             'notes': this.notes.bind(this),
-            'docs': this.notes.bind(this),
-            'knowledge': this.notes.bind(this),
             'ls': this.ls.bind(this),
             'cat': this.cat.bind(this),
             'echo': this.echo.bind(this),
@@ -100,12 +96,8 @@ class Terminal {
         this.addToOutput('whoami      - Display user information');
         this.addToOutput('about       - Learn about me');
         this.addToOutput('skills      - View my technical skills');
-        this.addToOutput('projects    - See my projects');
-        this.addToOutput('contact     - Get contact information');
         this.addToOutput('social      - View social media links');
         this.addToOutput('notes       - Access my knowledge base & notes');
-        this.addToOutput('docs        - Alias for notes command');
-        this.addToOutput('knowledge   - Explore my documented learnings');
         this.addToOutput('art         - Display ASCII art');
         this.addToOutput('universe    - Explore the artist universe');
         this.addToOutput('ls          - List directory contents');
@@ -128,112 +120,75 @@ class Terminal {
     }
 
     about() {
-        const aboutText = `
-<span class="response success">About Me</span>
-
-I'm a passionate digital artist and creative developer who believes in 
-pushing the boundaries of what's possible with code and creativity.
-
-My mission is to bridge the gap between technology and art, creating
-immersive digital experiences that inspire and engage.
-
-When I'm not coding, you can find me:
-• Exploring new digital art techniques
-• Contributing to open-source projects
-• Learning about emerging technologies
-• Creating interactive installations
-• Documenting my learnings in my knowledge base
-
-<span class="response info">💡 Check out my notes and documentation with the 'notes' command!</span>
-
-<span class="response info">"Code is poetry in motion" - Artist Universe Motto</span>
-        `;
-        this.addToOutput(aboutText);
+        this.addToOutput('Waddup!', 'response success');
+        this.addToOutput('');
+        this.addToOutput('I\'m Artist, a cybersecurity consultant and creative explorer based in Atlanta.');
+        this.addToOutput('By day, I focus on threat detection, cloud security, and automation—bringing');
+        this.addToOutput('both strategy and hands-on engineering to help organizations stay secure.');
+        this.addToOutput('By night, I\'m chasing curiosity: experimenting in my homelab, editing videos,');
+        this.addToOutput('traveling, and documenting the journey.');
+        this.addToOutput('');
+        this.addToOutput('I\'m driven by both resilience and imagination. My Jamaican-Brooklyn roots');
+        this.addToOutput('ground me, while my work in tech pushes me to keep learning, questioning,');
+        this.addToOutput('and building what\'s next. At the core, I\'m passionate about blending');
+        this.addToOutput('technical problem-solving with storytelling—whether that\'s engineering');
+        this.addToOutput('security in the cloud, or sharing experiences that inspire connection');
+        this.addToOutput('and growth.');
+        this.addToOutput('');
+        this.addToOutput('💡 Check out my notes and documentation with the \'notes\' command!', 'response info');
+        this.addToOutput('');
+        this.addToOutput('"Code is poetry in motion" - The Artist Universe Motto', 'response info');
     }
 
     skills() {
-        const skillsText = `
-<span class="response success">Technical Skills</span>
-
-<span class="response info">Programming Languages:</span>
-• JavaScript (ES6+) ████████████ 95%
-• Python           ██████████   85%
-• HTML/CSS         ████████████ 95%
-• React            █████████    80%
-• Node.js          ████████     75%
-
-<span class="response info">Creative Tools:</span>
-• Adobe Creative Suite
-• Blender 3D
-• Processing/p5.js
-• Three.js
-• WebGL
-
-<span class="response info">Other:</span>
-• Git/GitHub
-• Docker
-• AWS
-• Database Design
-• UI/UX Design
-        `;
-        this.addToOutput(skillsText);
-    }
-
-    projects() {
-        const projectsText = `
-<span class="response success">Featured Projects</span>
-
-<span class="response info">1. Interactive Art Gallery</span>
-   A web-based virtual gallery with 3D navigation
-   Tech: Three.js, WebGL, React
-   Status: Live
-
-<span class="response info">2. AI Art Generator</span>
-   Machine learning powered artwork creation
-   Tech: Python, TensorFlow, Flask
-   Status: Development
-
-<span class="response info">3. Music Visualizer</span>
-   Real-time audio visualization in the browser
-   Tech: Web Audio API, Canvas, JavaScript
-   Status: Live
-
-<span class="response info">4. Digital Poetry Platform</span>
-   Interactive platform for digital poetry
-   Tech: Vue.js, Node.js, MongoDB
-   Status: Beta
-
-Type 'contact' to collaborate on projects!
-        `;
-        this.addToOutput(projectsText);
-    }
-
-    contact() {
-        const contactText = `
-<span class="response success">Contact Information</span>
-
-Email: artist@universe.tech
-GitHub: github.com/artistuniverse
-Portfolio: artistuniverse.tech
-LinkedIn: linkedin.com/in/athinat
-
-<span class="response info">Open to:</span>
-• Creative collaborations
-• Freelance projects
-• Open source contributions
-• Art commissions
-• Speaking engagements
-
-Let's create something amazing together! 🚀
-        `;
-        this.addToOutput(contactText);
+        this.addToOutput('Technical Skills', 'response success');
+        this.addToOutput('');
+        this.addToOutput('Cloud Security & Infrastructure:', 'response info');
+        this.addToOutput('• Microsoft 365 & Azure    ████████████ 95%');
+        this.addToOutput('• Amazon Web Services (AWS) ██████████   85%');
+        this.addToOutput('• Terraform/IaC            █████        50%');
+        this.addToOutput('');
+    /*    this.addToOutput('Threat Detection & Protection:', 'response info');
+        this.addToOutput('• SIEM/SOAR Platforms      ████████████ 95%');
+        this.addToOutput('• Splunk/Elastic Stack     ██████████   85%');
+        this.addToOutput('• EDR/XDR Solutions        █████████    90%');
+        this.addToOutput('• Threat Intelligence      ████████     80%');
+        this.addToOutput('• Incident Response        ██████████   85%');
+        this.addToOutput('');
+        this.addToOutput('DevSecOps & Automation:', 'response info');
+        this.addToOutput('• Python Security Scripts  ████████████ 95%');
+        this.addToOutput('• Bash/PowerShell          ██████████   85%');
+        this.addToOutput('• CI/CD Security           █████████    90%');
+        this.addToOutput('• GitLab/GitHub Actions    ████████     80%');
+        this.addToOutput('• Security as Code         ██████████   85%');
+        this.addToOutput('');
+        this.addToOutput('Security Tools & Frameworks:', 'response info');
+        this.addToOutput('• Nessus/Qualys/OpenVAS');
+        this.addToOutput('• Burp Suite/OWASP ZAP');
+        this.addToOutput('• Nmap/Metasploit');
+        this.addToOutput('• Wireshark/tcpdump');
+        this.addToOutput('• MITRE ATT&CK Framework');
+        this.addToOutput('');
+        this.addToOutput('Programming & Scripting:', 'response info');
+        this.addToOutput('• Python               ████████████ 95%');
+        this.addToOutput('• Bash/Shell Scripting ██████████   85%');
+        this.addToOutput('• PowerShell           ████████     80%');
+        this.addToOutput('• JavaScript           █████████    90%');
+        this.addToOutput('• Go/Rust              ██████       60%');
+        this.addToOutput(''); */
+        this.addToOutput('Certifications & Standards:', 'response info');
+        this.addToOutput('• AWS Certified Security - Specialty');
+        this.addToOutput('• CompTIA Security+');
+    /*    this.addToOutput('• NIST Cybersecurity Framework');
+        this.addToOutput('• ISO 27001/SOC 2 Compliance');
+        this.addToOutput('• CIS Controls Implementation'); */
     }
 
     social() {
         const socialText = `
-<span class="response success">Social Media & Links</span>
+<span class="response success">Are you one of those people who follows to unfollow?</span>
 
-🐙 GitHub: github.com/artistuniverse
+🐙 GitHub: https://github.com/ArtistYay
 💼 LinkedIn: linkedin.com/in/artistuniverse
 🐦 Twitter: @artistuniverse
 📸 Instagram: @artistuniverse.tech
@@ -686,11 +641,48 @@ Type any command to continue exploring! 🚀
 
     theme(args) {
         const themes = {
-            'matrix': () => document.body.style.setProperty('--primary-color', '#00ff00'),
-            'cyberpunk': () => document.body.style.setProperty('--primary-color', '#ff00ff'),
-            'ocean': () => document.body.style.setProperty('--primary-color', '#00ffff'),
-            'fire': () => document.body.style.setProperty('--primary-color', '#ff4500'),
-            'default': () => document.body.style.setProperty('--primary-color', '#00ff00')
+            'matrix': () => {
+                document.documentElement.style.setProperty('--primary-color', '#00ff00');
+                document.documentElement.style.setProperty('--primary-glow', 'rgba(0, 255, 0, 0.1)');
+                document.documentElement.style.setProperty('--primary-border', 'rgba(0, 255, 0, 0.3)');
+                document.documentElement.style.setProperty('--primary-dim', 'rgba(0, 255, 0, 0.05)');
+                document.documentElement.style.setProperty('--primary-bright', 'rgba(0, 255, 0, 0.2)');
+            },
+            'cyberpunk': () => {
+                document.documentElement.style.setProperty('--primary-color', '#ff00ff');
+                document.documentElement.style.setProperty('--primary-glow', 'rgba(255, 0, 255, 0.1)');
+                document.documentElement.style.setProperty('--primary-border', 'rgba(255, 0, 255, 0.3)');
+                document.documentElement.style.setProperty('--primary-dim', 'rgba(255, 0, 255, 0.05)');
+                document.documentElement.style.setProperty('--primary-bright', 'rgba(255, 0, 255, 0.2)');
+            },
+            'ocean': () => {
+                document.documentElement.style.setProperty('--primary-color', '#00ffff');
+                document.documentElement.style.setProperty('--primary-glow', 'rgba(0, 255, 255, 0.1)');
+                document.documentElement.style.setProperty('--primary-border', 'rgba(0, 255, 255, 0.3)');
+                document.documentElement.style.setProperty('--primary-dim', 'rgba(0, 255, 255, 0.05)');
+                document.documentElement.style.setProperty('--primary-bright', 'rgba(0, 255, 255, 0.2)');
+            },
+            'fire': () => {
+                document.documentElement.style.setProperty('--primary-color', '#ff4500');
+                document.documentElement.style.setProperty('--primary-glow', 'rgba(255, 69, 0, 0.1)');
+                document.documentElement.style.setProperty('--primary-border', 'rgba(255, 69, 0, 0.3)');
+                document.documentElement.style.setProperty('--primary-dim', 'rgba(255, 69, 0, 0.05)');
+                document.documentElement.style.setProperty('--primary-bright', 'rgba(255, 69, 0, 0.2)');
+            },
+            'amber': () => {
+                document.documentElement.style.setProperty('--primary-color', '#ffb000');
+                document.documentElement.style.setProperty('--primary-glow', 'rgba(255, 176, 0, 0.1)');
+                document.documentElement.style.setProperty('--primary-border', 'rgba(255, 176, 0, 0.3)');
+                document.documentElement.style.setProperty('--primary-dim', 'rgba(255, 176, 0, 0.05)');
+                document.documentElement.style.setProperty('--primary-bright', 'rgba(255, 176, 0, 0.2)');
+            },
+            'default': () => {
+                document.documentElement.style.setProperty('--primary-color', '#00ff00');
+                document.documentElement.style.setProperty('--primary-glow', 'rgba(0, 255, 0, 0.1)');
+                document.documentElement.style.setProperty('--primary-border', 'rgba(0, 255, 0, 0.3)');
+                document.documentElement.style.setProperty('--primary-dim', 'rgba(0, 255, 0, 0.05)');
+                document.documentElement.style.setProperty('--primary-bright', 'rgba(0, 255, 0, 0.2)');
+            }
         };
 
         const theme = args[0];
