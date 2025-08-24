@@ -1,0 +1,279 @@
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'JetBrains Mono', monospace;
+    background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+    min-height: 100vh;
+    color: #00ff00;
+    overflow: hidden;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    position: relative;
+}
+
+/* Terminal Styles */
+.terminal {
+    width: 90%;
+    max-width: 800px;
+    height: 70vh;
+    background: rgba(0, 0, 0, 0.9);
+    border-radius: 10px;
+    box-shadow: 
+        0 0 50px rgba(0, 255, 0, 0.1),
+        inset 0 0 50px rgba(0, 255, 0, 0.05);
+    border: 1px solid rgba(0, 255, 0, 0.3);
+    backdrop-filter: blur(10px);
+    position: relative;
+    z-index: 10;
+}
+
+.terminal-header {
+    background: linear-gradient(90deg, #333, #222);
+    height: 40px;
+    border-radius: 10px 10px 0 0;
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    border-bottom: 1px solid rgba(0, 255, 0, 0.2);
+}
+
+.terminal-controls {
+    display: flex;
+    gap: 8px;
+}
+
+.control {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.close { background: #ff5f57; }
+.minimize { background: #ffbd2e; }
+.maximize { background: #28ca42; }
+
+.terminal-title {
+    margin-left: auto;
+    color: #888;
+    font-size: 14px;
+}
+
+.terminal-body {
+    padding: 20px;
+    height: calc(100% - 40px);
+    display: flex;
+    flex-direction: column;
+}
+
+.output {
+    flex: 1;
+    overflow-y: auto;
+    margin-bottom: 10px;
+}
+
+.line {
+    margin-bottom: 5px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.prompt {
+    color: #00ff00;
+    margin-right: 8px;
+    font-weight: 700;
+}
+
+.command {
+    color: #ffffff;
+}
+
+.response {
+    color: #cccccc;
+    margin-left: 0;
+    margin-bottom: 3px;
+    line-height: 1.4;
+}
+
+.response.error {
+    color: #ff6b6b;
+}
+
+.response.success {
+    color: #51cf66;
+}
+
+.response.info {
+    color: #74c0fc;
+}
+
+.input-line {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+#terminal-input {
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    font-family: inherit;
+    font-size: inherit;
+    outline: none;
+    flex: 1;
+    margin-left: 8px;
+}
+
+.cursor {
+    color: #00ff00;
+    animation: blink 1s infinite;
+    margin-left: 2px;
+}
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+/* Background Animation */
+.background-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: rgba(0, 255, 0, 0.8);
+    border-radius: 50%;
+    animation: twinkle 3s infinite ease-in-out;
+}
+
+.star:nth-child(1) {
+    top: 20%;
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.star:nth-child(2) {
+    top: 40%;
+    left: 80%;
+    animation-delay: 1s;
+}
+
+.star:nth-child(3) {
+    top: 70%;
+    left: 30%;
+    animation-delay: 2s;
+}
+
+.star:nth-child(4) {
+    top: 10%;
+    left: 70%;
+    animation-delay: 1.5s;
+}
+
+.star:nth-child(5) {
+    top: 80%;
+    left: 60%;
+    animation-delay: 0.5s;
+}
+
+@keyframes twinkle {
+    0%, 100% { 
+        opacity: 0.3;
+        transform: scale(1);
+    }
+    50% { 
+        opacity: 1;
+        transform: scale(1.5);
+    }
+}
+
+/* Scrollbar Styling */
+.output::-webkit-scrollbar {
+    width: 8px;
+}
+
+.output::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.output::-webkit-scrollbar-thumb {
+    background: rgba(0, 255, 0, 0.3);
+    border-radius: 4px;
+}
+
+.output::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 255, 0, 0.5);
+}
+
+/* ASCII Art Styling */
+.ascii-art {
+    color: #00ff00;
+    font-size: 12px;
+    line-height: 1;
+    white-space: pre;
+    font-family: monospace;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .terminal {
+        width: 95%;
+        height: 80vh;
+    }
+    
+    .terminal-body {
+        padding: 15px;
+    }
+    
+    .response {
+        font-size: 14px;
+    }
+}
+
+/* Matrix-style animation for special commands */
+.matrix-rain {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.matrix-char {
+    position: absolute;
+    color: #00ff00;
+    font-family: 'JetBrains Mono', monospace;
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    from {
+        transform: translateY(-100vh);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(100vh);
+        opacity: 0;
+    }
+}

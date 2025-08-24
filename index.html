@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artist Universe - Terminal</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="terminal">
+            <div class="terminal-header">
+                <div class="terminal-controls">
+                    <span class="control close"></span>
+                    <span class="control minimize"></span>
+                    <span class="control maximize"></span>
+                </div>
+                <div class="terminal-title">artist@universe:~$</div>
+            </div>
+            
+            <div class="terminal-body">
+                <div class="output" id="output">
+                    <div class="line">
+                        <span class="prompt">artist@universe:~$</span>
+                        <span class="command">whoami</span>
+                    </div>
+                    <div class="response">Welcome to Artist Universe Terminal v1.0</div>
+                    <div class="response">Type 'help' to see available commands.</div>
+                    <div class="response"></div>
+                </div>
+                
+                <div class="input-line">
+                    <span class="prompt">artist@universe:~$</span>
+                    <input type="text" id="terminal-input" autocomplete="off" autofocus>
+                    <span class="cursor">|</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="background-animation">
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
