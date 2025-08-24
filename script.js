@@ -95,34 +95,31 @@ class Terminal {
 
     // Command implementations
     showHelp() {
-        const helpText = `
-<span class="response success">Available Commands:</span>
-
-whoami      - Display user information
-about       - Learn about me
-skills      - View my technical skills
-projects    - See my projects
-contact     - Get contact information
-social      - View social media links
-notes       - Access my knowledge base & notes
-docs        - Alias for notes command
-knowledge   - Explore my documented learnings
-art         - Display ASCII art
-universe    - Explore the artist universe
-ls          - List directory contents
-cat [file]  - Display file contents
-echo [text] - Display text
-history     - Show command history
-date        - Show current date and time
-matrix      - Enter the matrix...
-theme       - Change terminal theme
-clear       - Clear the terminal
-help        - Show this help message
-
-<span class="response info">Pro tip: Use arrow keys to navigate command history!</span>
-<span class="response info">Try 'ls' to see available files, then 'cat [filename]' to view them!</span>
-        `;
-        this.addToOutput(helpText);
+        this.addToOutput('Available Commands:', 'response success');
+        this.addToOutput('');
+        this.addToOutput('whoami      - Display user information');
+        this.addToOutput('about       - Learn about me');
+        this.addToOutput('skills      - View my technical skills');
+        this.addToOutput('projects    - See my projects');
+        this.addToOutput('contact     - Get contact information');
+        this.addToOutput('social      - View social media links');
+        this.addToOutput('notes       - Access my knowledge base & notes');
+        this.addToOutput('docs        - Alias for notes command');
+        this.addToOutput('knowledge   - Explore my documented learnings');
+        this.addToOutput('art         - Display ASCII art');
+        this.addToOutput('universe    - Explore the artist universe');
+        this.addToOutput('ls          - List directory contents');
+        this.addToOutput('cat [file]  - Display file contents');
+        this.addToOutput('echo [text] - Display text');
+        this.addToOutput('history     - Show command history');
+        this.addToOutput('date        - Show current date and time');
+        this.addToOutput('matrix      - Enter the matrix...');
+        this.addToOutput('theme       - Change terminal theme');
+        this.addToOutput('clear       - Clear the terminal');
+        this.addToOutput('help        - Show this help message');
+        this.addToOutput('');
+        this.addToOutput('Pro tip: Use arrow keys to navigate command history!', 'response info');
+        this.addToOutput('Try \'ls\' to see available files, then \'cat [filename]\' to view them!', 'response info');
     }
 
     whoami() {
@@ -249,57 +246,34 @@ Let's create something amazing together! 🚀
     }
 
     notes() {
-        const notesText = `
-<span class="response success">📚 Knowledge Base & Documentation</span>
-
-Welcome to my digital brain! Here you'll find my notes, learnings, 
-and documentation from my journey as a creative developer.
-
-<span class="response info">🧠 What's Inside:</span>
-• Technical tutorials and guides
-• Creative coding experiments
-• Learning notes from courses and books
-• Project documentation
-• Tools and resources I recommend
-• Thoughts on art, code, and creativity
-
-<span class="response success">🔗 Access Options:</span>
-
-<span class="response info">1. Direct Link:</span>
-   <a href="https://notes.artistuniverse.tech" target="_blank" style="color: #74c0fc; text-decoration: underline;">https://notes.artistuniverse.tech</a>
-
-<span class="response info">2. Quick Redirect:</span>
-   Auto-redirect will open the notes in 3 seconds
-
-<span class="response info">3. QR Code:</span>
-   ████████████████████████
-   ██ ▄▄▄▄▄ █▀▄█▄█ ▄▄▄▄▄ ██
-   ██ █   █ █ ▄▀▄█ █   █ ██
-   ██ █▄▄▄█ █▄█ ▀█ █▄▄▄█ ██
-   ██▄▄▄▄▄▄▄█▄▀ ▀▄█▄▄▄▄▄▄▄██
-   ██  ▀▄▀ ▄ █▀  ▄▄▀▄█▀▄▄ ██
-   ██▄█▄██▄▄▄▀██▄▄▄█▄▄█▄▄▄██
-   ██ ▄▄▄▄▄ █▄▀ █▀▄ ▀▄ ▀▄ ██
-   ██ █   █ █▀█▄▄▄█▀██▄██▄██
-   ██ █▄▄▄█ █ █ ▀▄██▄▀ █▀▄██
-   ██▄▄▄▄▄▄▄█▄███▄▄▄█▄██▄▄▄██
-   ████████████████████████
-
-<span class="response info">💡 Pro tip: My notes are built with MkDocs from Obsidian!</span>
-<span class="response success">Happy learning! 🚀</span>
-        `;
-        this.addToOutput(notesText);
+        this.addToOutput('📚 Knowledge Base & Documentation', 'response success');
+        this.addToOutput('');
+        this.addToOutput('Welcome to my digital brain! Here you\'ll find my notes, learnings,');
+        this.addToOutput('and documentation from my journey as a creative developer.');
+        this.addToOutput('');
+        this.addToOutput('🧠 What\'s Inside:', 'response info');
+        this.addToOutput('• Technical tutorials and guides');
+        this.addToOutput('• Creative coding experiments');
+        this.addToOutput('• Learning notes from courses and books');
+        this.addToOutput('• Project documentation');
+        this.addToOutput('• Tools and resources I recommend');
+        this.addToOutput('• Thoughts on art, code, and creativity');
+        this.addToOutput('');
+        this.addToOutput('🔗 Quick Redirect:', 'response success');
+        this.addToOutput('Auto-redirect will open the notes in 5 seconds');
+        this.addToOutput('');
+        this.addToOutput('💡 Pro tip: My notes are built with MkDocs from Obsidian!', 'response info');
+        this.addToOutput('Happy learning! 🚀', 'response success');
         
         // Optional: Auto-redirect after showing info
         setTimeout(() => {
-            this.addToOutput(`
-<span class="response info">🔄 Opening notes in new tab in 3 seconds...</span>
-<span class="response">Type 'clear' to cancel or wait for redirect.</span>
-            `);
+            this.addToOutput('');
+            this.addToOutput('🔄 Opening notes in new tab in 5 seconds...', 'response info');
+            this.addToOutput('Type \'clear\' to cancel or wait for redirect.');
             setTimeout(() => {
                 window.open('https://notes.artistuniverse.tech', '_blank');
-                this.addToOutput('<span class="response success">✅ Notes opened in new tab!</span>');
-            }, 3000);
+                this.addToOutput('✅ Notes opened in new tab!', 'response success');
+            }, 5000);
         }, 1000);
     }
 
@@ -330,6 +304,142 @@ and documentation from my journey as a creative developer.
     │   repeat();   │
     │ }             │
     └───────────────┘
+        `,
+            `
+    ╭──────────────────╮
+    │   CREATIVE.EXE   │
+    ├──────────────────┤
+    │ Loading...       │
+    │ ████████░░  80%  │
+    │ Inspiration.dll  │
+    │ loaded ✓         │
+    ╰──────────────────╯
+        `,
+            `
+         /\\_/\\  
+        (  o.o  ) 
+         > ^ <    
+    ┌─────────────────┐
+    │ CURIOUS  CODER  │
+    │ always learning │
+    └─────────────────┘
+        `,
+            `
+    ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
+    █  ♪ SOUND WAVES ♪ █
+    ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
+    ♫ ═══════════════ ♫
+    ♪ ░░░░░▒▒▒▒▓▓▓████ ♪
+    ♫ ████▓▓▓▒▒▒░░░░░ ♫
+    ♪ ═══════════════ ♪
+        `,
+            `
+    ┌─[ NEURAL NETWORK ]─┐
+    │ ○───○───○───○─────│
+    │ │ \\ │ / │ \\ │     │
+    │ ○───●───○───○─────│
+    │ │ / │ \\ │ / │     │
+    │ ○───○───●───○─────│
+    └───────────────────┘
+         THINKING...
+        `,
+            `
+    ╔══════════════════╗
+    ║ MATRIX TERMINAL  ║
+    ╠══════════════════╣
+    ║ 01001000 01100101║
+    ║ 01101100 01101100║
+    ║ 01101111 00100000║
+    ║ 01110111 01101111║
+    ║ 01110010 01101100║
+    ║ 01100100 00100001║
+    ╚══════════════════╝
+        `,
+            `
+    🎨 ARTIST'S PALETTE 🎨
+    ┌─────────────────────┐
+    │ ●●●   ●●●   ●●●     │
+    │  ●     ●     ●      │
+    │   ●●●   ●●●   ●●●   │
+    │     RGB  HSL  HEX   │
+    └─────────────────────┘
+        COLORS = EMOTIONS
+        `,
+            `
+    ╭─ TERMINAL LOVE ─╮
+    │ > sudo love     │
+    │ [sudo] password │
+    │ for universe:   │
+    │ ❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️  │
+    │ Love installed! │
+    ╰─────────────────╯
+        `,
+            `
+    ▲ MOUNTAIN OF CODE ▲
+           /\\
+          /  \\
+         /____\\
+        /      \\
+       /   {}   \\
+      /    {}    \\
+     /______________\\
+    [ CLIMB HIGHER! ]
+        `,
+            `
+    ╔═══ SPACE INVADER ═══╗
+    ║      ▄▄██▄▄        ║
+    ║    ████████████    ║
+    ║  ██████████████    ║
+    ║  ██▄██████▄██      ║
+    ║  ████▄▄▄▄████      ║
+    ║    ██    ██        ║
+    ║   ████  ████       ║
+    ╚═══════════════════╝
+        `,
+            `
+    🚀 LAUNCH SEQUENCE 🚀
+    ┌─────────────────────┐
+    │ [▓▓▓▓▓▓▓▓▓▓] 100%   │
+    │                     │
+    │ All systems GO!     │
+    │ Creativity: ONLINE  │
+    │ Inspiration: READY  │
+    │                     │
+    │ 🚀 LAUNCHING... 🚀  │
+    └─────────────────────┘
+        `,
+            `
+    ╭──── BINARY TREE ────╮
+    │        1            │
+    │      /   \\          │
+    │     0     1         │
+    │   /  \\  /  \\       │
+    │  1    0 1    0      │
+    │ /|   /| |\\   |\\    │
+    │0 1  1 0 0 1  1 0    │
+    ╰─────────────────────╯
+        `,
+            `
+    ★ CONSTELLATION CODE ★
+    ┌─────────────────────┐
+    │  ·   ★       ·  ★   │
+    │    ·    ★   ·       │
+    │ ★     ·         ·   │
+    │   ·        ★     ·  │
+    │     ★   ·      ★    │
+    │ ·      ·   ★    ·   │
+    └─────────────────────┘
+     CONNECTED BY CODE
+        `,
+            `
+    ╔═ RETRO COMPUTER ═╗
+    ║ ┌───────────────┐ ║
+    ║ │ > HELLO WORLD │ ║
+    ║ │ > _           │ ║
+    ║ │               │ ║
+    ║ └───────────────┘ ║
+    ║ [POWER] [RESET]   ║
+    ╚═══════════════════╝
         `
         ];
         
@@ -381,7 +491,7 @@ Type any command to continue exploring! 🚀
             'notes': '🔗 Symbolic link to: https://notes.artistuniverse.tech\n\nThis is my knowledge base built with MkDocs from Obsidian notes.\nUse the "notes" command for full access.'
         };
         
-        if (file && files[file.toLowerCase()]) {
+        if (file && (files[file.toLowerCase()] || file.toLowerCase() === 'resume.pdf')) {
             this.addToOutput(`Contents of ${file}:`, 'response success');
             
             if (file.toLowerCase() === 'resume.pdf') {
