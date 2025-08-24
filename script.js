@@ -13,7 +13,6 @@ class Terminal {
             'date': this.date.bind(this),
             'matrix': this.matrix.bind(this),
             'social': this.social.bind(this),
-            'resume': this.resume.bind(this),
             'art': this.art.bind(this),
             'universe': this.universe.bind(this),
             'notes': this.notes.bind(this),
@@ -98,29 +97,30 @@ class Terminal {
     showHelp() {
         const helpText = `
 <span class="response success">Available Commands:</span>
-  whoami      - Display user information
-  about       - Learn about me
-  skills      - View my technical skills
-  projects    - See my projects
-  contact     - Get contact information
-  social      - View social media links
-  resume      - Download my resume
-  notes       - Access my knowledge base & notes
-  docs        - Alias for notes command
-  knowledge   - Explore my documented learnings
-  art         - Display ASCII art
-  universe    - Explore the artist universe
-  ls          - List directory contents
-  cat [file]  - Display file contents
-  echo [text] - Display text
-  history     - Show command history
-  date        - Show current date and time
-  matrix      - Enter the matrix...
-  theme       - Change terminal theme
-  clear       - Clear the terminal
-  help        - Show this help message
+
+whoami      - Display user information
+about       - Learn about me
+skills      - View my technical skills
+projects    - See my projects
+contact     - Get contact information
+social      - View social media links
+notes       - Access my knowledge base & notes
+docs        - Alias for notes command
+knowledge   - Explore my documented learnings
+art         - Display ASCII art
+universe    - Explore the artist universe
+ls          - List directory contents
+cat [file]  - Display file contents
+echo [text] - Display text
+history     - Show command history
+date        - Show current date and time
+matrix      - Enter the matrix...
+theme       - Change terminal theme
+clear       - Clear the terminal
+help        - Show this help message
 
 <span class="response info">Pro tip: Use arrow keys to navigate command history!</span>
+<span class="response info">Try 'ls' to see available files, then 'cat [filename]' to view them!</span>
         `;
         this.addToOutput(helpText);
     }
@@ -130,7 +130,7 @@ class Terminal {
 <span class="response success">Artist Universe Terminal User</span>
 Username: artist
 Domain: universe.tech
-Status: Creative Developer & Digital Artist
+Status: A sophisticated mofo who likes all things different
 Location: The Internet
 Shell: /bin/bash (Artist Universe Edition)
         `;
@@ -140,6 +140,7 @@ Shell: /bin/bash (Artist Universe Edition)
     about() {
         const aboutText = `
 <span class="response success">About Me</span>
+
 I'm a passionate digital artist and creative developer who believes in 
 pushing the boundaries of what's possible with code and creativity.
 
@@ -154,6 +155,7 @@ When I'm not coding, you can find me:
 • Documenting my learnings in my knowledge base
 
 <span class="response info">💡 Check out my notes and documentation with the 'notes' command!</span>
+
 <span class="response info">"Code is poetry in motion" - Artist Universe Motto</span>
         `;
         this.addToOutput(aboutText);
@@ -308,19 +310,6 @@ and documentation from my journey as a creative developer.
         }, 1000);
     }
 
-    resume() {
-        this.addToOutput(`
-<span class="response success">Resume Download</span>
-📄 Downloading resume... (This would typically download a PDF)
-
-<span class="response info">Resume highlights:</span>
-• 5+ years in creative development
-• 20+ completed projects
-• Expert in web technologies
-• Published digital artist
-        `);
-    }
-
     art() {
         const artPieces = [
             `
@@ -393,8 +382,10 @@ drwxr-xr-x  notes/ -> https://notes.artistuniverse.tech
 -rw-r--r--  portfolio.json
 -rw-r--r--  creative-brief.txt
 -rw-r--r--  inspiration.md
+-rw-r--r--  resume.pdf
 
 <span class="response info">💡 Use 'notes' command to access the knowledge base</span>
+<span class="response info">📄 Use 'cat resume.pdf' to view my resume</span>
         `);
     }
 
@@ -405,7 +396,114 @@ drwxr-xr-x  notes/ -> https://notes.artistuniverse.tech
             'portfolio.json': '{"name": "Artist Universe", "type": "Creative Developer", "passion": "Digital Art"}',
             'creative-brief.txt': 'Mission: Create digital experiences that inspire and engage users through innovative technology.',
             'inspiration.md': '# Daily Inspiration\n\n"The best way to predict the future is to create it." - Peter Drucker',
-            'notes': '🔗 Symbolic link to: https://notes.artistuniverse.tech\n\nThis is my knowledge base built with MkDocs from Obsidian notes.\nUse the "notes" command for full access.'
+            'notes': '🔗 Symbolic link to: https://notes.artistuniverse.tech\n\nThis is my knowledge base built with MkDocs from Obsidian notes.\nUse the "notes" command for full access.',
+            'resume.pdf': `
+<span class="response success">════════════════════════════════════════════════════════════</span>
+<span class="response success">                        ARTIST UNIVERSE                        </span>
+<span class="response success">                   Creative Developer & Digital Artist        </span>
+<span class="response success">════════════════════════════════════════════════════════════</span>
+
+📧 artist@universe.tech              🌐 artistuniverse.tech
+🐙 github.com/artistuniverse         📍 The Internet
+💼 linkedin.com/in/artistuniverse    📱 @artistuniverse
+
+<span class="response info">────────────────────────────────────────────────────────────</span>
+<span class="response info">PROFESSIONAL SUMMARY</span>
+<span class="response info">────────────────────────────────────────────────────────────</span>
+
+A sophisticated mofo who likes all things different. Passionate creative 
+developer with 5+ years of experience bridging the gap between technology 
+and art. Specialized in creating immersive digital experiences that inspire 
+and engage users through innovative web technologies.
+
+<span class="response info">────────────────────────────────────────────────────────────</span>
+<span class="response info">TECHNICAL SKILLS</span>
+<span class="response info">────────────────────────────────────────────────────────────</span>
+
+<span class="response success">Languages:</span>
+• JavaScript (ES6+)     • Python              • HTML5/CSS3
+• TypeScript            • PHP                 • SQL
+
+<span class="response success">Frameworks & Libraries:</span>
+• React/Next.js         • Vue.js              • Node.js
+• Three.js/WebGL        • p5.js/Processing    • Express
+
+<span class="response success">Creative Tools:</span>
+• Adobe Creative Suite  • Blender 3D          • Figma
+• After Effects         • Cinema 4D           • Sketch
+
+<span class="response success">Development Tools:</span>
+• Git/GitHub            • Docker              • AWS
+• VS Code               • Webpack             • Vite
+
+<span class="response info">────────────────────────────────────────────────────────────</span>
+<span class="response info">EXPERIENCE</span>
+<span class="response info">────────────────────────────────────────────────────────────</span>
+
+<span class="response success">Senior Creative Developer</span> | Digital Art Collective | 2022-Present
+• Lead development of interactive web installations
+• Created real-time audio visualizers using Web Audio API
+• Collaborated with artists on 15+ digital art projects
+• Increased user engagement by 300% through interactive features
+
+<span class="response success">Frontend Developer</span> | Creative Agency | 2020-2022
+• Developed responsive websites for creative professionals
+• Implemented 3D web experiences using Three.js
+• Optimized performance resulting in 40% faster load times
+• Mentored junior developers in creative coding techniques
+
+<span class="response success">Freelance Digital Artist</span> | Self-Employed | 2019-Present
+• Created custom interactive installations for events
+• Developed AI-powered art generation tools
+• Built digital poetry platform with 1000+ active users
+• Published creative coding tutorials with 50k+ views
+
+<span class="response info">────────────────────────────────────────────────────────────</span>
+<span class="response info">FEATURED PROJECTS</span>
+<span class="response info">────────────────────────────────────────────────────────────</span>
+
+<span class="response success">🎨 Interactive Art Gallery</span>
+Web-based virtual gallery with 3D navigation and immersive experiences
+Tech: Three.js, WebGL, React | Status: Live
+
+<span class="response success">🤖 AI Art Generator</span>
+Machine learning powered artwork creation platform
+Tech: Python, TensorFlow, Flask | Status: Development
+
+<span class="response success">🎵 Music Visualizer</span>
+Real-time audio visualization in the browser
+Tech: Web Audio API, Canvas, JavaScript | Status: Live
+
+<span class="response success">📝 Digital Poetry Platform</span>
+Interactive platform for digital poetry and creative writing
+Tech: Vue.js, Node.js, MongoDB | Status: Beta
+
+<span class="response info">────────────────────────────────────────────────────────────</span>
+<span class="response info">EDUCATION & CERTIFICATIONS</span>
+<span class="response info">────────────────────────────────────────────────────────────</span>
+
+<span class="response success">Bachelor of Fine Arts</span> | Digital Media & Technology | 2019
+University of Creative Arts
+
+<span class="response success">Certifications:</span>
+• AWS Certified Developer Associate
+• Google Cloud Professional Cloud Architect
+• Adobe Certified Expert (Photoshop, After Effects)
+
+<span class="response info">────────────────────────────────────────────────────────────</span>
+<span class="response info">ACHIEVEMENTS & RECOGNITION</span>
+<span class="response info">────────────────────────────────────────────────────────────</span>
+
+• Featured in "Top 30 Under 30" Creative Technologists (2023)
+• Winner - Digital Art Innovation Award (2022)
+• Speaker at CreativeTech Conference (2021, 2022, 2023)
+• 20+ articles published on creative coding and digital art
+• Open source contributions: 500+ GitHub stars across projects
+
+<span class="response success">════════════════════════════════════════════════════════════</span>
+<span class="response info">💡 "Code is poetry in motion" - Artist Universe Motto</span>
+<span class="response success">════════════════════════════════════════════════════════════</span>
+            `
         };
         
         if (file && files[file.toLowerCase()]) {
@@ -439,6 +537,7 @@ drwxr-xr-x  notes/ -> https://notes.artistuniverse.tech
     matrix() {
         this.addToOutput(`
 <span class="response success">Entering the Matrix...</span>
+
 <span class="response error">Wake up, Neo...</span>
         `);
         this.createMatrixEffect();
@@ -483,7 +582,13 @@ drwxr-xr-x  notes/ -> https://notes.artistuniverse.tech
             themes[theme]();
             this.addToOutput(`Theme changed to: ${theme}`, 'response success');
         } else {
-            this.addToOutput(`Available themes: ${Object.keys(themes).join(', ')}`, 'response info');
+            this.addToOutput(`
+<span class="response info">Available themes:</span>
+${Object.keys(themes).join(', ')}
+
+<span class="response info">Usage:</span>
+theme [theme-name]
+            `, 'response info');
         }
     }
 
