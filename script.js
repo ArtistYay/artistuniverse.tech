@@ -16,6 +16,9 @@ class Terminal {
             'resume': this.resume.bind(this),
             'art': this.art.bind(this),
             'universe': this.universe.bind(this),
+            'notes': this.notes.bind(this),
+            'docs': this.notes.bind(this),
+            'knowledge': this.notes.bind(this),
             'ls': this.ls.bind(this),
             'cat': this.cat.bind(this),
             'echo': this.echo.bind(this),
@@ -102,6 +105,9 @@ class Terminal {
   contact     - Get contact information
   social      - View social media links
   resume      - Download my resume
+  notes       - Access my knowledge base & notes
+  docs        - Alias for notes command
+  knowledge   - Explore my documented learnings
   art         - Display ASCII art
   universe    - Explore the artist universe
   ls          - List directory contents
@@ -145,7 +151,9 @@ When I'm not coding, you can find me:
 • Contributing to open-source projects
 • Learning about emerging technologies
 • Creating interactive installations
+• Documenting my learnings in my knowledge base
 
+<span class="response info">💡 Check out my notes and documentation with the 'notes' command!</span>
 <span class="response info">"Code is poetry in motion" - Artist Universe Motto</span>
         `;
         this.addToOutput(aboutText);
@@ -245,6 +253,61 @@ Let's create something amazing together! 🚀
         this.addToOutput(socialText);
     }
 
+    notes() {
+        const notesText = `
+<span class="response success">📚 Knowledge Base & Documentation</span>
+
+Welcome to my digital brain! Here you'll find my notes, learnings, 
+and documentation from my journey as a creative developer.
+
+<span class="response info">🧠 What's Inside:</span>
+• Technical tutorials and guides
+• Creative coding experiments
+• Learning notes from courses and books
+• Project documentation
+• Tools and resources I recommend
+• Thoughts on art, code, and creativity
+
+<span class="response success">🔗 Access Options:</span>
+
+<span class="response info">1. Direct Link:</span>
+   <a href="https://notes.artistuniverse.tech" target="_blank" style="color: #74c0fc; text-decoration: underline;">https://notes.artistuniverse.tech</a>
+
+<span class="response info">2. Quick Redirect:</span>
+   Auto-redirect will open the notes in 3 seconds
+
+<span class="response info">3. QR Code:</span>
+   ████████████████████████
+   ██ ▄▄▄▄▄ █▀▄█▄█ ▄▄▄▄▄ ██
+   ██ █   █ █ ▄▀▄█ █   █ ██
+   ██ █▄▄▄█ █▄█ ▀█ █▄▄▄█ ██
+   ██▄▄▄▄▄▄▄█▄▀ ▀▄█▄▄▄▄▄▄▄██
+   ██  ▀▄▀ ▄ █▀  ▄▄▀▄█▀▄▄ ██
+   ██▄█▄██▄▄▄▀██▄▄▄█▄▄█▄▄▄██
+   ██ ▄▄▄▄▄ █▄▀ █▀▄ ▀▄ ▀▄ ██
+   ██ █   █ █▀█▄▄▄█▀██▄██▄██
+   ██ █▄▄▄█ █ █ ▀▄██▄▀ █▀▄██
+   ██▄▄▄▄▄▄▄█▄███▄▄▄█▄██▄▄▄██
+   ████████████████████████
+
+<span class="response info">💡 Pro tip: My notes are built with MkDocs from Obsidian!</span>
+<span class="response success">Happy learning! 🚀</span>
+        `;
+        this.addToOutput(notesText);
+        
+        // Optional: Auto-redirect after showing info
+        setTimeout(() => {
+            this.addToOutput(`
+<span class="response info">🔄 Opening notes in new tab in 3 seconds...</span>
+<span class="response">Type 'clear' to cancel or wait for redirect.</span>
+            `);
+            setTimeout(() => {
+                window.open('https://notes.artistuniverse.tech', '_blank');
+                this.addToOutput('<span class="response success">✅ Notes opened in new tab!</span>');
+            }, 3000);
+        }, 1000);
+    }
+
     resume() {
         this.addToOutput(`
 <span class="response success">Resume Download</span>
@@ -325,10 +388,13 @@ Type any command to continue exploring! 🚀
 drwxr-xr-x  projects/
 drwxr-xr-x  artwork/
 drwxr-xr-x  experiments/
+drwxr-xr-x  notes/ -> https://notes.artistuniverse.tech
 -rw-r--r--  README.md
 -rw-r--r--  portfolio.json
 -rw-r--r--  creative-brief.txt
 -rw-r--r--  inspiration.md
+
+<span class="response info">💡 Use 'notes' command to access the knowledge base</span>
         `);
     }
 
@@ -338,7 +404,8 @@ drwxr-xr-x  experiments/
             'readme.md': 'Welcome to Artist Universe - Where creativity meets code!',
             'portfolio.json': '{"name": "Artist Universe", "type": "Creative Developer", "passion": "Digital Art"}',
             'creative-brief.txt': 'Mission: Create digital experiences that inspire and engage users through innovative technology.',
-            'inspiration.md': '# Daily Inspiration\n\n"The best way to predict the future is to create it." - Peter Drucker'
+            'inspiration.md': '# Daily Inspiration\n\n"The best way to predict the future is to create it." - Peter Drucker',
+            'notes': '🔗 Symbolic link to: https://notes.artistuniverse.tech\n\nThis is my knowledge base built with MkDocs from Obsidian notes.\nUse the "notes" command for full access.'
         };
         
         if (file && files[file.toLowerCase()]) {
