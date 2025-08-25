@@ -550,8 +550,8 @@ snd    / |   |____)
     displayResume() {
         // Header
         this.addToOutput('════════════════════════════════════════════════════════════', 'response success');
-        this.addToOutput('                        ARTIST UNIVERSE                        ', 'response success');
-        this.addToOutput('                   The real Artist        ', 'response success');
+        this.addToOutput('                        ATHINA THOMAS                         ', 'response success');
+        this.addToOutput('                Cybersecurity Specialist (Cloud)             ', 'response success');
         this.addToOutput('════════════════════════════════════════════════════════════', 'response success');
         this.addToOutput('');
 
@@ -560,10 +560,18 @@ snd    / |   |____)
         this.addToOutput('PROFESSIONAL SUMMARY', 'response info');
         this.addToOutput('────────────────────────────────────────────────────────────', 'response info');
         this.addToOutput('');
-        this.addToOutput('A sophisticated mofo who likes all things different. Passionate creative');
-        this.addToOutput('developer with 5+ years of experience bridging the gap between technology');
-        this.addToOutput('and art. Specialized in creating immersive digital experiences that inspire');
-        this.addToOutput('and engage users through innovative web technologies.');
+        this.addToOutput('As a results-driven Cloud Security Engineer with two years of experience,');
+        this.addToOutput('I am adept at securing Azure and Microsoft 365 environments. My expertise');
+        this.addToOutput('lies in implementing cloud-native security solutions, reducing vulnerabilities,');
+        this.addToOutput('and ensuring compliance with industry best practices. I have a proven track');
+        this.addToOutput('record of securing CI/CD pipelines and automating infrastructure provisioning');
+        this.addToOutput('with Terraform. My experience includes leveraging tools like Microsoft');
+        this.addToOutput('Defender Suite and Microsoft Sentinel to proactively identify and mitigate');
+        this.addToOutput('threats. I am passionate about codifying security into every stage of the');
+        this.addToOutput('cloud lifecycle, from Infrastructure as Code (IaC) to incident response,');
+        this.addToOutput('to deliver proactive defenses and measurable risk reduction. I am seeking');
+        this.addToOutput('a challenging and rewarding security role where I can leverage my skills');
+        this.addToOutput('to protect digital assets and build resilient cloud architectures.');
         this.addToOutput('');
         
         // Technical Skills
@@ -571,49 +579,65 @@ snd    / |   |____)
         this.addToOutput('TECHNICAL SKILLS', 'response info');
         this.addToOutput('────────────────────────────────────────────────────────────', 'response info');
         this.addToOutput('');
-        this.addToOutput('Languages:', 'response success');
-        this.addToOutput('• JavaScript (ES6+)     • Python              • HTML5/CSS3');
-        this.addToOutput('• TypeScript            • PHP                 • SQL');
+        this.addToOutput('Cloud Platforms:', 'response success');
+        this.addToOutput('• Microsoft Azure       • Amazon Web Services (AWS)');
         this.addToOutput('');
-        this.addToOutput('Frameworks & Libraries:', 'response success');
-        this.addToOutput('• React/Next.js         • Vue.js              • Node.js');
-        this.addToOutput('• Three.js/WebGL        • p5.js/Processing    • Express');
+        this.addToOutput('Security Tools & Platforms:', 'response success');
+        this.addToOutput('• Microsoft Defender Suite    • Microsoft Sentinel');
+        this.addToOutput('• Microsoft Purview           • Microsoft Intune');
+        this.addToOutput('• Microsoft Entra ID          • AWS GuardDuty          • AWS IAM');
         this.addToOutput('');
-        this.addToOutput('Creative Tools:', 'response success');
-        this.addToOutput('• Adobe Creative Suite  • Blender 3D          • Figma');
-        this.addToOutput('• After Effects         • Cinema 4D           • Sketch');
+        this.addToOutput('Infrastructure & DevSecOps:', 'response success');
+        this.addToOutput('• Terraform              • Infrastructure as Code  • CI/CD Security');
+        this.addToOutput('• Azure DevOps           • GitHub Actions         • Git');
+        this.addToOutput('• GitHub                 • Bicep                  • AWS CloudFormation');
         this.addToOutput('');
-        this.addToOutput('Development Tools:', 'response success');
-        this.addToOutput('• Git/GitHub            • Docker              • AWS');
-        this.addToOutput('• VS Code               • Webpack             • Vite');
+        this.addToOutput('Security Frameworks & Compliance:', 'response success');
+        this.addToOutput('• NIST Cybersecurity Framework (CSF)');
+        this.addToOutput('• Center for Internet Security (CIS) Benchmark');
+        this.addToOutput('• MITRE ATT&CK Framework');
+        this.addToOutput('• Azure Cloud Adoption Framework (CAF)');
         this.addToOutput('');
+     /*   this.addToOutput('Programming & Scripting:', 'response success');
+        this.addToOutput('• PowerShell             • Python (Security)      • Bash');
+        this.addToOutput('• KQL (Kusto Query)      • JSON/YAML             • REST APIs');
+        this.addToOutput(''); */
         
         // Experience
         this.addToOutput('────────────────────────────────────────────────────────────', 'response info');
         this.addToOutput('EXPERIENCE', 'response info');
         this.addToOutput('────────────────────────────────────────────────────────────', 'response info');
         this.addToOutput('');
-        this.addToOutput('Senior Creative Developer | Digital Art Collective | 2022-Present', 'response success');
-        this.addToOutput('• Lead development of interactive web installations');
-        this.addToOutput('• Created real-time audio visualizers using Web Audio API');
-        this.addToOutput('• Collaborated with artists on 15+ digital art projects');
-        this.addToOutput('• Increased user engagement by 300% through interactive features');
+        this.addToOutput('Associate Cloud Security Consultant | 2022 - Present', 'response success');
+        this.addToOutput('• Led a phased patching schedule that resulted in the remediation of over');
+        this.addToOutput('  94,000 vulnerabilities, reducing a client\'s security risk by 73%');
+        this.addToOutput('• Migrated Azure government workloads to a cost-effective commercial');
+        this.addToOutput('  environment, reducing cloud expenses while enhancing security');
+        this.addToOutput('• Led Entra ID MFA modernization, transitioning users from legacy');
+        this.addToOutput('  authentication to secure identity management');
+        this.addToOutput('• Developed custom CIS benchmark templates for Microsoft Intune to');
+        this.addToOutput('  align with security standards');
+        this.addToOutput('• Implemented Microsoft Purview Information Protection strategies for');
+        this.addToOutput('  financial institutions, including DLP policies, Sensitivity Label');
+        this.addToOutput('  Encryption, and data classification');
+        this.addToOutput('• Conducted security assessments and hardening across various industries,');
+        this.addToOutput('  ensuring alignment with best practices and regulatory frameworks');
         this.addToOutput('');
-        this.addToOutput('Frontend Developer | Creative Agency | 2020-2022', 'response success');
-        this.addToOutput('• Developed responsive websites for creative professionals');
-        this.addToOutput('• Implemented 3D web experiences using Three.js');
-        this.addToOutput('• Optimized performance resulting in 40% faster load times');
-        this.addToOutput('• Mentored junior developers in creative coding techniques');
-        this.addToOutput('');
-        this.addToOutput('Freelance Digital Artist | Self-Employed | 2019-Present', 'response success');
-        this.addToOutput('• Created custom interactive installations for events');
-        this.addToOutput('• Developed AI-powered art generation tools');
-        this.addToOutput('• Built digital poetry platform with 1000+ active users');
-        this.addToOutput('• Published creative coding tutorials with 50k+ views');
+        this.addToOutput('Tier 1 Security Operations Center (SOC) Analyst | 2021-2022', 'response success');
+        this.addToOutput('• Investigated and mitigated over 277 security incidents, including AWS');
+        this.addToOutput('  login anomalies, firewall alerts, and endpoint detections');
+        this.addToOutput('• Automated security workflows using Demisto (SOAR), which significantly');
+        this.addToOutput('  reduced the Mean Time to Resolution (MTTR) for security incidents');
+        this.addToOutput('• Developed phishing playbooks within SOAR to streamline security');
+        this.addToOutput('  response and reduce resolution time');
+        this.addToOutput('• Conducted threat analysis on detections from SentinelOne, Carbon Black,');
+        this.addToOutput('  FireEye, and Palo Alto, refining detection rules to reduce false positives');
+        this.addToOutput('• Migrated over 60 Splunk alerts, maintaining continuous log collection');
+        this.addToOutput('  and security event visibility');
         this.addToOutput('');
         
         // Featured Projects
-        this.addToOutput('────────────────────────────────────────────────────────────', 'response info');
+/*        this.addToOutput('────────────────────────────────────────────────────────────', 'response info');
         this.addToOutput('FEATURED PROJECTS', 'response info');
         this.addToOutput('────────────────────────────────────────────────────────────', 'response info');
         this.addToOutput('');
@@ -632,24 +656,31 @@ snd    / |   |____)
         this.addToOutput('📝 Digital Poetry Platform', 'response success');
         this.addToOutput('   Interactive platform for digital poetry and creative writing');
         this.addToOutput('   Tech: Vue.js, Node.js, MongoDB | Status: Beta');
-        this.addToOutput('');
+        this.addToOutput(''); */
         
         // Education
         this.addToOutput('────────────────────────────────────────────────────────────', 'response info');
         this.addToOutput('EDUCATION & CERTIFICATIONS', 'response info');
         this.addToOutput('────────────────────────────────────────────────────────────', 'response info');
         this.addToOutput('');
-        this.addToOutput('Bachelor of Fine Arts | Digital Media & Technology | 2019', 'response success');
-        this.addToOutput('University of Creative Arts');
+        this.addToOutput('Bachelor of Science in Cloud Computing | 2024 - Present', 'response success');
+        this.addToOutput('Western Governors University');
         this.addToOutput('');
         this.addToOutput('Certifications:', 'response success');
-        this.addToOutput('• AWS Certified Developer Associate');
-        this.addToOutput('• Google Cloud Professional Cloud Architect');
-        this.addToOutput('• Adobe Certified Expert (Photoshop, After Effects)');
+        this.addToOutput('• AWS Certified Security - Specialty');
+        this.addToOutput('• Microsoft Certified: DevOps Engineer Expert (AZ-400)');
+        this.addToOutput('• Microsoft Certified: Azure Developer Associate (AZ-204)');
+        this.addToOutput('• Microsoft Certified: Azure Administrator Associate (AZ-104)');
+        this.addToOutput('• HashiCorp Certified: Terraform Associate (003)');
+        this.addToOutput('• CompTIA Cloud+');
+        this.addToOutput('• CompTIA Security+');
+        this.addToOutput('• Microsoft Certified: Security, Compliance, and Identity Fundamentals (SC-900)');
+        this.addToOutput('• Microsoft Certified: Azure AI Fundamentals (AI-900)');
+        this.addToOutput('• Coursera Google IT Support');
         this.addToOutput('');
         
         // Achievements
-        this.addToOutput('────────────────────────────────────────────────────────────', 'response info');
+/*        this.addToOutput('────────────────────────────────────────────────────────────', 'response info');
         this.addToOutput('ACHIEVEMENTS & RECOGNITION', 'response info');
         this.addToOutput('────────────────────────────────────────────────────────────', 'response info');
         this.addToOutput('');
@@ -658,7 +689,7 @@ snd    / |   |____)
         this.addToOutput('• Speaker at CreativeTech Conference (2021, 2022, 2023)');
         this.addToOutput('• 20+ articles published on creative coding and digital art');
         this.addToOutput('• Open source contributions: 500+ GitHub stars across projects');
-        this.addToOutput('');
+        this.addToOutput(''); */
         
         // Footer
         this.addToOutput('════════════════════════════════════════════════════════════', 'response success');
