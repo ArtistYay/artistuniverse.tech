@@ -1,0 +1,84 @@
+// ---------------------------------------------------------------------------------------
+// LAYOUT - Container, Grid, Spacing
+// ---------------------------------------------------------------------------------------
+
+.container {
+  width: 100%;
+  margin: 0;
+  padding: $spacing-xl 40px;
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 40px;
+
+  @media (max-width: $breakpoint-desktop) {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    padding: $spacing-lg 40px;
+  }
+
+  @media (max-width: $breakpoint-tablet) {
+    padding: $spacing-lg 30px;
+  }
+
+  @media (max-width: $breakpoint-mobile) {
+    padding: $spacing-md 20px;
+  }
+}
+
+.content {
+  min-width: 0;
+}
+
+// Wrapper for centering content
+.wrapper {
+  max-width: 100%;
+  margin: 0 auto;
+  
+  &.full-width {
+    width: 100%;
+  }
+}
+
+// Clearfix
+.clearfix {
+  &::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+// Flex utilities
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+// Visibility
+.hidden {
+  display: none !important;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}

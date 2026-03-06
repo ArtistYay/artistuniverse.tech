@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>
+    (function () {
+      var t = localStorage.getItem('theme') ||
+        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+  <title>{% if page.title %}{{ page.title }} - {% endif %}{{ site.title }}</title>
+  <meta name="description" content="{{ page.excerpt | default: site.description | strip_html | normalize_whitespace | truncate: 160 }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  {% if page.url == "/about/" %}
+  <link rel="stylesheet" href="{{ '/assets/css/about.css' | relative_url }}">
+  {% endif %}
+</head>
+<body>
+  {% include header.html %}
+  
+  <div class="container-no-sidebar">
+    <main class="content-centered">
+      <article class="page">
+        {% unless page.hide_title %}
+        <header class="page-header">
+          <h1 class="page-title">{{ page.title }}</h1>
+        </header>
+        {% endunless %}
+
+        <div class="page-content">
+          {{ content }}
+        </div>
+      </article>
+    </main>
+  </div>
+  
+  {% include footer.html %}
+
+  <script>
+  (function () {
+    var toggle = document.getElementById('themeToggle');
+    var icon = document.getElementById('themeIcon');
+    function setIcon(theme) {
+      icon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+    }
+    setIcon(document.documentElement.getAttribute('data-theme') || 'light');
+    toggle.addEventListener('click', function () {
+      var current = document.documentElement.getAttribute('data-theme');
+      var next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+      setIcon(next);
+    });
+  })();
+  </script>
+</body>
+</html>
+
+<style>
+.container-no-sidebar {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 60px 40px;
+}
+
+.content-centered {
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .container-no-sidebar {
+    padding: 40px 20px;
+  }
+}
+</style>

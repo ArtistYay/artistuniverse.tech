@@ -1,0 +1,115 @@
+<header class="site-header">
+  <div class="wrapper">
+    <a class="site-title" href="{{ '/' | relative_url }}">ATHINA THOMAS</a>
+    <nav class="site-nav">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <i class="fas fa-moon" id="themeIcon"></i>
+      </button>
+      <a href="{{ '/about/' | relative_url }}">About Me</a>
+      <a href="https://notes.artistuniverse.tech" target="_blank">Notes</a>
+      <button class="search-toggle" aria-label="Search">
+        <i class="fas fa-search"></i>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<!-- Search Modal -->
+<div class="search-modal" id="searchModal">
+  <div class="search-modal-content">
+    <button class="search-close" aria-label="Close search">
+      <i class="fas fa-times"></i>
+    </button>
+    <input type="text" id="searchInput" placeholder="Search posts..." autocomplete="off">
+    <div id="searchResults"></div>
+  </div>
+</div>
+
+<script>
+// Simple search functionality
+document.addEventListener('DOMContentLoaded', function() {
+  const searchToggle = document.querySelector('.search-toggle');
+  const searchModal = document.getElementById('searchModal');
+  const searchClose = document.querySelector('.search-close');
+  const searchInput = document.getElementById('searchInput');
+  const searchResults = document.getElementById('searchResults');
+
+  // Open search
+  if (searchToggle) {
+    searchToggle.addEventListener('click', function() {
+      searchModal.classList.add('active');
+      searchInput.focus();
+    });
+  }
+
+  // Close search
+  if (searchClose) {
+    searchClose.addEventListener('click', function() {
+      searchModal.classList.remove('active');
+      searchInput.value = '';
+      searchResults.innerHTML = '';
+    });
+  }
+
+  // Close on escape
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && searchModal.classList.contains('active')) {
+      searchModal.classList.remove('active');
+      searchInput.value = '';
+      searchResults.innerHTML = '';
+    }
+  });
+
+  // Close on background click
+  searchModal.addEventListener('click', function(e) {
+    if (e.target === searchModal) {
+      searchModal.classList.remove('active');
+      searchInput.value = '';
+      searchResults.innerHTML = '';
+    }
+  });
+
+  // Search posts
+  const posts = [
+    {% for post in site.posts %}
+    {
+      title: {{ post.title | jsonify }},
+      url: {{ post.url | jsonify }},
+      excerpt: {{ post.excerpt | strip_html | truncatewords: 30 | jsonify }},
+      date: {{ post.date | date: "%B %d, %Y" | jsonify }}
+    }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ];
+
+  if (searchInput) {
+    searchInput.addEventListener('input', function() {
+      const query = this.value.toLowerCase().trim();
+      
+      if (query.length < 2) {
+        searchResults.innerHTML = '';
+        return;
+      }
+
+      const results = posts.filter(post => 
+        post.title.toLowerCase().includes(query) || 
+        post.excerpt.toLowerCase().includes(query)
+      );
+
+      if (results.length === 0) {
+        searchResults.innerHTML = '<div class="no-results">No results found</div>';
+        return;
+      }
+
+      const resultsHTML = results.map(post => `
+        <div class="search-result">
+          <h3><a href="${post.url}">${post.title}</a></h3>
+          <div class="search-result-meta">${post.date}</div>
+          <p>${post.excerpt}</p>
+        </div>
+      `).join('');
+
+      searchResults.innerHTML = resultsHTML;
+    });
+  }
+});
+</script>

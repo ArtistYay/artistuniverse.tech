@@ -1,0 +1,244 @@
+// ---------------------------------------------------------------------------------------
+// SIDEBAR - About, Social Icons, Tags, GitHub Repos
+// ---------------------------------------------------------------------------------------
+
+.sidebar {
+  font-size: 14px;
+  position: sticky;
+  top: 80px;
+  align-self: start;
+  height: fit-content;
+  background: $sidebar-bg;
+  padding: 0;
+  border-radius: $border-radius-lg;
+  border: 1px solid $border-color;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+
+  // Prevent typography.scss li > a / p > a rules from bleeding in
+  a {
+    border-bottom: none;
+
+    &:hover {
+      border-bottom: none;
+    }
+  }
+
+  @media (max-width: $breakpoint-desktop) {
+    order: -1;
+    position: static;
+    top: auto;
+  }
+}
+
+.sidebar-section {
+  padding: $spacing-md $spacing-lg;
+  border-bottom: 1px solid $border-color;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  h3 {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: $text-color;
+    margin: 0 0 $spacing-sm 0;
+    font-weight: 700;
+  }
+
+  // Reset browser default margins on common elements
+  p, ol, ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  ol, ul {
+    list-style: none;
+
+    li {
+      padding: 4px 0;
+      font-size: 13px;
+      color: $text-color;
+
+      a {
+        color: $text-color;
+        text-decoration: none;
+        display: block;
+
+        &:hover {
+          color: $link-color;
+        }
+      }
+
+      .view-count {
+        font-size: 11px;
+        color: $lighter-text;
+        margin-left: 4px;
+      }
+    }
+  }
+}
+
+// About Section
+.about-section {
+  text-align: center;
+
+  .about-text {
+    font-size: 13px;
+    line-height: 1.6;
+    color: $light-text;
+    margin-bottom: $spacing-sm;
+  }
+}
+
+// Social Icons
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: $spacing-sm;
+  flex-wrap: wrap;
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: $border-radius-md;
+    background: $platinum-light;
+    color: $text-color;
+    transition: $transition-base;
+    font-size: 18px;
+
+    &:hover {
+      background: $link-color;
+      color: white;
+      transform: translateY(-3px);
+    }
+  }
+}
+
+// GitHub Repos Section
+.github-repos {
+  .repo-item {
+    padding: $spacing-sm;
+    margin-bottom: $spacing-sm;
+    background: $platinum-light;
+    border-radius: $border-radius-md;
+    transition: $transition-base;
+    border-left: 3px solid $link-color;
+
+    &:hover {
+      background: #ebf4ff;
+      transform: translateX(5px);
+    }
+
+    .repo-name {
+      font-weight: 700;
+      color: $text-color;
+      font-size: 13px;
+      margin-bottom: 5px;
+      text-decoration: none;
+
+      &:hover {
+        color: $link-color;
+      }
+    }
+
+    .repo-desc {
+      font-size: 12px;
+      color: $light-text;
+      line-height: 1.4;
+    }
+  }
+}
+
+// Tags Section
+.tags-section {
+  .tag-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .tag {
+    display: inline-flex;
+    align-items: stretch;
+    border-radius: 3px;
+    overflow: hidden;
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    transition: opacity 0.15s ease;
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    .tag-count {
+      background: #2d3748;
+      color: rgba(255, 255, 255, 0.9);
+      padding: 4px 10px;
+    }
+
+    .tag-name {
+      background: #4a5568;
+      color: rgba(255, 255, 255, 0.85);
+      padding: 4px 9px;
+    }
+  }
+}
+
+// Views Section
+.views-section {
+  .view-item {
+    padding: $spacing-xs $spacing-sm;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid $border-color;
+    font-size: 13px;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    .view-title {
+      color: $text-color;
+      flex: 1;
+    }
+
+    .view-count {
+      color: $light-text;
+      font-weight: 600;
+    }
+  }
+}
+
+@media (max-width: $breakpoint-desktop) {
+  .sidebar {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+  }
+
+  .sidebar-section {
+    border-bottom: 1px solid $border-color;
+    border-right: 1px solid $border-color;
+
+    &:nth-child(odd) {
+      border-right: 1px solid $border-color;
+    }
+
+    &:nth-child(even) {
+      border-right: none;
+    }
+
+    &:nth-last-child(-n+2) {
+      border-bottom: none;
+    }
+  }
+}

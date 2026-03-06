@@ -1,0 +1,92 @@
+---
+layout: default
+---
+<article class="post hentry">
+  <div class="post-box">
+    <div class="entry-content">
+      <div class="post-header">
+
+        <!-- Title -->
+        <h1 class="entry-title post-title">{{ page.title }}</h1>
+
+        <!-- Meta row: date · reading time · tags -->
+        <div class="post-meta">
+          <time class="entry-date date published updated" datetime="{{ page.date | date_to_xmlschema }}">
+            {{ page.date | date: "%B %d, %Y" }}
+          </time>
+          <span class="meta-sep">·</span>
+          <span class="entry-reading-time">
+            {{ content | strip_html | number_of_words | divided_by: 200 | ceil }} min read
+          </span>
+          {% if page.tags %}
+          <span class="meta-sep">·</span>
+          <span class="entry-tags">
+            {% for tag in page.tags %}
+            <a href="/tags.html#{{ tag }}" title="Pages tagged {{ tag }}" class="tag">{{ tag }}</a>
+            {% endfor %}
+          </span>
+          {% endif %}
+        </div>
+
+      </div>
+
+      <div class="post-content">
+        {% if content contains '<h2' %}
+        <div class="toc-box">
+          <strong class="toc-title">Contents</strong>
+          {% include toc.html html=content h_min=2 %}
+        </div>
+        {% endif %}
+        {{ content }}
+      </div>
+    </div>
+  </div>
+</article>
+
+<!-- Lightbox overlay -->
+<div id="lightbox-overlay" class="lightbox-overlay" role="dialog" aria-modal="true" aria-label="Image viewer">
+  <button id="lightbox-close" class="lightbox-close" aria-label="Close image">&times;</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+(function () {
+  var overlay = document.getElementById('lightbox-overlay');
+  var overlayImg = document.getElementById('lightbox-img');
+  var closeBtn = document.getElementById('lightbox-close');
+
+  function openLightbox(src, alt) {
+    overlayImg.src = src;
+    overlayImg.alt = alt || '';
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  document.querySelectorAll('.post-content img').forEach(function (img) {
+    img.classList.add('lightbox-trigger');
+    img.addEventListener('click', function () {
+      openLightbox(this.src, this.alt);
+    });
+  });
+
+  overlay.addEventListener('click', closeLightbox);
+
+  closeBtn.addEventListener('click', function (e) {
+    e.stopPropagation();
+    closeLightbox();
+  });
+
+  overlayImg.addEventListener('click', function (e) {
+    e.stopPropagation();
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeLightbox();
+  });
+})();
+</script>

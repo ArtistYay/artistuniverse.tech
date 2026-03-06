@@ -1,0 +1,381 @@
+---
+layout: default
+title: Home
+---
+
+<div class="home">
+  <div class="posts">
+    {% for post in site.posts limit:5 %}
+    <article class="post-card">
+      <div class="post-card-header">
+        <div class="post-card-meta">
+          <time datetime="{{ post.date | date_to_xmlschema }}">
+            {{ post.date | date: "%b %d, %Y" }}
+          </time>
+          <span class="separator">•</span>
+          <span class="author">{{ site.author | default: "ATHINA THOMAS" }}</span>
+        </div>
+        <div class="post-card-actions">
+          <span class="reading-time">{{ post.content | number_of_words | divided_by: 200 }} MINUTE READ</span>
+        </div>
+      </div>
+      
+      <h2 class="post-card-title">
+        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+      </h2>
+      
+      <div class="post-card-excerpt">
+        {{ post.excerpt | strip_html | truncatewords: 40 }}
+      </div>
+      
+      <a href="{{ post.url | relative_url }}" class="continue-reading">
+        Continue Reading...
+      </a>
+
+      <div class="post-share">
+        <span class="share-label">Share this:</span>
+        <div class="share-icons">
+          {% assign share_url = post.url | absolute_url | url_encode %}
+          {% assign share_title = post.title | url_encode %}
+          <a href="https://twitter.com/intent/tweet?url={{ share_url }}&text={{ share_title }}" target="_blank" rel="noopener" title="Share on X" class="share-btn share-x"><i class="fab fa-x-twitter"></i></a>
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ share_url }}&title={{ share_title }}" target="_blank" rel="noopener" title="Share on LinkedIn" class="share-btn share-linkedin"><i class="fab fa-linkedin-in"></i></a>
+          <a href="https://www.facebook.com/sharer/sharer.php?u={{ share_url }}" target="_blank" rel="noopener" title="Share on Facebook" class="share-btn share-facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://www.reddit.com/submit?url={{ share_url }}&title={{ share_title }}" target="_blank" rel="noopener" title="Share on Reddit" class="share-btn share-reddit"><i class="fab fa-reddit-alien"></i></a>
+          <a href="https://wa.me/?text={{ share_title }}%20{{ share_url }}" target="_blank" rel="noopener" title="Share on WhatsApp" class="share-btn share-whatsapp"><i class="fab fa-whatsapp"></i></a>
+          <a href="mailto:?subject={{ share_title }}&body={{ share_url }}" title="Share via Email" class="share-btn share-email"><i class="fas fa-envelope"></i></a>
+        </div>
+      </div>
+    </article>
+    {% endfor %}
+    
+    {% if site.posts.size == 0 %}
+    <div class="no-posts">
+      <p>No posts yet. Create your first post in the <code>_posts</code> folder!</p>
+    </div>
+    {% endif %}
+  </div>
+  
+  <!-- Previous Articles Section -->
+  {% if site.posts.size > 5 %}
+  <div class="previous-articles">
+    <h2>Previous Articles</h2>
+    
+    <div class="articles-by-year">
+      {% assign posts_by_year = site.posts | group_by_exp: "post", "post.date | date: '%Y'" %}
+      {% for year in posts_by_year %}
+        {% assign year_posts = year.items | offset: 5 %}
+        {% if year_posts.size > 0 %}
+        <div class="year-section">
+          <h3 class="year-badge">{{ year.name }}</h3>
+          <ul class="articles-list">
+            {% for post in year_posts %}
+            <li>
+              <span class="article-date">{{ post.date | date: "%b %d, %Y" }}</span>
+              <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+              {% if post.tags.size > 0 %}
+                {% for tag in post.tags limit:3 %}
+                  <span class="article-tag">{{ tag }}</span>
+                {% endfor %}
+              {% endif %}
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+</div>
+
+<style>
+.home {
+  max-width: 100%;
+}
+
+.posts {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.post-card {
+  padding: 24px 0;
+  border-bottom: 1px solid #e2e8f0;
+  margin-left: 0;
+  margin-right: 0;
+  transition: margin 0.2s ease, padding 0.2s ease, background 0.2s ease;
+}
+
+.post-card:hover {
+  margin-left: -24px;
+  margin-right: -24px;
+  padding-left: 24px;
+  padding-right: 24px;
+  background: rgba(212, 175, 55, 0.06);
+  border-radius: 6px;
+}
+
+.post-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.post-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #718096;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+.post-card-meta .separator {
+  color: #cbd5e0;
+}
+
+.post-card-actions {
+  display: flex;
+  gap: 15px;
+  font-size: 11px;
+  color: #a0aec0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+.post-card-title {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 10px;
+  letter-spacing: -0.5px;
+}
+
+.post-card-title a {
+  color: #2d3748;
+  text-decoration: none;
+}
+
+.post-card-title a:hover {
+  color: #c9a227;
+}
+
+.post-card-excerpt {
+  color: #4a5568;
+  font-size: 17px;
+  line-height: 1.7;
+  margin-bottom: 12px;
+}
+
+.continue-reading {
+  display: inline-block;
+  color: #c9a227;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+
+.continue-reading:hover {
+  color: #a88020;
+}
+
+/* Share Bar */
+.post-share {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid #e2e8f0;
+  flex-wrap: wrap;
+}
+
+.share-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #718096;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.share-icons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.share-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  color: white;
+  font-size: 14px;
+  text-decoration: none;
+  border-bottom: none;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.share-btn:hover {
+  opacity: 0.85;
+  transform: translateY(-2px);
+  border-bottom: none;
+  color: white;
+}
+
+.share-x        { background: #333333; }
+.share-linkedin { background: #5a8eb5; }
+.share-facebook { background: #4d6ca8; }
+.share-reddit   { background: #c45e3b; }
+.share-whatsapp { background: #389663; }
+.share-email    { background: #6b7280; }
+
+.no-posts {
+  text-align: center;
+  padding: 60px 20px;
+  color: #718096;
+}
+
+.no-posts code {
+  background: #edf2f7;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+  color: #2d3748;
+}
+
+/* Previous Articles Section */
+.previous-articles {
+  margin-top: 40px;
+  padding-top: 30px;
+  border-top: 2px solid #e2e8f0;
+}
+
+.previous-articles > h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #2d3748;
+  margin-bottom: 24px;
+}
+
+.articles-by-year {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.year-section {
+  position: relative;
+}
+
+.year-badge {
+  display: inline-block;
+  background: #fbbf24;
+  color: #000000;
+  padding: 6px 16px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 25px;
+}
+
+.articles-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.articles-list li {
+  display: flex;
+  align-items: baseline;
+  gap: 15px;
+  padding: 12px 0;
+  border-bottom: 1px solid #f0f0f0;
+  flex-wrap: wrap;
+}
+
+.articles-list li:last-child {
+  border-bottom: none;
+}
+
+.article-date {
+  font-size: 13px;
+  color: #a0aec0;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  min-width: 100px;
+  flex-shrink: 0;
+}
+
+.articles-list li a {
+  color: #4a5568;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+  flex: 1;
+  min-width: 200px;
+}
+
+.articles-list li a:hover {
+  color: #c9a227;
+}
+
+.article-tag {
+  display: inline-block;
+  background: #e2e8f0;
+  color: #4a5568;
+  padding: 3px 10px;
+  border-radius: 3px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  margin-left: 5px;
+}
+
+@media (max-width: 768px) {
+  .post-card {
+    padding: 30px 20px;
+  }
+  
+  .post-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .post-card-title {
+    font-size: 28px;
+  }
+  
+  .post-card-excerpt {
+    font-size: 16px;
+  }
+  
+  .articles-list li {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
+  .article-date {
+    min-width: auto;
+  }
+}
+</style>

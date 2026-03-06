@@ -1,0 +1,172 @@
+// ---------------------------------------------------------------------------------------
+// HEADER - Site Navigation & Branding
+// ---------------------------------------------------------------------------------------
+
+.site-header {
+  padding: 20px 0;
+  background: $header-bg;
+  border-bottom: 1px solid $border-color;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  .wrapper {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .site-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: $header-text;
+    text-decoration: none;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: $transition-base;
+
+    &:hover {
+      color: $link-color;
+    }
+  }
+
+  .site-nav {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+
+    a {
+      color: $header-text-light;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: $transition-base;
+      
+      &:hover {
+        color: $header-text;
+      }
+    }
+
+    .search-toggle,
+    .theme-toggle {
+      background: none;
+      border: none;
+      color: $header-text-light;
+      font-size: 16px;
+      cursor: pointer;
+      padding: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: $transition-base;
+
+      &:hover {
+        color: $header-text;
+      }
+    }
+  }
+
+  @media (max-width: $breakpoint-tablet) {
+    padding: 20px 0;
+    
+    .wrapper {
+      padding: 0 30px;
+    }
+    
+    .site-nav {
+      gap: 20px;
+    }
+  }
+}
+
+// Search Modal
+.search-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 9999;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 100px;
+
+  &.active {
+    display: flex;
+  }
+
+  .search-modal-content {
+    background: white;
+    width: 90%;
+    max-width: 700px;
+    border-radius: $border-radius-md;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    position: relative;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .search-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: $light-text;
+    cursor: pointer;
+    padding: 5px;
+    z-index: 10;
+    transition: $transition-base;
+    
+    &:hover {
+      color: $text-color;
+    }
+  }
+
+  .search-input {
+    padding: 20px;
+    font-size: 16px;
+    border: none;
+    border-bottom: 1px solid $border-color;
+    
+    &:focus {
+      outline: none;
+      background: #f9fafb;
+    }
+  }
+
+  .search-results {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+  }
+
+  .search-result-item {
+    padding: 15px;
+    border-bottom: 1px solid $border-color;
+    cursor: pointer;
+    transition: $transition-base;
+    
+    &:hover {
+      background: $platinum-light;
+    }
+
+    .search-result-title {
+      font-weight: 700;
+      color: $text-color;
+      margin-bottom: 5px;
+    }
+
+    .search-result-snippet {
+      font-size: 14px;
+      color: $light-text;
+    }
+  }
+}

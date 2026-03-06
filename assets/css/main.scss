@@ -1,0 +1,44 @@
+---
+---
+
+// ===============================================
+// ATHINA THOMAS BLOG - MODULAR SCSS ARCHITECTURE
+// Professional, Clean, Modern Design
+// Last Updated: 2026-01-31
+// ===============================================
+
+// Import variables first (must be first to define all custom properties)
+@import 'variables';
+
+// Import foundational styles
+@import 'reset';
+
+// Import typography system
+@import 'typography';
+
+// Import layout utilities and grid
+@import 'layout';
+
+// Import header/navigation
+@import 'header';
+
+// Import sidebar styling
+@import 'sidebar';
+
+// Import homepage post styling
+@import 'home';
+
+// Import single post/page styling
+@import 'post';
+
+// Import element-level styles (images, code, tables, etc)
+@import 'elements';
+
+// Import animations and transitions
+@import 'animations';
+
+// Import footer
+@import 'footer';
+
+// Import dark mode overrides (must be last to take precedence)
+@import 'dark-mode';

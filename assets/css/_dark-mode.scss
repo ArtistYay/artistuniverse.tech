@@ -1,0 +1,540 @@
+// ---------------------------------------------------------------------------------------
+// DARK MODE - Applied when <html data-theme="dark">
+// Gold & Platinum palette — no purple
+// ---------------------------------------------------------------------------------------
+
+[data-theme="dark"] {
+
+  // Smooth color transitions on theme switch
+  body,
+  .site-header,
+  .sidebar,
+  .post-preview,
+  code,
+  blockquote {
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  }
+
+  // Base
+  body {
+    background: #111110;
+    color: #ffffff;
+  }
+
+  // Override hardcoded dark text colors throughout the site
+  p, li, span, td, th, dt, dd, label, blockquote {
+    color: inherit;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: #ffffff;
+  }
+
+  // Homepage post cards (inline CSS overrides)
+  .post-card-title a {
+    color: #ffffff;
+  }
+
+  .post-card-excerpt {
+    color: #c8c5be;
+  }
+
+  .post-card-meta,
+  .post-card-actions span {
+    color: #908d86;
+  }
+
+  .share-label {
+    color: #908d86;
+  }
+
+  // Previous articles section
+  .previous-articles > h2 {
+    color: #ffffff;
+  }
+
+  .articles-list li a {
+    color: #c8c5be;
+
+    &:hover {
+      color: #d4af37;
+    }
+  }
+
+  .article-date {
+    color: #908d86;
+  }
+
+  // About page
+  .about-intro p {
+    color: #c8c5be;
+  }
+
+  .about-intro strong {
+    color: #ffffff;
+  }
+
+  .cert-name {
+    color: #908d86;
+  }
+
+  a {
+    color: #d4af37;
+
+    &:hover,
+    &:focus {
+      color: #e8c84d;
+    }
+  }
+
+  // Header
+  .site-header {
+    background: #1a1917;
+    border-bottom-color: #2e2c28;
+
+    .site-title {
+      color: #f0ede6;
+
+      &:hover {
+        color: #d4af37;
+      }
+    }
+
+    .site-nav {
+      a {
+        color: #b0ada6;
+
+        &:hover {
+          color: #f0ede6;
+        }
+      }
+
+      .search-toggle,
+      .theme-toggle {
+        color: #b0ada6;
+
+        &:hover {
+          color: #f0ede6;
+        }
+      }
+    }
+  }
+
+  // Sidebar
+  .sidebar {
+    background: #161512;
+    border-color: #2e2c28;
+  }
+
+  .sidebar-section {
+    border-bottom-color: #2e2c28;
+    border-right-color: #2e2c28;
+
+    h3 {
+      color: #f0ede6;
+    }
+
+    li,
+    li a {
+      color: #b0ada6;
+    }
+
+    li a:hover {
+      color: #d4af37;
+    }
+  }
+
+  .about-section .about-text {
+    color: #b0ada6;
+  }
+
+  .social-icons a {
+    background: #2e2c28;
+    color: #b0ada6;
+  }
+
+  .github-repos .repo-item {
+    background: #221f18;
+    border-left-color: #d4af37;
+
+    &:hover {
+      background: #2e2c28;
+    }
+
+    .repo-name {
+      color: #f0ede6;
+    }
+
+    .repo-desc {
+      color: #b0ada6;
+    }
+  }
+
+  .views-section .view-item {
+    border-bottom-color: #2e2c28;
+
+    .view-title {
+      color: #b0ada6;
+    }
+
+    .view-count {
+      color: #908d86;
+    }
+  }
+
+  // Post Previews (Home)
+  .home .post-preview {
+    background: #161512;
+    border-color: #2e2c28;
+
+    h2 a {
+      color: #f0ede6;
+
+      &:hover {
+        color: #d4af37;
+      }
+    }
+
+    .post-meta {
+      color: #908d86;
+    }
+
+    .read-more {
+      background: #2e2c28;
+      color: #f0ede6;
+
+      &:hover {
+        background: #d4af37;
+        color: #1c1b18;
+      }
+    }
+  }
+
+  .pagination a {
+    background: #221f18;
+    color: #f0ede6;
+  }
+
+  // Inline code
+  code {
+    background: #221f18;
+    color: #d4af37;
+    border-color: #2e2c28;
+  }
+
+  // Blockquotes
+  blockquote {
+    background: #161512;
+    color: #b0ada6;
+    border-left-color: #d4af37;
+  }
+
+  // Tables
+  table {
+    thead {
+      background: #221f18;
+    }
+
+    td {
+      border-bottom-color: #2e2c28;
+    }
+
+    th {
+      color: #f0ede6;
+    }
+
+    tbody tr {
+      &:hover {
+        background: #221f18;
+      }
+
+      &:nth-child(even) {
+        background: #161512;
+      }
+    }
+  }
+
+  // HR / DL
+  hr {
+    border-top-color: #2e2c28;
+  }
+
+  dd {
+    color: #b0ada6;
+  }
+
+  // Form inputs
+  input[type='text'],
+  input[type='email'],
+  input[type='search'],
+  textarea {
+    background: #161512;
+    border-color: #2e2c28;
+    color: #f0ede6;
+
+    &::placeholder {
+      color: #908d86;
+    }
+
+    &:focus {
+      border-color: #d4af37;
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+    }
+  }
+
+  // Search modal
+  .search-modal-content {
+    background: #1a1917;
+  }
+
+  .search-close {
+    color: #908d86;
+
+    &:hover {
+      color: #f0ede6;
+    }
+  }
+
+  #searchInput {
+    background: #1a1917;
+    border-bottom-color: #2e2c28;
+    color: #f0ede6;
+
+    &::placeholder {
+      color: #908d86;
+    }
+  }
+
+  .search-result {
+    border-bottom: 1px solid #2e2c28;
+
+    h3 a {
+      color: #f0ede6;
+    }
+
+    .search-result-meta {
+      color: #908d86;
+    }
+
+    p {
+      color: #b0ada6;
+    }
+  }
+
+  .no-results {
+    color: #908d86;
+  }
+
+  // Post page content
+  .post-header {
+    .post-title {
+      color: #f0ede6;
+    }
+
+    .post-meta {
+      color: #908d86;
+    }
+  }
+
+  // TOC
+  .toc {
+    background: #161512;
+    border-color: #2e2c28;
+
+    a {
+      color: #b0ada6;
+
+      &:hover {
+        color: #d4af37;
+      }
+    }
+  }
+
+  // Article/post pages
+  .post {
+    .post-title {
+      color: #f0ede6;
+    }
+
+    .post-header {
+      border-bottom-color: #2e2c28;
+    }
+
+    .post-meta,
+    .entry-date,
+    .entry-reading-time {
+      color: #908d86;
+    }
+
+    .meta-sep {
+      color: #605d57;
+    }
+
+    .entry-tags .tag {
+      background: #2e2c28;
+      color: #b0ada6;
+      border-color: #3a3830;
+
+      &:hover {
+        background: #d4af37;
+        color: #1c1b18;
+        border-color: #d4af37;
+      }
+    }
+
+    .toc-box {
+      background: #161512;
+      border-color: #2e2c28;
+
+      .toc-title {
+        color: #908d86;
+      }
+    }
+
+    .post-content {
+      color: #e8e4dc;
+
+      h1, h2, h3, h4, h5, h6 {
+        color: #f0ede6;
+      }
+
+      // Inline code
+      code {
+        background: #221f18;
+        color: #d4af37;
+        border-color: #2e2c28;
+      }
+
+      blockquote {
+        color: #b0ada6;
+        border-left-color: #d4af37;
+        background: #161512;
+      }
+
+      table {
+        thead {
+          background: #221f18;
+        }
+
+        th {
+          color: #f0ede6;
+        }
+
+        td {
+          border-bottom-color: #2e2c28;
+        }
+
+        tbody tr:hover {
+          background: #221f18;
+        }
+      }
+    }
+
+    .post-tags {
+      border-top-color: #2e2c28;
+
+      .tag {
+        background: #2e2c28;
+        color: #b0ada6;
+
+        &:hover {
+          background: #d4af37;
+          color: #1c1b18;
+        }
+      }
+    }
+  }
+
+  // Tags page
+  .tags-page-title {
+    color: #f0ede6;
+  }
+
+  .tags-index {
+    border-bottom-color: #2e2c28;
+  }
+
+  .tag-index-link {
+    background: #2e2c28;
+    color: #b0ada6;
+
+    &:hover {
+      background: #d4af37;
+      color: #1c1b18;
+    }
+  }
+
+  .tag-heading {
+    color: #f0ede6;
+    border-bottom-color: #2e2c28;
+  }
+
+  .tag-posts li {
+    border-bottom-color: #2e2c28;
+  }
+
+  .tag-post-date {
+    color: #908d86;
+  }
+
+  .tag-posts li a {
+    color: #c8c5be;
+
+    &:hover {
+      color: #d4af37;
+    }
+  }
+
+  // Homepage — remaining hardcoded colors
+  .post-card {
+    border-bottom-color: #2e2c28;
+  }
+
+  .post-share {
+    border-top-color: #2e2c28;
+  }
+
+  .article-tag {
+    background: #2e2c28;
+    color: #b0ada6;
+  }
+
+  .articles-list li {
+    border-bottom-color: #2e2c28;
+  }
+
+  .previous-articles {
+    border-top-color: #2e2c28;
+  }
+
+  .no-posts {
+    color: #908d86;
+  }
+
+  // About page — buttons and cert/accolade cards
+  .btn-primary {
+    background: #2e2c28;
+    color: #f0ede6;
+
+    &:hover {
+      background: #3a3830;
+    }
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: #b0ada6;
+    border-color: #2e2c28;
+
+    &:hover {
+      background: #2e2c28;
+      color: #f0ede6;
+    }
+  }
+
+  .accolade-item,
+  .cert-item {
+    background: #221f18;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  }
+}

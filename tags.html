@@ -1,0 +1,120 @@
+---
+layout: default
+title: Tags
+permalink: /tags.html
+---
+
+<div class="tags-page">
+  <h1 class="tags-page-title">Tags</h1>
+
+  <!-- Tag index -->
+  <div class="tags-index">
+    {% assign sorted_tags = site.tags | sort %}
+    {% for tag in sorted_tags %}
+      <a href="#{{ tag[0] | slugify }}" class="tag-index-link">{{ tag[0] }} ({{ tag[1].size }})</a>
+    {% endfor %}
+  </div>
+
+  <!-- Posts by tag -->
+  {% assign sorted_tags = site.tags | sort %}
+  {% for tag in sorted_tags %}
+  <section class="tag-section" id="{{ tag[0] | slugify }}">
+    <h2 class="tag-heading">{{ tag[0] }}</h2>
+    <ul class="tag-posts">
+      {% assign posts = tag[1] | sort: "date" | reverse %}
+      {% for post in posts %}
+      <li>
+        <span class="tag-post-date">{{ post.date | date: "%b %d, %Y" }}</span>
+        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endfor %}
+</div>
+
+<style>
+.tags-page-title {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 30px;
+  color: #2d3748;
+}
+
+.tags-index {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 50px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.tag-index-link {
+  display: inline-block;
+  padding: 5px 12px;
+  background: #e2e8f0;
+  color: #4a5568;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+
+.tag-index-link:hover {
+  background: #2b6cb0;
+  color: white;
+}
+
+.tag-section {
+  margin-bottom: 50px;
+}
+
+.tag-heading {
+  font-size: 20px;
+  font-weight: 700;
+  color: #2d3748;
+  margin-bottom: 15px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.tag-posts {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tag-posts li {
+  display: flex;
+  align-items: baseline;
+  gap: 15px;
+  padding: 10px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.tag-posts li:last-child {
+  border-bottom: none;
+}
+
+.tag-post-date {
+  font-size: 12px;
+  color: #a0aec0;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  min-width: 90px;
+  flex-shrink: 0;
+}
+
+.tag-posts li a {
+  color: #4a5568;
+  text-decoration: none;
+  font-size: 15px;
+}
+
+.tag-posts li a:hover {
+  color: #2b6cb0;
+}
+</style>

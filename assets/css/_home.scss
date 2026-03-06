@@ -1,0 +1,120 @@
+// ---------------------------------------------------------------------------------------
+// HOME PAGE - Post Previews
+// ---------------------------------------------------------------------------------------
+
+.home {
+  .posts {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .post-preview {
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+    background: white;
+    border: 1px solid $border-color;
+    border-radius: $border-radius-md;
+    box-shadow: $shadow-sm;
+    transition: $transition-base;
+
+    &:hover {
+      box-shadow: $shadow-md;
+      border-color: $platinum-accent;
+    }
+
+    h2 {
+      font-size: 42px;
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: $spacing-md;
+      letter-spacing: -1px;
+      order: 2;
+
+      a {
+        color: $text-color;
+        text-decoration: none;
+        transition: $transition-base;
+
+        &:hover {
+          color: $gold-accent;
+        }
+      }
+    }
+
+    .post-meta {
+      font-size: 12px;
+      text-transform: uppercase;
+      color: $light-text;
+      margin-bottom: $spacing-md;
+      order: 1;
+      letter-spacing: 0.5px;
+    }
+
+    .post-excerpt {
+      order: 3;
+      flex-grow: 1;
+      margin-bottom: $spacing-lg;
+    }
+
+    .read-more {
+      order: 4;
+      align-self: flex-end;
+      padding: $spacing-sm $spacing-md;
+      background: $text-color;
+      color: white;
+      text-decoration: none;
+      border-radius: $border-radius-sm;
+      font-weight: 600;
+      font-size: 14px;
+      transition: $transition-base;
+
+      &:hover {
+        background: $gold-accent;
+        color: white;
+      }
+    }
+  }
+}
+
+// Pagination
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: $spacing-sm;
+  margin: $spacing-2xl 0;
+
+  a, span {
+    display: inline-block;
+    padding: $spacing-sm $spacing-md;
+    border-radius: $border-radius-sm;
+    text-decoration: none;
+    transition: $transition-base;
+  }
+
+  a {
+    background: $platinum-light;
+    color: $text-color;
+
+    &:hover {
+      background: $gold-accent;
+      color: white;
+    }
+  }
+
+  .current {
+    background: $gold-accent;
+    color: white;
+    font-weight: 700;
+  }
+
+  .disabled {
+    color: $lighter-text;
+    cursor: not-allowed;
+  }
+}

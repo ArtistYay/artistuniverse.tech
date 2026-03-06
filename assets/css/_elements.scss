@@ -1,0 +1,336 @@
+// ---------------------------------------------------------------------------------------
+// ELEMENTS - Images, Figures, Code Blocks, Lists
+// ---------------------------------------------------------------------------------------
+
+// Images
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: $border-radius-md;
+  display: block;
+}
+
+figure {
+  margin: $spacing-2xl 0;
+  text-align: center;
+
+  img {
+    margin: 0 auto;
+    display: block;
+  }
+
+  figcaption {
+    margin-top: $spacing-md;
+    font-size: 14px;
+    color: $light-text;
+    font-style: italic;
+  }
+}
+
+// Code Blocks — inline
+code {
+  background: $platinum-light;
+  padding: 2px 7px;
+  border-radius: $border-radius-sm;
+  font-family: $mono-stack;
+  font-size: 0.85em;
+  color: $link-color;
+  border: 1px solid $border-color;
+}
+
+// Code Blocks — fenced / Rouge output
+pre, .highlight pre {
+  background: $code-bg;
+  border-radius: $border-radius-md;
+  padding: $spacing-lg;
+  overflow-x: auto;
+  margin: $spacing-2xl 0;
+  font-size: 14px;
+  line-height: 1.65;
+  border: none;
+
+  code {
+    background: none;
+    padding: 0;
+    color: #f8f8f2;
+    border: none;
+    font-size: 14px;
+    font-family: $mono-stack;
+  }
+}
+
+// Syntax Highlighting — Dracula theme (Rouge token classes)
+.highlight {
+  .c, .c1, .cm, .cs, .cp, .cd { color: #6272a4; font-style: italic; } // Comments
+  .k, .kc, .kd, .kn, .kp, .kr, .kt { color: #ff79c6; }                // Keywords
+  .s, .s1, .s2, .sa, .sb, .sc, .sd, .se, .sh, .si, .ss, .sx { color: #f1fa8c; } // Strings
+  .m, .mf, .mh, .mi, .mo, .mb, .mx, .il { color: #bd93f9; }           // Numbers
+  .nf, .fm { color: #50fa7b; }                                           // Function names
+  .nb, .bp { color: #8be9fd; }                                           // Built-ins
+  .nc { color: #ffb86c; }                                                // Class names
+  .na { color: #50fa7b; }                                                // Attributes
+  .nt { color: #ff79c6; }                                                // Tags (HTML/XML)
+  .no, .nd { color: #ffb86c; }                                           // Constants / decorators
+  .nv, .vc, .vg, .vi { color: #8be9fd; }                                // Variables
+  .n, .nx, .ni, .nl, .nn { color: #f8f8f2; }                            // Other names
+  .o, .ow { color: #ff79c6; }                                            // Operators
+  .p { color: #f8f8f2; }                                                 // Punctuation
+  .gd { color: #ff5555; background: rgba(255, 85, 85, 0.12); }          // Diff — deleted
+  .gi { color: #50fa7b; background: rgba(80, 250, 123, 0.12); }         // Diff — inserted
+  .go { color: #6272a4; }                                                // Generic output
+  .gp { color: #bd93f9; font-weight: 600; }                             // Generic prompt
+  .ge { font-style: italic; }
+  .gs { font-weight: 700; }
+}
+
+// Blockquotes
+blockquote {
+  border-left: 4px solid $gold-accent;
+  padding-left: $spacing-lg;
+  margin: $spacing-2xl 0;
+  color: $light-text;
+  font-style: italic;
+  font-size: 18px;
+  background: $platinum-light;
+  padding: $spacing-lg;
+  padding-left: $spacing-lg;
+  border-radius: $border-radius-md;
+
+  p {
+    margin: 0;
+
+    &:not(:last-child) {
+      margin-bottom: $spacing-md;
+    }
+  }
+
+  cite {
+    display: block;
+    margin-top: $spacing-md;
+    font-style: normal;
+    color: $light-text;
+    font-size: 14px;
+
+    &:before {
+      content: "— ";
+    }
+  }
+}
+
+// Horizontal Rules
+hr {
+  border: none;
+  border-top: 1px solid $border-color;
+  margin: $spacing-2xl 0;
+}
+
+// Definition Lists
+dl {
+  margin: $spacing-2xl 0;
+}
+
+dt {
+  font-weight: 700;
+  margin-top: $spacing-md;
+}
+
+dd {
+  margin-left: $spacing-lg;
+  margin-bottom: $spacing-md;
+  color: $light-text;
+}
+
+// Lists
+ul, ol {
+  margin: $spacing-2xl 0;
+  padding-left: 2em;
+}
+
+li {
+  margin-bottom: $spacing-md;
+  line-height: $base-line-height;
+}
+
+ul li {
+  list-style-type: disc;
+
+  ul {
+    margin: $spacing-md 0;
+
+    li {
+      list-style-type: circle;
+
+      ul li {
+        list-style-type: square;
+      }
+    }
+  }
+}
+
+ol li {
+  list-style-type: decimal;
+
+  ol {
+    margin: $spacing-md 0;
+    list-style-type: lower-alpha;
+
+    li ol {
+      list-style-type: lower-roman;
+    }
+  }
+}
+
+// Tables
+table {
+  width: 100%;
+  margin: $spacing-2xl 0;
+  border-collapse: collapse;
+  font-size: 15px;
+  box-shadow: $shadow-sm;
+
+  thead {
+    background: $platinum-light;
+    border-bottom: 2px solid $border-color;
+  }
+
+  th {
+    padding: $spacing-md;
+    text-align: left;
+    font-weight: 700;
+    color: $text-color;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+  }
+
+  td {
+    padding: $spacing-md;
+    border-bottom: 1px solid $border-color;
+  }
+
+  tbody {
+    tr {
+      transition: $transition-base;
+
+      &:hover {
+        background: $platinum-light;
+      }
+
+      &:nth-child(even) {
+        background: #f9f9f9;
+      }
+    }
+  }
+}
+
+// Forms
+form {
+  margin: $spacing-2xl 0;
+}
+
+label {
+  display: block;
+  margin-bottom: $spacing-sm;
+  font-weight: 600;
+  color: $text-color;
+}
+
+input[type='text'],
+input[type='email'],
+input[type='search'],
+textarea {
+  width: 100%;
+  padding: $spacing-md;
+  border: 1px solid $border-color;
+  border-radius: $border-radius-sm;
+  font-family: inherit;
+  font-size: 16px;
+  margin-bottom: $spacing-lg;
+  transition: $transition-base;
+
+  &:focus {
+    outline: none;
+    border-color: $gold-accent;
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+  }
+}
+
+textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+button, input[type='button'], input[type='submit'] {
+  display: inline-block;
+  padding: 10px 24px;
+  background: $text-color;
+  color: white;
+  border: none;
+  border-radius: $border-radius-sm;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: $transition-base;
+  text-decoration: none;
+
+  &:hover {
+    background: $gold-accent;
+    transform: translateY(-2px);
+    box-shadow: $shadow-md;
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// Back to Top Button
+#back-to-top {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  background: $link-color;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, background 0.2s ease, transform 0.2s ease;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+
+  &.visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  &:hover {
+    background: $link-hover;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+input[type='button']:disabled,
+input[type='submit']:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+
+  &:hover {
+    background: $text-color;
+    transform: none;
+    box-shadow: none;
+  }
+}

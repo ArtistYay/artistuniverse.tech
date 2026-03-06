@@ -1,0 +1,91 @@
+// ---------------------------------------------------------------------------------------
+// RESET & BASE STYLES
+// ---------------------------------------------------------------------------------------
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: $font-stack;
+  font-size: $base-font-size;
+  line-height: $base-line-height;
+  color: $text-color;
+  background: $background;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// Links
+a {
+  color: $link-color;
+  text-decoration: none;
+  transition: $transition-base;
+  
+  &:hover {
+    color: $link-hover;
+  }
+  
+  &:focus {
+    outline: thin dotted;
+    color: $link-hover;
+  }
+}
+
+// Images
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+// Lists
+ul, ol {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+// Code
+code {
+  font-family: 'SF Mono', 'Monaco', 'Menlo', monospace;
+  font-size: 0.9em;
+}
+
+// Blockquote
+blockquote {
+  margin: 0;
+  padding: 0;
+}
+
+// Table
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+// Form elements
+button, input, select, textarea {
+  font-family: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+  *vertical-align: middle;
+}
+
+button, input {
+  line-height: normal;
+}
+
+button, input[type="button"], input[type="reset"], input[type="submit"] {
+  cursor: pointer;
+  -webkit-appearance: button;
+}
