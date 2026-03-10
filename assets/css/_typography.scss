@@ -27,16 +27,32 @@ h2 {
   font-size: 32px;
   letter-spacing: -0.5px;
   margin: $spacing-2xl 0 $spacing-lg 0;
+
+  @media (max-width: $breakpoint-tablet) {
+    font-size: 26px;
+  }
+
+  @media (max-width: $breakpoint-mobile) {
+    font-size: 22px;
+  }
 }
 
 h3 {
   font-size: 26px;
   margin: $spacing-xl 0 $spacing-md 0;
+
+  @media (max-width: $breakpoint-mobile) {
+    font-size: 20px;
+  }
 }
 
 h4 {
   font-size: 22px;
   margin: $spacing-lg 0 $spacing-md 0;
+
+  @media (max-width: $breakpoint-mobile) {
+    font-size: 18px;
+  }
 }
 
 h5 {

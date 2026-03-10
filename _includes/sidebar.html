@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Most Viewed Tracker
   if (document.querySelector('.post')) {
-    const postId = currentPage;
+    const postId = currentPage.replace(/\/$/, '');
     let viewCounts = JSON.parse(localStorage.getItem('viewCounts') || '{}');
     viewCounts[postId] = (viewCounts[postId] || 0) + 1;
     localStorage.setItem('viewCounts', JSON.stringify(viewCounts));

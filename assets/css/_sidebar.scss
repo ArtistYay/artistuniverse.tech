@@ -28,6 +28,10 @@
     position: static;
     top: auto;
   }
+
+  @media (max-width: $breakpoint-mobile) {
+    order: 1;
+  }
 }
 
 .sidebar-section {
@@ -238,6 +242,24 @@
     }
 
     &:nth-last-child(-n+2) {
+      border-bottom: none;
+    }
+  }
+}
+
+@media (max-width: $breakpoint-mobile) {
+  .sidebar {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar-section {
+    border-right: none !important;
+
+    &:nth-last-child(-n+2) {
+      border-bottom: 1px solid $border-color;
+    }
+
+    &:last-child {
       border-bottom: none;
     }
   }

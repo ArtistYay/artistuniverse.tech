@@ -352,30 +352,46 @@ title: Home
 
 @media (max-width: 768px) {
   .post-card {
-    padding: 30px 20px;
+    padding: 20px 0;
   }
-  
+
+  .post-card:hover {
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
   .post-card-header {
     flex-direction: column;
     align-items: flex-start;
   }
-  
+
   .post-card-title {
-    font-size: 28px;
+    font-size: 22px;
+    letter-spacing: -0.3px;
   }
-  
+
   .post-card-excerpt {
     font-size: 16px;
   }
-  
+
   .articles-list li {
     flex-direction: column;
     align-items: flex-start;
     gap: 8px;
   }
-  
+
+  .articles-list li a {
+    min-width: 0;
+  }
+
   .article-date {
     min-width: auto;
+  }
+
+  .previous-articles > h2 {
+    font-size: 20px;
   }
 }
 </style>
