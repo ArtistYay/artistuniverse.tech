@@ -74,12 +74,6 @@
           color: $link-color;
         }
       }
-
-      .view-count {
-        font-size: 11px;
-        color: $lighter-text;
-        margin-left: 4px;
-      }
     }
   }
 }
@@ -107,53 +101,18 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
+    width: 32px;
+    height: 32px;
     border-radius: $border-radius-md;
     background: $platinum-light;
     color: $text-color;
     transition: $transition-base;
-    font-size: 18px;
+    font-size: 15px;
 
     &:hover {
       background: $link-color;
       color: white;
       transform: translateY(-3px);
-    }
-  }
-}
-
-// GitHub Repos Section
-.github-repos {
-  .repo-item {
-    padding: $spacing-sm;
-    margin-bottom: $spacing-sm;
-    background: $platinum-light;
-    border-radius: $border-radius-md;
-    transition: $transition-base;
-    border-left: 3px solid $link-color;
-
-    &:hover {
-      background: #ebf4ff;
-      transform: translateX(5px);
-    }
-
-    .repo-name {
-      font-weight: 700;
-      color: $text-color;
-      font-size: 13px;
-      margin-bottom: 5px;
-      text-decoration: none;
-
-      &:hover {
-        color: $link-color;
-      }
-    }
-
-    .repo-desc {
-      font-size: 12px;
-      color: $light-text;
-      line-height: 1.4;
     }
   }
 }
@@ -192,32 +151,6 @@
       background: #4a5568;
       color: rgba(255, 255, 255, 0.85);
       padding: 4px 9px;
-    }
-  }
-}
-
-// Views Section
-.views-section {
-  .view-item {
-    padding: $spacing-xs $spacing-sm;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid $border-color;
-    font-size: 13px;
-
-    &:last-child {
-      border-bottom: none;
-    }
-
-    .view-title {
-      color: $text-color;
-      flex: 1;
-    }
-
-    .view-count {
-      color: $light-text;
-      font-weight: 600;
     }
   }
 }

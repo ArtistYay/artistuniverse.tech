@@ -26,36 +26,11 @@
     </div>
   </div>
 
-  <!-- CloudSec Projects (GitHub Repos) -->
-  <div class="sidebar-section projects-section">
-    <h3>CloudSec Projects</h3>
-    <div id="github-repos">
-      <p style="color: #a0aec0; font-size: 13px;">Loading repositories...</p>
-    </div>
-  </div>
-
   <!-- Recently Viewed -->
   <div class="sidebar-section recently-viewed-section">
     <h3>Recently Viewed</h3>
     <ol id="recently-viewed-list">
       <li style="color: #a0aec0; font-size: 13px; list-style: none;">No articles viewed yet</li>
-    </ol>
-  </div>
-
-  <!-- Most Viewed Articles -->
-  <div class="sidebar-section most-viewed-section">
-    <h3>Most Viewed Articles</h3>
-    <ol id="most-viewed-list">
-      {% if site.posts.size > 0 %}
-        {% for post in site.posts limit:3 %}
-        <li data-post-id="{{ post.id }}">
-          <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-          <span class="view-count">(0 views)</span>
-        </li>
-        {% endfor %}
-      {% else %}
-        <li style="color: #a0aec0; font-size: 13px; list-style: none;">No articles yet</li>
-      {% endif %}
     </ol>
   </div>
 
@@ -78,96 +53,32 @@
   </div>
 </aside>
 
-<!-- Tracking Script for Views -->
+<!-- Recently Viewed tracker -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  // GitHub Repos Fetcher - Top 3 only
-  const username = 'ArtistYay'; // Change this to your GitHub username
-  fetch(`https://api.github.com/users/${username}/repos?sort=stars&per_page=3`)
-    .then(response => response.json())
-    .then(repos => {
-      const reposContainer = document.getElementById('github-repos');
-      if (repos.length > 0) {
-        const reposList = repos.map(repo => `
-          <div class="github-repo">
-            <a href="${repo.html_url}" target="_blank">
-              <i class="fab fa-github"></i> ${repo.name}
-            </a>
-            <p>${repo.description || 'No description'}</p>
-            <div class="repo-stats">
-              <span><i class="fas fa-star"></i> ${repo.stargazers_count}</span>
-              <span><i class="fas fa-code-branch"></i> ${repo.forks_count}</span>
-            </div>
-          </div>
-        `).join('');
-        reposContainer.innerHTML = reposList;
-      }
-    })
-    .catch(() => {
-      document.getElementById('github-repos').innerHTML = '<p style="color: #a0aec0; font-size: 13px;">Unable to load repositories</p>';
-    });
-
-  // Recently Viewed Tracker
   const currentPage = window.location.pathname;
   const pageTitle = document.querySelector('h1.post-title')?.textContent || document.title;
-  
-  // Only track if on a post page
+
+  // Track the current page only if it's a post
   if (document.querySelector('.post')) {
     let recentlyViewed = JSON.parse(localStorage.getItem('recentlyViewed') || '[]');
-    
-    // Remove if already exists
     recentlyViewed = recentlyViewed.filter(item => item.url !== currentPage);
-    
-    // Add to beginning
     recentlyViewed.unshift({
       url: currentPage,
       title: pageTitle,
       date: new Date().toISOString()
     });
-    
-    // Keep only last 5
     recentlyViewed = recentlyViewed.slice(0, 5);
-    
     localStorage.setItem('recentlyViewed', JSON.stringify(recentlyViewed));
   }
-  
-  // Display recently viewed
+
+  // Render the recently-viewed list
   const recentlyViewedList = document.getElementById('recently-viewed-list');
   const recentlyViewed = JSON.parse(localStorage.getItem('recentlyViewed') || '[]');
-  
-  if (recentlyViewed.length > 0) {
+  if (recentlyViewedList && recentlyViewed.length > 0) {
     recentlyViewedList.innerHTML = recentlyViewed.map(item => `
       <li><a href="${item.url}">${item.title}</a></li>
     `).join('');
   }
-
-  // Most Viewed Tracker
-  if (document.querySelector('.post')) {
-    const postId = currentPage.replace(/\/$/, '');
-    let viewCounts = JSON.parse(localStorage.getItem('viewCounts') || '{}');
-    viewCounts[postId] = (viewCounts[postId] || 0) + 1;
-    localStorage.setItem('viewCounts', JSON.stringify(viewCounts));
-  }
-
-  // Display most viewed
-  const viewCounts = JSON.parse(localStorage.getItem('viewCounts') || '{}');
-  document.querySelectorAll('#most-viewed-list li[data-post-id]').forEach(item => {
-    const postId = item.getAttribute('data-post-id');
-    const count = viewCounts[postId] || 0;
-    const viewCountSpan = item.querySelector('.view-count');
-    if (viewCountSpan) {
-      viewCountSpan.textContent = `(${count} view${count !== 1 ? 's' : ''})`;
-    }
-  });
-
-  // Sort most viewed
-  const mostViewedList = document.getElementById('most-viewed-list');
-  const items = Array.from(mostViewedList.querySelectorAll('li[data-post-id]'));
-  items.sort((a, b) => {
-    const countA = viewCounts[a.getAttribute('data-post-id')] || 0;
-    const countB = viewCounts[b.getAttribute('data-post-id')] || 0;
-    return countB - countA;
-  });
-  items.forEach(item => mostViewedList.appendChild(item));
 });
 </script>
