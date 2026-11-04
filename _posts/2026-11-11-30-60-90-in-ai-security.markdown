@@ -1,0 +1,121 @@
+# 30 days in AI security: the plan versus what happened
+
+I started a new job on a small, new team. The work is finding and governing shadow AI in the Microsoft ecosystem, meaning the AI tools and agents people use at work that nobody approved. I came from cloud security consulting, mostly on the Microsoft side: identity, endpoint management, some DLP work. I had never done AI security. Nobody else on the team had either. My manager told me in the interview that the people six months in have about as much experience as anyone in this field.
+
+I wrote a 30/60/90 plan before my first day. This post covers the first 30. I've left out my employer, names, numbers and anything specific to the environment, so some of it is vaguer than I'd like.
+
+## Before day one
+
+I ran a mock interview and it showed me exactly where I was weak. My identity and access answers were fine. My AI answers were not. I explained prompt injection as if it were SQL injection, and I mixed up content safety filters with data sensitivity labels. When I didn't know the AI-specific control, I reached for MFA and Zero Trust, which is what you say when you don't know the answer.
+
+So I studied the vocabulary first. Direct prompt injection (a user typing something hostile) can be partly handled with input filtering, hardened system prompts and output validation. Indirect injection, where the hostile text arrives inside a document or web page the model reads, has no clean fix. I needed that distinction before I could follow half the conversations I was about to sit in.
+
+I also asked a lot of people. A cloud security community I belong to, former colleagues, a few public threads. I kept one research log and noted every time two unrelated people told me the same thing, because that's how I separated consensus from one person's opinion. Three different sources described the same two-layer model: first control which AI apps get in, then control what data can reach the ones you allowed.
+
+One more thing happened before I started. The written job description read like a governance role, and the interview had sounded hands-on. I had already accepted, and I spent a few days anxious about it. Then I asked my manager directly. The answer made the job smaller and more doable than I'd feared: the logging and security tooling already existed, and my part was getting our team access to it and making it useful for AI. I should have asked on day one of worrying instead of day four.
+
+## The plan
+
+- Days 1 to 30: learn how things work today and change nothing. Deliver a written map of how shadow AI detection currently works, plus a short list of specific hunting targets agreed with my manager.
+- Days 31 to 60: get one real detection running against one of those targets, and draft a triage procedure someone else could follow.
+- Days 61 to 90: make it repeatable, with a documented escalation path.
+
+My manager's measure of success was not a technical bar. It was whether the process got easier than it was when I started. I come back to that sentence a lot.
+
+## What I learned
+
+### Half my plan assumed data I didn't have
+
+Most of the detection queries I'd collected from the community depended on one endpoint telemetry source. It wasn't available to me. I found that out in week two, after I'd planned around it.
+
+The fix is boring: before anything else, list what your workspace is collecting.
+
+```kql
+Usage
+| where TimeGenerated > ago(30d)
+| summarize TotalMB = sum(Quantity), LastSeen = max(TimeGenerated) by DataType
+| sort by TotalMB desc
+```
+
+The first time I ran this it returned nothing. I assumed it was a permissions problem and carried that assumption for over a week. It was the portal's time picker, which was applying its own filter on top of the one in my query. Since then I treat an empty result as a claim that needs evidence. "Nothing came back" usually means I can't see it, which is a different statement from "it isn't happening."
+
+### "Shadow AI" is a category, and you can't hunt a category
+
+This was the best advice I got before starting, and it held up. You can't search for "shadow AI." You can search for a named coding agent running on laptops, or for AI resources created in the cloud outside the approved path. So the first real deliverable was turning a vague mandate into a ranked list of specific targets and getting my manager to agree to it. We settled on five.
+
+### I did the steps out of order
+
+A friend gave me a sequence: inventory what's already collected, read the existing alert rules to learn how the organization builds them, and only then go hunting. Her point was that I shouldn't design anything new. I should alert on data that's already there and copy the house style.
+
+I skipped to the hunting because it's the fun part. It did produce a real finding. But I still couldn't answer the two basic questions the rest of my work depended on, and I had to go back. The second step, reading the logic of existing rules, was still on my todo list. She told me it was the step people skip. I skipped it.
+
+### Local AI agents don't have an identity
+
+This one changed how I scoped the work. A coding agent on someone's laptop runs as that person. It has no account of its own, so it will never appear in sign-in logs, interactive or otherwise. Cloud-hosted agents and service principals do show up there. These are two separate problems with two separate data sources, and if you blend them you'll spend weeks looking in the wrong table.
+
+A related mistake I made: cloud activity logs give you a caller ID, not a name, and there's no single place to resolve it. I checked the user sign-in table, then the service principal table, found nothing, and concluded the caller was a person. It was a managed identity, which logs to its own table.
+
+```kql
+// Human users
+SigninLogs
+| where TimeGenerated > ago(90d)
+| where UserId == "<GUID>"
+| project TimeGenerated, UserPrincipalName, AppDisplayName
+
+// App-registration service principals
+AADServicePrincipalSignInLogs
+| where TimeGenerated > ago(90d)
+| where ServicePrincipalId == "<GUID>"
+| project TimeGenerated, ServicePrincipalName, ResourceDisplayName
+
+// Managed identities (separate table, easy to miss)
+AADManagedIdentitySignInLogs
+| where TimeGenerated > ago(90d)
+| where ServicePrincipalId == "<GUID>"
+| project TimeGenerated, ServicePrincipalName, ResourceDisplayName
+```
+
+Check all three before you decide what something is.
+
+### For the first month, access is the job
+
+I expected to spend my time writing queries. I spent a lot of it requesting roles, tracing tickets, and learning that the role I'd been granted didn't do what its name suggested. One "viewer" role let me see reports and nothing underneath them.
+
+What worked was describing the goal instead of naming a role. When I asked for a specific role, the person who owned it asked what I was trying to accomplish, and answering that got me further than the role name had. Now I open with the goal.
+
+### Words matter more than I expected
+
+I write "potentially unauthorized" in every escalation and never the definitive version. A definitive claim implies an investigation happened, and investigating isn't my team's role.
+
+Product names matter too. Two security products with nearly the same name are easy to swap in conversation, and people notice when you do. An approved tool is also not the same as an approved AI feature inside that tool. And a use case being approved doesn't mean the software behind it is in the approved software inventory. In a large organization those can be separate records owned by separate teams.
+
+## Where I was at day 30
+
+Done:
+
+- A written map of how detection works today, organised by device, user and network. Laying it out that way made the gaps show up as findings instead of things I'd forgotten to mention.
+- Five named hunting targets, agreed with my manager.
+- A small library of queries that run against data I can reach, with the broken ones corrected.
+- A first draft of baseline metrics for AI risk.
+- A recurring call with the vendor's security architect, who has answered questions I'd have spent weeks guessing at.
+
+Not done:
+
+- Any detection running in development. That was always a day 60 goal, but I'd hoped to be closer.
+- Several access requests.
+
+## The nerves
+
+I was scared before I started and I'm sometimes scared now. What helps is a pattern from my consulting years: every time I hit real uncertainty in the middle of a project, it turned out fine, and the fear had been bigger than the danger. Nobody has written the documentation for this work yet. Writing it down is a large part of what I was hired to do, so not knowing is the normal condition of the job and not a sign I'm behind.
+
+## If you're starting something similar
+
+1. Find out what data you can reach before you plan anything around it.
+2. Turn the category into named targets and get them agreed in writing.
+3. Read how the existing alerts are built before you write your own.
+4. Look at real data and see what the activity looks like before you write a rule for it.
+5. Document as you go. You may be the first person to write any of it down.
+
+## Next
+
+Days 31 to 60 are about one detection working end to end against one named target, and a triage procedure a teammate could follow without me. I'll write the next post when I get there.
