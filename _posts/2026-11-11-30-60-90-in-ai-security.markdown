@@ -1,3 +1,12 @@
+---
+layout: post
+title: "30/60/90 days in AI security"
+date: 2026-11-11 18:03:36 +0000
+categories: Cybersecurity
+tags: [AI, Cybersecurity]
+author: admin
+---
+
 # 30 days in AI security: the plan versus what happened
 
 I started a new job on a small, new team. The work is finding and governing shadow AI in the Microsoft ecosystem, meaning the AI tools and agents people use at work that nobody approved. I came from cloud security consulting, mostly on the Microsoft side: identity, endpoint management, some DLP work. I had never done AI security. Nobody else on the team had either. My manager told me in the interview that the people six months in have about as much experience as anyone in this field.
