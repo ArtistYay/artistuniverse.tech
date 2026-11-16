@@ -15,7 +15,7 @@
 #   end_label:  text to show instead of the end date (e.g. "2026") when the month is unknown
 #   precision:  year = only the year of `date` is known; shows "2021" instead of "Jan 2021"
 #   summary:    one or two sentences (optional)
-#   highlights: short bullet list (optional, keep to 3)
+#   highlights: short bullet list (optional, keep to 3-4)
 #   learned:    "Key takeaways" note, first person, 1-2 sentences (optional)
 #   link:       URL (optional), link_label: text for it (default "Details")
 #   links:      extra links shown beside it, a list of { url: ..., label: ... } (optional)
@@ -41,6 +41,8 @@
     - Proposed a ranked, evidence-backed list of AI hunting targets that set the team's detection priorities.
     - Built a hunt for AI agents with sensitive purposes, fixed a mismatch between vendor schema docs and the live environment, and reviewed results by hand before calling it detection-ready.
     - Recommended Communication Compliance over DLP for flagging AI assistant misuse, so prompt content stays in the compliance tool and only the alert signal moves on.
+  link: /cybersecurity/2026/11/04/30-60-90-in-ai-security.html
+  link_label: "Read my 30/60/90 days post"
 
 - type: work
   title: Associate Cloud Security Consultant
@@ -52,7 +54,7 @@
     - Automated 100+ registry-level security settings that Intune can't set natively, using PowerShell; adopted as a reusable accelerator on later Slalom Intune migrations.
     - Led Active Directory tiering for a government contractor preparing for a compliance audit, authoring the Tier 0/1/2 classification criteria, classifying every directory object, and delivering the implementation playbook and CIS baseline GPOs.
     - Piloted phishing-resistant authentication (Microsoft Authenticator and FIDO2) for a global nonprofit, with runbooks the client used to finish the rollout.
-    - Remediated 94,000 vulnerabilities across a 200+ server hybrid Windows estate with zero unplanned outages.
+    - Designed and deployed Microsoft Purview sensitivity labels and DLP for several clients, including 10 custom labels validated through user testing and label encryption scoped to specific groups after a client data breach.
 
 # Short role after the WarnerMedia internship (from the 2022 resumes, "Cyber Defense International LLC").
 - type: work
@@ -381,13 +383,34 @@
 
 - type: training
   title: Google IT Support Professional Certificate
-  learned: "IT from the ground up: networking, operating systems, system administration, security and troubleshooting. My first step out of retail and into tech."
+  learned: "IT from the ground up: networking, operating systems, system administration, security and troubleshooting. My first IT certification, earned the month after I left retail."
   org: Google (Coursera)
   date: 2020-11-29
   link: https://www.credly.com/badges/beafcf9c-504c-4e8f-a8e1-eae74504344d/public_url
   link_label: Credly badge
 
 # Add new training here (course, provider, month).
+
+# YouTube (@ArtistUniverseUntouched): 13 Exercism Python videos, Jan 16 - Apr 8, 2026,
+# grouped into one entry instead of 13. Takeaway from the video descriptions.
+- type: training
+  title: Exercism Python challenges on YouTube
+  org: ArtistUniverse Untouched
+  date: 2026-01-16
+  end: 2026-04-08
+  summary: A 13-video series working through Exercism's Python challenges on camera, from Currency Exchange to Chaitana's Colossal Coaster.
+  learned: "Thinking a problem through before turning it into code, and coming back to finish when I get stuck. Collatz Conjecture frustrated me in part 1, so I returned and finished it in part 2."
+  link: https://www.youtube.com/@ArtistUniverseUntouched/videos
+  link_label: Watch on YouTube
+
+# Lab and CTF write-ups on this blog (first one Jan 2022). Linked here so they're on the timeline.
+- type: training
+  title: Hands-on labs and CTF write-ups
+  date: 2022-01-17
+  end: present
+  summary: Blue Team Labs Online, flaws.cloud, CloudGoat and other hands-on challenges, each written up on this blog.
+  learned: "Patience, careful analysis and the right question beat speed, like asking whether a software update should be sitting in a user's Downloads folder."
+  links: [{ url: "/cybersecurity/2022/01/17/blue-teams-online-deep-blue.html", label: "Deep Blue" }, { url: "/cybersecurity/2022/01/23/network-analysis-ransomware.html", label: "Ransomware traffic" }, { url: "/cybersecurity/2022/01/31/network-analysis-malware-compromise.html", label: "Malware compromise" }, { url: "/cybersecurity/2022/05/25/flaws-cloud.html", label: "flaws.cloud" }, { url: "/cybersecurity/2022/06/13/iam_privesc_by_rollback.html", label: "CloudGoat IAM rollback" }, { url: "/cybersecurity/2026/02/10/azure-attack-vectors.html", label: "Azure attack vectors" }]
 
 # From the 2026 brag document ("Books / Courses"). No key takeaways yet: add your own.
 - type: training
@@ -416,18 +439,6 @@
 
 # ===== Projects =====
 
-# YouTube (@ArtistUniverseUntouched): 13 Exercism Python videos, Jan 16 - Apr 8, 2026,
-# grouped into one entry instead of 13. Takeaway from the video descriptions.
-- type: project
-  title: Exercism Python challenges on YouTube
-  org: ArtistUniverse Untouched
-  date: 2026-01-16
-  end: 2026-04-08
-  summary: A 13-video series working through Exercism's Python challenges on camera, from Currency Exchange to Chaitana's Colossal Coaster.
-  learned: "Thinking a problem through before turning it into code, and coming back to finish when I get stuck. Collatz Conjecture frustrated me in part 1, so I returned and finished it in part 2."
-  link: https://www.youtube.com/@ArtistUniverseUntouched/videos
-  link_label: Watch on YouTube
-
 - type: project
   title: Git Client from Scratch (CodeCrafters)
   ongoing: false
@@ -436,6 +447,7 @@
   summary: A working Git client in Python with no Git libraries, covering blob, tree and commit objects, plus cloning over Git's Smart HTTP protocol with packfile parsing.
   link: https://github.com/ArtistYay/codecrafters-git-python
   link_label: GitHub
+  start: 2026-02-01
 
 - type: project
   title: Azure AppSec Pipeline
@@ -494,16 +506,14 @@
   link: https://github.com/ArtistYay/Scriptz-R-4-Kidz
   link_label: GitHub
 
-# Is AI Really Scary? appears only on the Jan 2026 resume, marked "(Archived)", and its
-# repo is now private. It sounds like the Terraform Beginner Bootcamp site (S3 + CDN,
-# Terraform Cloud state). Hidden until you confirm whether it's the same project.
+# Is AI Really Scary? (separate from the Terraform bootcamp). First seen on the Jan 2026
+# resume, already marked "(Archived)", so dated 2025 (year only). Change if you know the real year.
 - type: project
   title: Is AI Really Scary?
-  date: 2023-01-01
+  date: 2025-01-01
   precision: year
   status: archived
   summary: AWS S3 static site provisioned entirely with Terraform through a CI/CD pipeline, with tflint and tfsec checks and remote state.
-  hidden: true
 
 # Repo name: terraform-beginner-bootcamp-2023 (now private). Called "Terraform
 # Automation" / "Terraform Cloud Project" on 2024-2026 resumes.
@@ -626,6 +636,12 @@
 
 # ===== Community =====
 
+# Accepted Nov 2026. Book and publisher not named here; add them if the agreement allows.
+- type: community
+  title: Technical reviewer for a book
+  date: 2026-11-01
+  summary: Accepted a publisher's invitation to serve as a technical reviewer.
+
 - type: community
   title: Volunteer
   ongoing: false
@@ -636,18 +652,15 @@
   link: https://www.credly.com/badges/6bce8873-ec32-4a17-bafc-bae4406e44b8/public_url
   link_label: Credly badge
 
-# Joined 2022 (2024 resume: "Community Builder (2022 - Present)"; Jan 2026 resume: "Alumni").
+# Dates from LinkedIn: AWS Community Builder, Security & Identity, Mar 2023 - May 2025.
 - type: community
   title: AWS Community Builder
-  end_label: "2023"
-  end: 2023-12-01
+  end: 2025-05-01
   learned: "Learning in public: writing about AWS security and identity, answering questions and mentoring people starting out in cloud security."
   org: Amazon Web Services
-  date: 2022-01-01
-  precision: year
-  summary: Selected for the AWS Community Builders program. Shared AWS security and identity content and met with AWS product teams about new services.
+  date: 2023-03-01
+  summary: Selected for the AWS Community Builders program in the Security & Identity category. Shared AWS security and identity content and met with AWS product teams about new services.
 
-# TODO: dates for these, then remove hidden.
 - type: community
   title: Member
   org: InfraGard Atlanta Members Alliance
