@@ -1,44 +1,46 @@
 ---
 layout: default
 ---
+{% if content contains '<h2' %}{% assign has_toc = true %}{% else %}{% assign has_toc = false %}{% endif %}
 <article class="post hentry">
-  <div class="post-box">
-    <div class="entry-content">
-      <div class="post-header">
+  <!-- Grid: TOC on the left (wide screens), header + content on the right.
+       Below 1280px the TOC drops back inline between header and content. -->
+  <div class="post-box{% if has_toc %} has-toc{% endif %}">
+    <header class="post-header">
 
-        <!-- Title -->
-        <h1 class="entry-title post-title">{{ page.title }}</h1>
+      <!-- Title -->
+      <h1 class="entry-title post-title">{{ page.title }}</h1>
 
-        <!-- Meta row: date · reading time · tags -->
-        <div class="post-meta">
-          <time class="entry-date date published updated" datetime="{{ page.date | date_to_xmlschema }}">
-            {{ page.date | date: "%B %d, %Y" }}
-          </time>
-          <span class="meta-sep">·</span>
-          <span class="entry-reading-time">
-            {{ content | strip_html | number_of_words | divided_by: 200 | ceil }} min read
-          </span>
-          {% if page.tags %}
-          <span class="meta-sep">·</span>
-          <span class="entry-tags">
-            {% for tag in page.tags %}
-            <a href="/tags.html#{{ tag }}" title="Pages tagged {{ tag }}" class="tag">{{ tag }}</a>
-            {% endfor %}
-          </span>
-          {% endif %}
-        </div>
-
-      </div>
-
-      <div class="post-content">
-        {% if content contains '<h2' %}
-        <div class="toc-box">
-          <strong class="toc-title">Contents</strong>
-          {% include toc.html html=content h_min=2 %}
-        </div>
+      <!-- Meta row: date · reading time · tags -->
+      <div class="post-meta">
+        <time class="entry-date date published updated" datetime="{{ page.date | date_to_xmlschema }}">
+          {{ page.date | date: "%B %d, %Y" }}
+        </time>
+        <span class="meta-sep">·</span>
+        <span class="entry-reading-time">
+          {{ content | strip_html | number_of_words | divided_by: 200 | ceil }} min read
+        </span>
+        {% if page.tags %}
+        <span class="meta-sep">·</span>
+        <span class="entry-tags">
+          {% for tag in page.tags %}
+          <a href="{{ '/tags.html' | relative_url }}#{{ tag | slugify }}" title="Pages tagged {{ tag }}" class="tag">{{ tag }}</a>
+          {% endfor %}
+        </span>
         {% endif %}
-        {{ content }}
       </div>
+
+    </header>
+
+    {% if has_toc %}
+    <nav class="toc-box" id="post-toc" aria-label="Table of contents">
+      <strong class="toc-title">Contents</strong>
+      {% include toc.html html=content h_min=2 h_max=3 %}
+    </nav>
+    {% endif %}
+
+    <div class="post-content entry-content">
+      {{ content }}
     </div>
   </div>
 </article>
@@ -54,23 +56,39 @@ layout: default
   var overlay = document.getElementById('lightbox-overlay');
   var overlayImg = document.getElementById('lightbox-img');
   var closeBtn = document.getElementById('lightbox-close');
+  var opener = null; // image that opened the viewer, to return focus on close
 
-  function openLightbox(src, alt) {
-    overlayImg.src = src;
-    overlayImg.alt = alt || '';
+  function openLightbox(img) {
+    opener = img;
+    overlayImg.src = img.src;
+    overlayImg.alt = img.alt || '';
     overlay.classList.add('active');
     document.body.style.overflow = 'hidden';
+    closeBtn.focus();
   }
 
   function closeLightbox() {
+    if (!overlay.classList.contains('active')) return;
     overlay.classList.remove('active');
     document.body.style.overflow = '';
+    if (opener) opener.focus();
+    opener = null;
   }
 
   document.querySelectorAll('.post-content img').forEach(function (img) {
     img.classList.add('lightbox-trigger');
+    // Keyboard users: Tab to an image, Enter/Space to enlarge
+    img.tabIndex = 0;
+    img.setAttribute('role', 'button');
+    img.setAttribute('aria-label', 'Enlarge image' + (img.alt ? ': ' + img.alt : ''));
     img.addEventListener('click', function () {
-      openLightbox(this.src, this.alt);
+      openLightbox(this);
+    });
+    img.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openLightbox(this);
+      }
     });
   });
 
@@ -88,5 +106,50 @@ layout: default
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') closeLightbox();
   });
+})();
+
+// TOC: highlight the section currently being read
+(function () {
+  var toc = document.getElementById('post-toc');
+  if (!toc) return;
+
+  // Pair each TOC link with the heading it points to (skip any that don't resolve)
+  var items = [];
+  toc.querySelectorAll('a[href^="#"]').forEach(function (link) {
+    var heading = document.getElementById(decodeURIComponent(link.hash.slice(1)));
+    if (heading) items.push({ link: link, heading: heading });
+  });
+  if (!items.length) return;
+
+  var siteHeader = document.querySelector('.site-header');
+  var current = null;
+  var ticking = false;
+
+  function update() {
+    ticking = false;
+    var offset = (siteHeader ? siteHeader.offsetHeight : 0) + 24;
+    var active = null;
+    for (var i = 0; i < items.length; i++) {
+      if (items[i].heading.getBoundingClientRect().top - offset <= 0) active = items[i];
+      else break;
+    }
+    if (active === current) return;
+    if (current) current.link.classList.remove('active');
+    if (active) {
+      active.link.classList.add('active');
+      // Keep the active entry visible when the TOC itself scrolls (long posts),
+      // without moving the page.
+      var linkTop = active.link.offsetTop;
+      if (linkTop < toc.scrollTop || linkTop > toc.scrollTop + toc.clientHeight - 40) {
+        toc.scrollTop = linkTop - toc.clientHeight / 3;
+      }
+    }
+    current = active;
+  }
+
+  window.addEventListener('scroll', function () {
+    if (!ticking) { ticking = true; window.requestAnimationFrame(update); }
+  }, { passive: true });
+  update();
 })();
 </script>

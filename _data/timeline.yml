@@ -1,0 +1,504 @@
+# ---------------------------------------------------------------------------
+# About page timeline. Rendered by _includes/timeline.html, newest first.
+#
+# Each entry:
+#   type:       work | education | certification | project | training | community | recognition
+#   title:      required
+#   org:        company / school / issuer (optional)
+#   date:       YYYY-MM-DD, required. Start date for ranges, earned date for certs.
+#               Only the month and year are shown.
+#   end:        YYYY-MM-DD, or "present". Optional (makes it a range).
+#   end_label:  text to show instead of the end date (e.g. "2026") when the month is unknown
+#   precision:  year = only the year of `date` is known; shows "2021" instead of "Jan 2021"
+#   summary:    one or two sentences (optional)
+#   highlights: short bullet list (optional, keep to 3)
+#   learned:    "What I learned" note, first person, 1-2 sentences (optional)
+#   link:       URL (optional), link_label: text for it (default "Details")
+#   status:     expired | in-progress | archived (optional, shows a label)
+#   hidden:     true = keep in this file but don't show on the site
+#
+# Order in this file doesn't matter; entries are sorted by date.
+# ---------------------------------------------------------------------------
+
+# ===== Work =====
+
+# Source of truth for work entries: Resume/Athina_Thomas_General_Security_Engineer.pdf (Oct 2026).
+# Current role: employer intentionally not named, and kept high level (internal detection design).
+- type: work
+  title: Senior Associate Security Engineer, AI Cloud Security
+  learned: "Shadow AI is a category, so I hunt specific behaviors instead of chasing it as a whole. Local coding agents run as the user and never appear in sign-in logs, vendor docs and the real tenant schema don't always match, and a threat and a policy violation belong to different teams."
+  date: 2026-08-01
+  end: present
+  summary: Building Microsoft-based detection for unauthorized AI tools and agents on a new AI security posture team, using Microsoft Sentinel, Defender advanced hunting and Purview.
+
+- type: work
+  title: Associate Cloud Security Consultant
+  learned: "Consulting taught me to explain technical findings in business terms, to pick the control that fits how a client actually works (sensitivity label encryption when DLP was too restrictive), and to leave every client able to run what I built through runbooks and handover docs."
+  org: Slalom
+  date: 2022-09-01
+  end: 2026-09-01
+  highlights:
+    - Automated 100+ registry-level security settings that Intune can't set natively, using PowerShell; adopted as a reusable accelerator on later Slalom Intune migrations.
+    - Designed a tiered Active Directory administration model (Tier 0/1/2) for a government contractor preparing for a compliance audit.
+    - Piloted phishing-resistant authentication (Microsoft Authenticator and FIDO2) for a global nonprofit, with runbooks the client used to finish the rollout.
+    - Remediated 94,000 vulnerabilities across a 200+ server hybrid Windows estate with zero unplanned outages.
+
+# Short role after the WarnerMedia internship. It's on the 2022 resumes but not on
+# newer ones, so it's hidden until you decide whether you want it shown.
+- type: work
+  title: Security Operations Center Analyst
+  org: Cyber Defense International
+  date: 2022-02-01
+  end: 2022-03-01
+  hidden: true
+
+- type: work
+  title: Tier 1 SOC Analyst (Internship)
+  learned: "How a real SOC runs: triaging alerts across EDR, firewall and email tools, rebuilding who, what, when and where in Carbon Black and SentinelOne, querying Splunk with SPL, and documenting incidents so the next person can act on them."
+  org: WarnerMedia
+  date: 2021-06-01   # NOTE: older resumes say Jul 2021 (one says Aug); confirm
+  end: 2022-01-01
+  highlights:
+    - Resolved 277+ security incidents (phishing, endpoint compromise, malicious links) with Cortex XSOAR, correlating Carbon Black, Palo Alto and Proofpoint data.
+    - Kept detection coverage intact during a Splunk search-head migration by moving and validating 60+ alerts.
+    - Built a phishing response playbook in the SOAR platform, aligned with MITRE ATT&CK.
+
+- type: work
+  title: Sales Associate (Clothing)
+  learned: "Customer service without a script: handling frustrated customers on my own, listening before acting, and building rapport with regulars."
+  org: Walmart, Stone Mountain, GA
+  date: 2017-07-01
+  end: 2020-10-01
+  summary: Part-time sales floor associate handling customer issues, price checks and loss prevention, before moving into IT and security.
+
+# ===== Education =====
+
+# Started 2024 (month unknown), conferred July 2026.
+# Placed at completion (conferred July 2026). Started 2024.
+- type: education
+  title: B.S., Cloud Computing
+  learned: "Finished a full degree while working full time as a consultant. The coursework put structure around what I was doing on the job: network and security fundamentals, cloud platform design, securing cloud environments and Python for automation."
+  org: Western Governors University
+  date: 2026-07-01
+  summary: "Degree conferred July 2026. Coursework included network and security applications, cloud platform solutions, managing cloud security, scripting and automation, and Python for IT automation."
+
+- type: education
+  title: Professional Skills Training
+  learned: "Workplace skills alongside technical training: professional communication, what employers expect, and college-level IT courses, all leading into a six-month internship."
+  org: Year Up, Atlanta
+  date: 2021-02-01
+  end: 2022-01-01
+  summary: Year-long career development program combining college-level courses, professional training and a six-month internship.
+
+- type: education
+  title: Information Technology coursework, 21 credits
+  learned: "College-level foundations in networking, computer science, operating systems and PC hardware, and Java programming."
+  org: Atlanta Metropolitan State College
+  date: 2021-03-01
+  end: 2021-12-01
+  summary: Courses included data communication and networking, computer science, operating systems and PC hardware, and Java programming.
+
+# 14 Credly "Validation" badges (Apr 4 - May 29, 2024), grouped into one entry.
+- type: education
+  title: College transfer credits, 14 courses
+  learned: "How to pace myself through a heavy course load: 14 courses in under two months, alongside full-time work, to move my degree forward faster."
+  org: Sophia Learning and Study.com
+  date: 2024-04-04
+  end: 2024-05-29
+  summary: Completed 14 college-level courses in under two months for transfer credit, including Programming in Python, Database Programming, Introduction to Relational Databases, Introduction to Web Development and Advanced Technical Writing.
+  link: https://www.credly.com/users/athina-thomas
+  link_label: Credly profile
+
+# ===== Certifications =====
+# All dates from Credly (credly.com/users/athina-thomas), verified 2026-11-16.
+
+- type: certification
+  title: CompTIA Network+ ce
+  learned: "Networking in depth: designing, configuring and troubleshooting wired and wireless networks, DNS and DHCP, network security, and recovery planning."
+  org: CompTIA
+  date: 2025-12-06
+  link: https://www.credly.com/badges/269e7830-1d35-4329-97f0-73819857b39f/public_url
+  link_label: Credly badge
+
+- type: certification
+  title: "CompTIA stackable certifications: CIOS, CSIS, CCAP"
+  learned: "These recognize how my CompTIA certifications fit together across IT operations, secure infrastructure and cloud administration, rather than a separate exam."
+  org: CompTIA
+  date: 2025-12-06
+  summary: IT Operations Specialist, Secure Infrastructure Specialist and Cloud Admin Professional, earned by combining A+, Network+, Security+ and Cloud+.
+  link: https://www.credly.com/users/athina-thomas
+  link_label: Credly profile
+
+- type: certification
+  title: Linux Essentials
+  learned: "Working comfortably on the Linux command line: file permissions, users and groups, basic administration and security, and how open source software is used."
+  org: Linux Professional Institute
+  date: 2025-08-14
+  link: https://www.credly.com/badges/fbae76d1-42df-4f9e-ace9-d60ad16a225b/public_url
+  link_label: Credly badge
+
+- type: certification
+  title: CompTIA A+ ce
+  learned: "The IT support basics everything else sits on: hardware and operating system configuration, backup and recovery, malware removal and troubleshooting."
+  org: CompTIA
+  date: 2025-02-08
+  link: https://www.credly.com/badges/28f8dfde-634a-4f4e-88f7-a19c0b30e793/public_url
+  link_label: Credly badge
+
+- type: certification
+  title: HashiCorp Certified Terraform Associate (003)
+  learned: "Terraform fundamentals: state, providers, modules and the plan and apply workflow that my infrastructure projects are built on."
+  org: HashiCorp
+  date: 2023-12-31
+  status: expired   # expired 2025-12-31
+  link: https://www.credly.com/badges/50905ba4-5750-4f8e-96bc-0e045e2c0f90/public_url
+  link_label: Credly badge
+
+- type: certification
+  title: "Microsoft Certified: Azure AI Fundamentals (AI-900)"
+  learned: "Core AI and machine learning concepts and the Azure services built on them."
+  org: Microsoft
+  date: 2023-04-22
+  link: https://www.credly.com/badges/544fe3ab-90cb-49e1-b0b5-a8dad0108f10/public_url
+  link_label: Credly badge
+
+- type: certification
+  title: "Microsoft Certified: Security, Compliance, and Identity Fundamentals (SC-900)"
+  learned: "The basics of security, compliance and identity across Microsoft cloud services, including Entra ID, Microsoft 365 compliance and information protection."
+  org: Microsoft
+  date: 2022-10-29
+  link: https://www.credly.com/badges/4a09fe29-02f7-4961-b4e3-cc0b13e240c8/public_url
+  link_label: Credly badge
+
+- type: certification
+  title: "Microsoft Certified: Azure Fundamentals (AZ-900)"
+  learned: "Cloud basics through Azure: service models, core services, pricing, and how Azure handles networking, storage and security."
+  org: Microsoft
+  date: 2022-10-06
+  link: https://www.credly.com/badges/8b0dc966-58c8-4c2c-9d14-d1b22e67d6fc/public_url
+  link_label: Credly badge
+
+- type: certification
+  title: AWS Certified Security – Specialty
+  learned: "AWS security in depth: the shared responsibility model, IAM, data protection, logging and incident response, and designing security for organizations of any size."
+  org: Amazon Web Services
+  date: 2023-09-30
+  status: expired   # expired 2026-09-30
+  link: https://www.credly.com/badges/44b4e974-5cbc-467f-a900-ba0c99e31362/public_url
+  link_label: Credly badge
+
+- type: certification
+  title: CompTIA Cloud+ ce
+  learned: "Running cloud infrastructure: provisioning and deployment, cloud service models, security, business continuity and troubleshooting. Also earned the CompTIA Secure Cloud Professional stackable."
+  org: CompTIA
+  date: 2024-02-29
+  summary: Also earned the CompTIA Secure Cloud Professional (CSCP) stackable certification.
+  link: https://www.credly.com/badges/b4fc037f-253b-4ce6-b8b2-261a67f23070/public_url
+  link_label: Credly badge
+
+- type: certification
+  title: CompTIA Security+ ce
+  learned: "Core security across the board: threats and vulnerabilities, access control, cryptography, risk management and incident response. My first security certification."
+  org: CompTIA
+  date: 2021-01-28
+  link: https://www.credly.com/badges/a6487a0d-26bb-486e-b7da-d8c78263f772/public_url
+  link_label: Credly badge
+
+# From older resumes (year only). Neither is on Credly.
+# Both run on 3-year cycles, so they're marked expired; change if you renewed them.
+- type: certification
+  title: AWS Certified Cloud Practitioner
+  learned: "AWS fundamentals: core services, the shared responsibility model, security basics and billing."
+  org: Amazon Web Services
+  date: 2022-01-01
+  precision: year
+  status: expired
+
+- type: certification
+  title: Splunk Core Certified User
+  learned: "Searching and reporting in Splunk with SPL: searches, fields, lookups and basic dashboards."
+  org: Splunk
+  date: 2021-01-01
+  precision: year
+  status: expired
+
+# Microsoft certs below are not on Credly. Dates from the Microsoft Learn
+# transcript, verified 2026-11-16.
+- type: certification
+  title: "Microsoft Certified: DevOps Engineer Expert (AZ-400)"
+  learned: "DevOps end to end: source control strategy, CI/CD in Azure DevOps and GitHub Actions, infrastructure as code, and building security and compliance checks into the pipeline."
+  org: Microsoft
+  date: 2024-10-06   # expires 2027-10-06
+
+- type: certification
+  title: "Microsoft Certified: Azure Developer Associate (AZ-204)"
+  learned: "Building on Azure as a developer: App Service, Functions, storage, authentication with Entra ID and managed identities, Key Vault and monitoring."
+  org: Microsoft
+  date: 2024-08-04   # expires 2027-08-04
+
+- type: certification
+  title: "Microsoft Applied Skills: Configure SIEM security operations using Microsoft Sentinel"
+  learned: "Setting up Sentinel hands on in a lab: connecting data sources, building analytics rules and automating responses."
+  org: Microsoft
+  date: 2024-02-01
+
+- type: certification
+  title: "Microsoft Certified: Azure Administrator Associate (AZ-104)"
+  learned: "Running Azure day to day: identity and governance, storage, compute, virtual networking and monitoring."
+  org: Microsoft
+  date: 2023-03-01   # renewed, expires 2028-03-01
+
+# ===== Training =====
+
+# Microsoft Learn learning paths (from the transcript), grouped by when they were completed.
+- type: training
+  title: GitHub Advanced Security
+  learned: "How GitHub's security features work together: code scanning with CodeQL, secret scanning and dependency review, and where each one fits in a pull request."
+  org: Microsoft Learn
+  date: 2026-06-23
+  summary: Learning path on code scanning, secret scanning and dependency review, including CodeQL.
+
+- type: training
+  title: Microsoft Purview and AI data protection, 6 learning paths
+  learned: "How Purview protects data end to end, from sensitivity labels and DLP to retention, insider risk and audit, and how those controls extend to data used by AI tools like Copilot."
+  org: Microsoft Learn
+  date: 2026-04-10
+  summary: Information protection, data loss prevention, retention, insider risk management, audit and search, and protecting data in AI environments.
+
+- type: training
+  title: Microsoft security architecture, identity and compliance, 18 learning paths
+  learned: "Thinking like a security architect (SC-100), governing identity and access in Entra ID (SC-300), protecting information with labels and DLP (SC-400), and using Purview and Copilot for Security in the SOC (SC-200)."
+  org: Microsoft Learn
+  date: 2025-04-30
+  summary: Learning paths for SC-100 (security architecture), SC-300 (identity), SC-400 (information protection) and SC-200 (Purview and Copilot for Security).
+
+- type: training
+  title: Microsoft Cloud Attack & Defense Bootcamp (Professional)
+  learned: "Thinking like an attacker in Microsoft cloud: getting initial access through Azure resources, exploiting Conditional Access and MFA gaps, moving between Azure, Microsoft 365 and on-premises AD, then detecting it in Sentinel."
+  org: Pwned Labs
+  date: 2024-12-03
+  link: https://www.credly.com/badges/a5987445-62f6-435c-b3a9-5285ee605da9/public_url
+  link_label: Credly badge
+
+- type: training
+  title: Modern Security Operations Bootcamp (FY25)
+  learned: "How to lead Microsoft Sentinel conversations with customers by starting from business outcomes, and how partner programs support Sentinel deployments."
+  org: Microsoft
+  date: 2024-10-17
+  link: https://www.credly.com/badges/d15bc6ab-8734-4945-85eb-c2f8cb0653d1/public_url
+  link_label: Credly badge
+
+- type: training
+  title: Implementing Copilot for Security, deep-dive workshop
+  learned: "How to plan and implement Copilot for Security in a real tenant and connect it to the rest of the Microsoft security stack."
+  org: Microsoft
+  date: 2024-12-10
+  link: https://www.credly.com/badges/97216dc4-a8a1-4b71-8786-4a1ba0f43e15/public_url
+  link_label: Credly badge
+
+- type: training
+  title: Copilot for Microsoft 365 Technical Champion
+  learned: "How Microsoft 365 Copilot works, how organizations adopt it, and how to build the business case for rolling it out."
+  org: Microsoft
+  date: 2024-07-17
+  link: https://www.credly.com/badges/3d5a0de0-0a7f-4062-b294-6f8e9bd43794/public_url
+  link_label: Credly badge
+
+- type: training
+  title: "AWS Partner: Generative AI Essentials"
+  learned: "The foundations of generative AI on AWS and how it's positioned with customers."
+  org: Amazon Web Services
+  date: 2024-04-02
+  link: https://www.credly.com/badges/17336b3a-51e8-4b25-ba89-86bda9e96a69/public_url
+  link_label: Credly badge
+
+- type: training
+  title: Microsoft Copilot for Security Partner Bootcamp
+  learned: "What Copilot for Security offers, its standalone and embedded experiences across Microsoft security products, and how sessions, prompts, plugins and promptbooks work."
+  org: Microsoft
+  date: 2024-03-11
+  link: https://www.credly.com/badges/5fb6987e-ff41-4550-b057-61ec6bc2002b/public_url
+  link_label: Credly badge
+
+- type: training
+  title: Microsoft Days of the Defenders
+  learned: "Compliance and privacy with Microsoft Purview and Priva: information protection and governance, insider risk management and identity."
+  org: Microsoft
+  date: 2023-03-10
+  link: https://www.credly.com/badges/4492939f-7643-48f7-a81e-66236cba8fe0/public_url
+  link_label: Credly badge
+
+- type: training
+  title: "Kusto Detective Agency, Case #1"
+  learned: "KQL by solving a detective puzzle against a large dataset. It's the query language I now hunt with every day in Sentinel and Defender."
+  org: Microsoft Azure Data Explorer
+  date: 2022-11-20
+  summary: KQL investigation challenge (onboarding and Case #1).
+  link: https://www.credly.com/badges/5d8dce36-c75b-4c8d-b075-7af20d7d60d0/public_url
+  link_label: Credly badge
+
+- type: training
+  title: "AWS Academy Graduate: Cloud Architecting"
+  learned: "Designing on AWS: building infrastructure that follows AWS best practices for security, reliability and cost."
+  org: Amazon Web Services
+  date: 2022-05-10
+  link: https://www.credly.com/badges/96da1d8e-bfe1-4388-9ad3-26bd75052dce/public_url
+  link_label: Credly badge
+
+- type: training
+  title: "AWS Academy Graduate: Cloud Foundations"
+  learned: "AWS core services, architecture, pricing and support."
+  org: Amazon Web Services
+  date: 2022-04-01
+  link: https://www.credly.com/badges/eb7722b3-022e-457d-81e9-fed288ed66b2/public_url
+  link_label: Credly badge
+
+- type: training
+  title: Introduction to Cybersecurity
+  learned: "Why cybersecurity matters, the common threats and vulnerabilities, and the basics of detection and defense."
+  org: Cisco
+  date: 2021-02-03
+  link: https://www.credly.com/badges/d2b62c6c-069e-4271-84a2-e180a8599caf/public_url
+  link_label: Credly badge
+
+- type: training
+  title: Google IT Support Professional Certificate
+  learned: "IT from the ground up: networking, operating systems, system administration, security and troubleshooting. My first step out of retail and into tech."
+  org: Google (Coursera)
+  date: 2020-11-29
+  link: https://www.credly.com/badges/beafcf9c-504c-4e8f-a8e1-eae74504344d/public_url
+  link_label: Credly badge
+
+# Add new training here (course, provider, month).
+
+# ===== Projects =====
+
+- type: project
+  title: Git Client from Scratch (CodeCrafters)
+  learned: "How Git actually stores data: blobs, trees and commits as zlib-compressed objects addressed by SHA-1. Also practical Python lessons on bytes versus strings, and to solve only the stage in front of me instead of jumping ahead."
+  date: 2026-07-08
+  summary: A working Git client in Python with no Git libraries, covering blob, tree and commit objects, plus cloning over Git's Smart HTTP protocol with packfile parsing.
+  link: https://github.com/ArtistYay/codecrafters-git-python
+  link_label: GitHub
+
+- type: project
+  title: Azure AppSec Pipeline
+  learned: "Structured JSON logging so app logs are useful once they reach Sentinel, Docker layer caching, Terraform variable validation that catches mistakes at plan time, and one codebase with a tfvars file per environment instead of copied code."
+  date: 2026-05-02
+  summary: Connects CI/CD and the SIEM so deployment and scan results sit next to runtime detections. Azure infrastructure across five reusable Terraform modules, a managed identity scoped to a single role, custom Azure Policy as an independent enforcement layer, and OIDC planned so no static secrets live in CI/CD.
+  link: https://github.com/ArtistYay/azure-appsec-pipeline
+  link_label: GitHub
+
+- type: project
+  title: Defender for Cloud Assessment Tool
+  learned: "Turning a repeatable manual assessment into a tool: signing in through the browser, pulling Defender for Cloud and CIS benchmark results, and packaging them as one HTML report a client can act on."
+  date: 2026-04-19
+  status: archived   # repo archived on GitHub
+  summary: Python CLI that snapshots Defender for Cloud (secure score, Defender plan coverage, all 89 CIS Azure Foundations Benchmark rules) and outputs a self-contained HTML report with a remediation tracker. Cut a full Azure security assessment from days to under 10 minutes.
+  link: https://github.com/ArtistUniverse/mdc-assessment-tool
+  link_label: GitHub
+
+- type: project
+  title: Docs-as-Code Security Notes
+  learned: "Writing down errors, fixes and the reasons behind them as I go. Building the notes as code with MkDocs and automated publishing means my project writeups always have a record behind them."
+  date: 2025-03-04
+  summary: Knowledge base built with MkDocs, Obsidian and the Material theme, published automatically to notes.artistuniverse.tech.
+  link: https://notes.artistuniverse.tech
+  link_label: Visit
+
+# TODO: dates for these resume projects, then remove hidden.
+- type: project
+  title: Hybrid Cloud Identity & Access Governance
+  date: 2025-01-01
+  summary: Federated Active Directory with AWS IAM Identity Center and Microsoft Entra ID over SAML 2.0, with a multi-account AWS Organization enforcing least privilege.
+  hidden: true
+
+- type: project
+  title: Is AI Really Scary?
+  date: 2024-01-01
+  summary: AWS S3 static site provisioned entirely with Terraform through a CI/CD pipeline, with tflint and tfsec gates and remote state.
+  hidden: true
+
+- type: project
+  title: Security Homelab
+  date: 2025-01-01
+  summary: Proxmox, Terraform, GitLab, Tailscale and DNS for prototyping security automation.
+  hidden: true
+
+# Also on 2022-2024 resumes but undated: Cloud Resume Challenge, Azure Sentinel
+# RDP attack map, Terraform S3 + CDN site. Add with a date if you want them shown.
+
+- type: project
+  title: CatPipeline, AWS CI/CD for containers
+  learned: "How CI/CD fits together in AWS, from a commit to a running container behind a load balancer, and the small things that break pipelines: YAML needs spaces, not tabs, and deploy settings are case-sensitive."
+  date: 2022-07-04
+  summary: CodeCommit, CodeBuild, ECR and ECS Fargate behind a load balancer, taking code from commit to a running container automatically.
+  link: /cybersecurity/2022/07/04/catpipline.html
+  link_label: Read the post
+
+# ===== Recognition =====
+
+- type: recognition
+  title: Hackathon winner (1st place), Workplace Ninjas US
+  learned: "How a team ships fast with a clear plan, and how the pieces of a real app fit together: a T3 frontend, an OpenAI chatbot, a Supabase Postgres database with row-level security, and Entra ID sign-in. I started out panicking and finished more confident."
+  org: Dallas, TX
+  date: 2025-12-09
+  link: /cybersecurity/2025/12/20/my-experience-with-the-ninjas-of-microsoft.html
+  link_label: Read the post
+
+- type: recognition
+  title: Intern of the Week
+  summary: "Weekly recognition from Year Up during the internship part of the program."
+  org: Year Up, Atlanta
+  date: 2021-10-01
+
+- type: recognition
+  title: Scholar of the Week
+  summary: "Weekly recognition from Year Up during the classroom part of the program."
+  org: Year Up, Atlanta
+  date: 2021-06-01
+
+# TODO: dates for these, then remove hidden.
+- type: recognition
+  title: Rockstar Women in AI & Security spotlight
+  date: 2026-01-01
+  hidden: true
+
+- type: recognition
+  title: Featured on Welkas World
+  date: 2026-01-01
+  hidden: true
+
+# ===== Community =====
+
+- type: community
+  title: TEALS volunteer, 2023–24 school year
+  learned: "Supporting a high school teacher learning to teach computer science, a few hours a week. I learned inclusive teaching practices and how to explain technical ideas to students seeing them for the first time."
+  org: Microsoft TEALS
+  date: 2024-04-11
+  summary: Volunteered with Microsoft's TEALS program, which brings computer science classes to high schools.
+  link: https://www.credly.com/badges/6bce8873-ec32-4a17-bafc-bae4406e44b8/public_url
+  link_label: Credly badge
+
+# Joined 2022 (2024 resume: "Community Builder (2022 - Present)"; Jan 2026 resume: "Alumni").
+- type: community
+  title: AWS Community Builder (now alumni)
+  learned: "Learning in public: writing about AWS security and identity, answering questions and mentoring people starting out in cloud security."
+  org: Amazon Web Services
+  date: 2022-01-01
+  precision: year
+  summary: Selected for the AWS Community Builders program. Shared AWS security and identity content and met with AWS product teams about new services.
+
+# TODO: dates for these, then remove hidden.
+- type: community
+  title: InfraGard Atlanta Members Alliance, member
+  org: InfraGard
+  date: 2024-01-01
+  summary: Public-private alliance of government, industry, academia and law enforcement sharing threat intelligence and lessons learned.
+  hidden: true
+
+- type: community
+  title: Microsoft Security product feedback (6 submissions)
+  org: Microsoft Security Partner Connection Program
+  date: 2026-01-01
+  hidden: true

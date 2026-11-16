@@ -1,0 +1,290 @@
+// ---------------------------------------------------------------------------------------
+// TIMELINE - About page (content in _data/timeline.yml, markup in _includes/timeline.html)
+// ---------------------------------------------------------------------------------------
+
+// type: (light background, dark text) — same palette as the tag colours in _sidebar.scss
+$tl-type-colors: (
+  "work":          (#dbeafe, #1e40af),  // blue
+  "education":     (#ede9fe, #5b21b6),  // purple
+  "certification": (#dcfce7, #166534),  // green
+  "project":       (#ffedd5, #9a3412),  // orange
+  "training":      (#ccfbf1, #115e59),  // teal
+  "community":     (#fef3c7, #92400e),  // amber
+  "recognition":   (#fce7f3, #9d174d)   // pink
+);
+
+$tl-dot-size: 36px;
+$tl-dot-half: 18px; // half of $tl-dot-size (avoids deprecated "/" division)
+
+.timeline {
+  margin: $spacing-md 0 $spacing-xl;
+
+  // ---- Filter buttons ----
+  .tl-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0 0 $spacing-xl;
+
+    &[hidden] { display: none; }
+  }
+
+  .tl-filter {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 40px;
+    padding: 6px 14px;
+    border: 1.5px solid $border-color;
+    border-radius: 999px;
+    background: transparent;
+    color: $light-text;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+
+    &:hover { border-color: $text-color; color: $text-color; }
+
+    &:focus-visible {
+      outline: 2px solid $gold-accent;
+      outline-offset: 2px;
+    }
+
+    &[aria-pressed="true"] {
+      background: $text-color;
+      border-color: $text-color;
+      color: #ffffff;
+    }
+
+    .tl-count {
+      font-size: 12px;
+      font-weight: 700;
+      opacity: 0.75;
+    }
+  }
+
+  // ---- Scroll box (tablet and up) ----
+  // Entries scroll inside a fixed-height box; the filters above stay in view.
+  // Phones keep normal page scrolling (a scroll box inside a page is fiddly by thumb).
+  .tl-scroll-wrap { position: relative; }
+
+  @media (min-width: $breakpoint-tablet + 1) {
+    .tl-scroll {
+      max-height: min(70vh, 760px);
+      overflow-y: auto;
+      overscroll-behavior: contain; // reaching the end doesn't start scrolling the page
+      padding-right: $spacing-sm;   // room between content and scrollbar
+      scrollbar-width: thin;
+      scrollbar-color: $border-color transparent;
+
+      &:focus-visible {
+        outline: 2px solid $gold-accent;
+        outline-offset: 4px;
+        border-radius: 4px;
+      }
+    }
+
+    // Year badge stays pinned at the top of the box while you scroll through that year
+    .tl-year-head {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      background: $background;
+      padding-bottom: 4px;
+    }
+
+    // Fade at the bottom while there's more to scroll (class set by JS)
+    .tl-scroll-wrap::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: $spacing-sm;
+      bottom: 0;
+      height: 56px;
+      background: linear-gradient(to bottom, rgba($background, 0), $background);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .tl-scroll-wrap.has-more::after { opacity: 1; }
+  }
+
+  // ---- Year groups ----
+  .tl-year[hidden] { display: none; }
+
+  .tl-year-badge {
+    display: inline-block;
+    margin: 0 0 $spacing-md;
+    padding: 4px 16px;
+    border-radius: 4px;
+    background: #fbbf24;
+    color: #000000;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    line-height: 1.5;
+  }
+
+  // The vertical line runs down the left of each year's list
+  .tl-list {
+    list-style: none;
+    margin: 0 0 $spacing-lg ($tl-dot-half - 1px);
+    padding: 0;
+    border-left: 2px solid $border-color;
+  }
+
+  .tl-item {
+    position: relative;
+    list-style: none;
+    margin: 0;
+    padding: 0 0 $spacing-lg ($tl-dot-half + 20px);
+
+    &:last-child { padding-bottom: $spacing-sm; }
+    &[hidden] { display: none; }
+  }
+
+  .tl-dot {
+    position: absolute;
+    top: 0;
+    left: -$tl-dot-half - 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: $tl-dot-size;
+    height: $tl-dot-size;
+    border-radius: 50%;
+    border: 3px solid $background; // page background, so the line looks "cut" around the dot
+    font-size: 14px;
+  }
+
+  // ---- Entry text ----
+  .tl-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 10px;
+    min-height: $tl-dot-size; // vertically line up the first row with the dot
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: $light-text;
+  }
+
+  .tl-type,
+  .tl-status {
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-weight: 700;
+  }
+
+  .tl-status-expired  { background: #e5e7eb; color: #4b5563; }
+  .tl-status-progress { background: $gold-light; color: #7a5f0c; }
+
+  .tl-title {
+    margin: 4px 0 2px;
+    font-size: 19px;
+    font-weight: 700;
+    line-height: 1.35;
+    color: $text-color;
+  }
+
+  .tl-org {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.5;
+    color: $light-text;
+  }
+
+  .tl-summary {
+    margin: 8px 0 0;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #4f4c45;
+  }
+
+  .tl-highlights {
+    margin: 8px 0 0;
+    padding-left: 18px;
+
+    li {
+      margin: 0 0 4px;
+      list-style: disc;
+      font-size: 15px;
+      line-height: 1.55;
+      color: #4f4c45;
+    }
+  }
+
+  // "What I learned" note under each entry
+  .tl-learned {
+    margin: 10px 0 0;
+    padding: 8px 12px;
+    border-left: 3px solid $gold-accent;
+    border-radius: 0 4px 4px 0;
+    background: $gold-light;
+
+    .tl-learned-label {
+      display: block;
+      margin-bottom: 2px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: #7a5f0c;
+
+      i { margin-right: 3px; }
+    }
+
+    p {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.55;
+      color: #4f4c45;
+    }
+  }
+
+  .tl-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 32px;
+    margin-top: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    color: $link-color;
+    border-bottom: none;
+
+    i { font-size: 11px; }
+
+    &:hover { color: $link-hover; border-bottom: none; }
+  }
+
+  // ---- Per-type colours (dot, type label, pressed filter) ----
+  @each $name, $pair in $tl-type-colors {
+    .tl-type-#{$name} {
+      .tl-dot,
+      .tl-type {
+        background: nth($pair, 1);
+        color: nth($pair, 2);
+      }
+    }
+
+    .tl-filter.tl-type-#{$name}[aria-pressed="true"] {
+      background: nth($pair, 2);
+      border-color: nth($pair, 2);
+      color: #ffffff;
+    }
+  }
+
+  // ---- Phones ----
+  @media (max-width: $breakpoint-mobile) {
+    .tl-item { padding-left: ($tl-dot-half + 14px); }
+    .tl-title { font-size: 17px; }
+    .tl-summary { font-size: 15px; }
+  }
+}

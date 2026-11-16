@@ -17,7 +17,8 @@ The attack began with a phishing attempt. By analyzing the Email Entity tab and 
 * Sender: `jonis@vnevado.alpineskihouse.co`
 * Target Persona: The email targeted Polly W, the Managing Director and Head of Cybersecurity at Contoso Electronics Management.
 * Malicious Link Behavior: In the sandbox view (Email Entity -> URL -> Export), the provided link was flagged for suspicious Navigation behavior properties.
-![Screenshot]({{ site.url }}{{ site.baseurl }}/assets/images/Pasted image 20241106101205.png)
+
+![Screenshot]({{ site.url }}{{ site.baseurl }}/assets/images/Pasted%20image%2020241106101205.png)
 
 ### Phase 2: Host Compromise
 
@@ -39,9 +40,10 @@ Once it gained a foothold, the attacker focused on escalating privileges.
   BE CAREFUL `https://raw.githubusercontent.com/g4uss47/Invoke-Mimikatz/master/Invoke-Mimikatz.ps1.`
 
 * Execution Method: The script was loaded directly into memory to evade disk-based detection.
-![Screenshot]({{ site.url }}{{ site.baseurl }}/assets/images/Pasted image 20241106102927.png)
-![Screenshot]({{ site.url }}{{ site.baseurl }}/assets/images/Pasted image 20241106103034.png)
-![Screenshot]({{ site.url }}{{ site.baseurl }}/assets/images/Pasted image 20241106103502.png)
+
+![Screenshot]({{ site.url }}{{ site.baseurl }}/assets/images/Pasted%20image%2020241106102927.png)
+![Screenshot]({{ site.url }}{{ site.baseurl }}/assets/images/Pasted%20image%2020241106103034.png)
+![Screenshot]({{ site.url }}{{ site.baseurl }}/assets/images/Pasted%20image%2020241106103502.png)
 
 ### Phase 4: Lateral Movement and DCSync
 
@@ -51,10 +53,10 @@ With Domain Admin credentials (`pgustavo`), the attacker moved toward the Domain
 * Command: `Invoke-Mimikatz -Command "$arg"`
 * Lateral Movement: The attacker utilized `Invoke-SMBExec` to move across the network. This tool created a temporary service named `MNCKQWHNSJQWLYBWCJBT` on remote machines to execute code.
 
-![Screenshot]({{ site.url }}{{ site.baseurl }}/assets/images/Pasted image 20241106103857.png)
-![Screenshot]({{ site.url }}{{ site.baseurl }}/assets/images/Pasted image 20241106104356.png)
-![Screenshot]({{ site.url }}{{ site.baseurl }}/assets/images/Pasted image 20241106105054.png)
-![Screenshot]({{ site.url }}{{ site.baseurl }}/assets/images/Pasted image 20241106110228.png)
+![Screenshot]({{ site.url }}{{ site.baseurl }}/assets/images/Pasted%20image%2020241106103857.png)
+![Screenshot]({{ site.url }}{{ site.baseurl }}/assets/images/Pasted%20image%2020241106104356.png)
+![Screenshot]({{ site.url }}{{ site.baseurl }}/assets/images/Pasted%20image%2020241106105054.png)
+![Screenshot]({{ site.url }}{{ site.baseurl }}/assets/images/Pasted%20image%2020241106110228.png)
 
 ### Phase 5: ADFS Certificate Theft
 
@@ -66,10 +68,10 @@ The ultimate goal of on-premises was to extract Active Directory Federation Serv
 4. Exfiltration: The certificate was uploaded to Azure Blob Storage.
 5. Remediation: Evidence showed the scheduled task was eventually remediated using the `LiveResponseCommand` (specifically the `ad` command).
 
-![Screenshot]({{ site.url }}{{ site.baseurl }}/assets/images/Pasted image 20241106113215.png)
-![Screenshot]({{ site.url }}{{ site.baseurl }}/assets/images/Pasted image 20241106113801.png)
-![Screenshot]({{ site.url }}{{ site.baseurl }}/assets/images/Pasted image 20241106114106.png)
-![Screenshot]({{ site.url }}{{ site.baseurl }}/assets/images/Pasted image 20241106114143.png)
+![Screenshot]({{ site.url }}{{ site.baseurl }}/assets/images/Pasted%20image%2020241106113215.png)
+![Screenshot]({{ site.url }}{{ site.baseurl }}/assets/images/Pasted%20image%2020241106113801.png)
+![Screenshot]({{ site.url }}{{ site.baseurl }}/assets/images/Pasted%20image%2020241106114106.png)
+![Screenshot]({{ site.url }}{{ site.baseurl }}/assets/images/Pasted%20image%2020241106114143.png)
 
 ## Phase 6: Cloud Impact and Persistence
 
@@ -80,7 +82,7 @@ The theft of the ADFS certificate allowed the attacker to bypass traditional aut
 * Secret Injection: A new secret named `SimuLand2023_RiAdb` was set for the application.
 * Data Access: Finally, the investigation confirmed the attacker accessed user data, evidenced by `MailItemsAccessed` logs.
 
-![Screenshot]({{ site.url }}{{ site.baseurl }}/assets/images/Pasted image 20241106114429.png)
+![Screenshot]({{ site.url }}{{ site.baseurl }}/assets/images/Pasted%20image%2020241106114429.png)
 
 ---
 

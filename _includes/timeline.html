@@ -1,0 +1,147 @@
+{%- comment -%}
+  About page timeline. Content lives in _data/timeline.yml.
+  Entries with hidden: true are skipped. Newest first, grouped by year.
+{%- endcomment -%}
+{%- assign tl_items = site.data.timeline | where_exp: "i", "i.hidden != true" | sort: "date" | reverse -%}
+{%- assign tl_years = tl_items | group_by_exp: "i", "i.date | date: '%Y'" -%}
+
+{%- assign tl_types = "work,education,certification,project,training,community,recognition" | split: "," -%}
+{%- capture tl_labels -%}work:Work|education:Education|certification:Certifications|project:Projects|training:Training|community:Community|recognition:Recognition{%- endcapture -%}
+{%- capture tl_singular -%}work:Work|education:Education|certification:Certification|project:Project|training:Training|community:Community|recognition:Recognition{%- endcapture -%}
+
+<section class="timeline" aria-label="Career timeline">
+
+  <!-- Filters: hidden until JS runs, so no-JS visitors just see the full list -->
+  <div class="tl-filters" role="group" aria-label="Filter timeline" hidden>
+    <button type="button" class="tl-filter" data-filter="all" aria-pressed="true">All <span class="tl-count">{{ tl_items.size }}</span></button>
+    {%- for t in tl_types -%}
+      {%- assign n = tl_items | where: "type", t | size -%}
+      {%- if n > 0 -%}
+        {%- assign key = t | append: ":" -%}
+        {%- assign label = tl_labels | split: key | last | split: "|" | first -%}
+        <button type="button" class="tl-filter tl-type-{{ t }}" data-filter="{{ t }}" aria-pressed="false">{{ label }} <span class="tl-count">{{ n }}</span></button>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+
+  <!-- On tablet/desktop the entries scroll inside this box (filters stay put above it).
+       tabindex makes the scroll area reachable with the keyboard (arrow keys / Page Down). -->
+  <div class="tl-scroll-wrap">
+  <div class="tl-scroll" tabindex="0" role="region" aria-label="Timeline entries">
+  {%- for year in tl_years %}
+  <div class="tl-year" data-year="{{ year.name }}">
+    <div class="tl-year-head"><h3 class="tl-year-badge">{{ year.name }}</h3></div>
+    <ol class="tl-list">
+      {%- for item in year.items %}
+      <li class="tl-item tl-type-{{ item.type }}" data-type="{{ item.type }}">
+        <span class="tl-dot" aria-hidden="true">
+          {%- case item.type -%}
+            {%- when "work" -%}<i class="fas fa-briefcase"></i>
+            {%- when "education" -%}<i class="fas fa-graduation-cap"></i>
+            {%- when "certification" -%}<i class="fas fa-certificate"></i>
+            {%- when "project" -%}<i class="fas fa-code"></i>
+            {%- when "training" -%}<i class="fas fa-book-open"></i>
+            {%- when "community" -%}<i class="fas fa-handshake-angle"></i>
+            {%- when "recognition" -%}<i class="fas fa-trophy"></i>
+          {%- endcase -%}
+        </span>
+
+        <div class="tl-body">
+          <div class="tl-meta">
+            {%- assign key = item.type | append: ":" -%}
+            <span class="tl-type">{{ tl_singular | split: key | last | split: "|" | first }}</span>
+            {%- comment -%} precision: year -> show only the year (month unknown) {%- endcomment -%}
+            {%- if item.precision == "year" -%}{%- assign tl_fmt = "%Y" -%}{%- else -%}{%- assign tl_fmt = "%b %Y" -%}{%- endif %}
+            <time datetime="{{ item.date | date: '%Y-%m' }}">
+              {{- item.date | date: tl_fmt -}}
+              {%- if item.end -%}
+                {%- if item.end_label %} – {{ item.end_label }}
+                {%- elsif item.end == "present" %} – Present
+                {%- else %} – {{ item.end | date: "%b %Y" }}
+                {%- endif -%}
+              {%- endif -%}
+            </time>
+            {%- if item.status == "expired" %}<span class="tl-status tl-status-expired">Expired</span>{% endif -%}
+            {%- if item.status == "in-progress" %}<span class="tl-status tl-status-progress">In progress</span>{% endif -%}
+            {%- if item.status == "archived" %}<span class="tl-status tl-status-expired">Archived</span>{% endif -%}
+          </div>
+
+          <h4 class="tl-title">{{ item.title }}</h4>
+          {%- if item.org %}<p class="tl-org">{{ item.org }}</p>{% endif -%}
+          {%- if item.summary %}<p class="tl-summary">{{ item.summary }}</p>{% endif -%}
+
+          {%- if item.highlights %}
+          <ul class="tl-highlights">
+            {%- for h in item.highlights %}
+            <li>{{ h }}</li>
+            {%- endfor %}
+          </ul>
+          {%- endif -%}
+
+          {%- if item.learned %}
+          <div class="tl-learned">
+            <span class="tl-learned-label"><i class="fas fa-lightbulb" aria-hidden="true"></i> What I learned</span>
+            <p>{{ item.learned }}</p>
+          </div>
+          {%- endif -%}
+
+          {%- if item.link -%}
+            {%- assign href = item.link -%}
+            {%- assign first_char = item.link | slice: 0 -%}
+            {%- if first_char == "/" -%}{%- assign href = item.link | relative_url -%}{%- endif %}
+          <a class="tl-link" href="{{ href }}"{% if first_char != "/" %} target="_blank" rel="noopener"{% endif %}>
+            {{- item.link_label | default: "Details" }} <i class="fas fa-arrow-right" aria-hidden="true"></i>
+          </a>
+          {%- endif %}
+        </div>
+      </li>
+      {%- endfor %}
+    </ol>
+  </div>
+  {%- endfor %}
+  </div>
+  </div>
+</section>
+
+<script>
+(function () {
+  var root = document.querySelector('.timeline');
+  if (!root) return;
+  var bar = root.querySelector('.tl-filters');
+  var buttons = bar.querySelectorAll('.tl-filter');
+  var items = root.querySelectorAll('.tl-item');
+  var years = root.querySelectorAll('.tl-year');
+  var scroller = root.querySelector('.tl-scroll');
+  var wrap = root.querySelector('.tl-scroll-wrap');
+  bar.hidden = false;
+
+  // Show the bottom fade only while there is more to scroll
+  function updateFade() {
+    var more = scroller.scrollHeight - scroller.scrollTop - scroller.clientHeight > 4;
+    wrap.classList.toggle('has-more', more);
+  }
+
+  function apply(filter) {
+    buttons.forEach(function (b) {
+      b.setAttribute('aria-pressed', String(b.dataset.filter === filter));
+    });
+    items.forEach(function (li) {
+      li.hidden = filter !== 'all' && li.dataset.type !== filter;
+    });
+    // Hide a year heading when none of its entries are showing
+    years.forEach(function (y) {
+      y.hidden = !y.querySelector('.tl-item:not([hidden])');
+    });
+    scroller.scrollTop = 0;
+    updateFade();
+  }
+
+  scroller.addEventListener('scroll', updateFade, { passive: true });
+  window.addEventListener('resize', updateFade);
+  updateFade();
+
+  buttons.forEach(function (b) {
+    b.addEventListener('click', function () { apply(b.dataset.filter); });
+  });
+})();
+</script>

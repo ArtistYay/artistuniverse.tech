@@ -24,6 +24,26 @@
   margin-right: 8px;
 }
 
+/* Intro rows: GIF in a left column, paragraph beside it */
+.about-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  margin-bottom: 25px;
+}
+
+.about-row .icon-gif {
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  margin: 0; /* about one line of text tall, so it lines up with the first line */
+  object-fit: contain;
+}
+
+.about-intro .about-row p {
+  margin: 0;
+}
+
 /* Introduction Section */
 .about-intro {
   margin-bottom: 40px;

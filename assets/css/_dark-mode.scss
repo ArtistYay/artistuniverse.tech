@@ -360,6 +360,39 @@
       .toc-title {
         color: #908d86;
       }
+
+      // $link-color (#7a5f0c) is too dark to read on #161512
+      ul li a {
+        color: #d4af37;
+
+        &:hover {
+          color: #e8c84d;
+        }
+      }
+    }
+
+    // Side-column TOC (wide screens)
+    @media (min-width: $breakpoint-toc-side) {
+      .post-box.has-toc .toc-box {
+        scrollbar-color: #3a3830 transparent;
+
+        ul {
+          border-left-color: #2e2c28;
+
+          li a {
+            color: #b0ada6;
+
+            &:hover {
+              color: #f0ede6;
+            }
+
+            &.active {
+              color: #d4af37;
+              border-left-color: #d4af37;
+            }
+          }
+        }
+      }
     }
 
     .post-content {
@@ -508,4 +541,109 @@
     background: #221f18;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
   }
+}
+
+// ---------------------------------------------------------------------------------------
+// DARK MODE - redesign (logo, profile sidebar, follow list)
+// ---------------------------------------------------------------------------------------
+
+[data-theme="dark"] {
+  .site-header .site-logo,
+  .site-header .site-logo:hover {
+    color: #f0ede6;
+  }
+
+  .sidebar {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+  }
+
+  .sidebar-section + .sidebar-section {
+    border-top-color: #2e2c28;
+  }
+
+  .profile-section {
+    .profile-photo {
+      border-color: #1a1917;
+    }
+
+    .profile-name {
+      color: #f0ede6;
+    }
+
+    .profile-aka,
+    .read-more-link {
+      color: #d4af37;
+    }
+
+    .profile-bio {
+      color: #c8c5be;
+    }
+  }
+
+  .sidebar .sidebar-section .follow-list li a {
+    color: #f0ede6;
+  }
+
+  .follow-icon {
+    background: #2e2c28;
+    color: #f0ede6;
+  }
+
+  .sidebar .follow-list li a:hover .follow-icon {
+    background: #d4af37;
+    color: #1c1b18;
+  }
+}
+
+// ---------------------------------------------------------------------------------------
+// DARK MODE - About page timeline
+// ---------------------------------------------------------------------------------------
+
+[data-theme="dark"] .timeline {
+  .tl-list { border-left-color: #2e2c28; }
+  .tl-dot { border-color: #111110; } // matches dark body background
+
+  .tl-meta,
+  .tl-org { color: #908d86; }
+
+  .tl-title { color: #f0ede6; }
+
+  .tl-summary,
+  .tl-highlights li { color: #c8c5be; }
+
+  .tl-status-expired { background: #2e2c28; color: #b0ada6; }
+
+  .tl-link,
+  .tl-link:hover { color: #d4af37; }
+
+  .tl-filter {
+    border-color: #3a3830;
+    color: #b0ada6;
+
+    &:hover { border-color: #f0ede6; color: #f0ede6; }
+
+    &[aria-pressed="true"]:not([class*="tl-type-"]) {
+      background: #f0ede6;
+      border-color: #f0ede6;
+      color: #111110;
+    }
+  }
+}
+
+// Timeline scroll box (dark)
+[data-theme="dark"] .timeline {
+  .tl-scroll { scrollbar-color: #3a3830 transparent; }
+  .tl-year-head { background: #111110; }
+  .tl-scroll-wrap::after { background: linear-gradient(to bottom, rgba(17, 17, 16, 0), #111110); }
+}
+
+// Timeline "What I learned" note (dark)
+[data-theme="dark"] .timeline .tl-learned {
+  background: #1c1a14;
+  border-left-color: #d4af37;
+
+  .tl-learned-label { color: #d4af37; }
+  p { color: #c8c5be; }
 }

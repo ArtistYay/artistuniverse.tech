@@ -6,3 +6,5 @@ vendor
 CLAUDE.md
 .claude/settings.local.json
 *.claude
+# Private resume folder (personal + other people's documents). Never commit.
+Resume/

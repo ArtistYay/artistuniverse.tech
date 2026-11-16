@@ -3,7 +3,7 @@
 // ---------------------------------------------------------------------------------------
 
 .site-header {
-  padding: 20px 0;
+  padding: 12px 0;
   background: $header-bg;
   border-bottom: 1px solid $border-color;
   position: sticky;
@@ -11,7 +11,7 @@
   z-index: 100;
 
   .wrapper {
-    max-width: 100%;
+    max-width: none; // full width: logo hugs the left edge, nav the right
     margin: 0 auto;
     padding: 0 40px;
     display: flex;
@@ -82,8 +82,13 @@
   }
 
   @media (max-width: $breakpoint-mobile) {
+    padding: 10px 0;
+
+    // Phones: logo on the first row, navigation on its own row underneath
     .wrapper {
       padding: 0 16px;
+      flex-wrap: wrap;
+      row-gap: 6px;
     }
 
     .site-title {
@@ -92,13 +97,20 @@
     }
 
     .site-nav {
+      width: 100%;
+      justify-content: space-between;
       gap: 12px;
 
       a {
-        font-size: 13px;
+        font-size: 14px;
       }
     }
   }
+}
+
+// Never break a nav label like "About Me" across two lines
+.site-header .site-nav a {
+  white-space: nowrap;
 }
 
 // Search Modal
@@ -194,6 +206,52 @@
     .search-result-snippet {
       font-size: 14px;
       color: $light-text;
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------------------
+// LOGO - "ArtistUniverse" + Earth with a purple alien
+// ---------------------------------------------------------------------------------------
+
+.site-header .site-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: $text-color;
+  text-decoration: none;
+  border-bottom: none;
+
+  .site-logo-text {
+    font-family: $font-stack;
+    font-weight: 800;
+    font-size: 27px;
+    line-height: 1;
+    letter-spacing: 0.2px;
+  }
+
+  .site-logo-icon {
+    display: block;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+  }
+
+  &:hover {
+    color: $text-color;
+
+    .site-logo-icon {
+      transform: rotate(-8deg);
+    }
+  }
+
+  @media (max-width: $breakpoint-mobile) {
+    .site-logo-text {
+      font-size: 21px;
+    }
+
+    .site-logo-icon {
+      width: 44px;
+      height: 38px;
     }
   }
 }

@@ -50,6 +50,7 @@ exclude:
   - Gemfile.lock
   - node_modules
   - vendor
+  - Resume   # private: personal and other people's resumes, never publish
 
 # Exclude from processing.
 # The following items will not be processed, by default.

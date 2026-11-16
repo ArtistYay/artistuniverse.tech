@@ -139,9 +139,115 @@
         }
       }
     }
+
+    // Section currently being read (set by the script in _layouts/post.html)
+    ul li a.active {
+      font-weight: 700;
+    }
+  }
+
+  // Wide screens: TOC becomes a sticky column on the left of the article
+  @media (min-width: $breakpoint-toc-side) {
+    .post-box.has-toc {
+      max-width: none;
+      display: grid;
+      grid-template-columns: 220px minmax(0, 1fr);
+      grid-template-areas:
+        "toc header"
+        "toc content";
+      column-gap: $column-gap; // same as the article <-> sidebar gap
+      align-items: start; // required for position: sticky inside a grid
+
+      // Cap article width so lines stay readable, and centre it so any spare room
+      // splits evenly: TOC <-> article gap always equals article <-> sidebar gap.
+      .post-header,
+      .post-content {
+        width: 100%;
+        max-width: 820px;
+        justify-self: center;
+      }
+
+      .post-header  { grid-area: header; }
+      .post-content { grid-area: content; }
+
+      // Screenshots: let image paragraphs grow past the 820px text width, evenly on
+      // both sides, out to the edges of the article column (never into the gaps).
+      // 100cqw = width of .post-box; minus TOC column, gap and text width = spare room.
+      container-type: inline-size;
+
+      .post-content p:has(> img) {
+        $breakout: max(0px, calc((100cqw - 220px - #{$column-gap} - 820px) / 2));
+        margin-left: calc(-1 * #{$breakout});
+        margin-right: calc(-1 * #{$breakout});
+
+        > img {
+          margin-left: auto;
+          margin-right: auto;
+        }
+      }
+
+      .toc-box {
+        grid-area: toc;
+        position: sticky;
+        top: 100px; // same as the right sidebar, clears the sticky site header
+        max-height: calc(100vh - 120px);
+        overflow-y: auto; // long posts (e.g. 40+ headings) scroll inside the TOC
+        margin: 0;
+        padding: 0 $spacing-sm 0 0; // keeps the TOC's own scrollbar off the link text
+        scrollbar-width: thin;
+        scrollbar-color: $border-color transparent;
+        background: transparent;
+        border: none;
+        border-radius: 0;
+
+        ul {
+          border-left: 2px solid $border-color;
+          font-size: 14px;
+
+          li {
+            margin: 0;
+
+            a {
+              display: block;
+              padding: 5px 0 5px 14px;
+              margin-left: -2px; // sit on top of the ul's left rule
+              border-left: 2px solid transparent;
+              color: $light-text;
+              line-height: 1.4;
+
+              &:hover {
+                color: $text-color;
+                text-decoration: none;
+              }
+
+              &.active {
+                color: $link-color;
+                border-left-color: $gold-accent;
+              }
+            }
+
+            // h3 entries: indented, slightly smaller, no second rule
+            ul {
+              border-left: none;
+              margin: 0;
+
+              li a {
+                padding-left: 28px;
+                font-size: 13px;
+              }
+            }
+          }
+        }
+      }
+    }
   }
 
   .post-content {
+    // Clicking a TOC link: stop the heading from hiding under the sticky site header
+    h2, h3, h4 {
+      scroll-margin-top: 100px;
+    }
+
     font-size: $base-font-size;
     line-height: $base-line-height;
     color: $text-color;
@@ -333,6 +439,15 @@
 // Lightbox
 .lightbox-trigger {
   cursor: zoom-in;
+  transition: outline-color 0.15s ease;
+  outline: 2px solid transparent;
+  outline-offset: 4px;
+
+  // Signal "click to enlarge" (mouse) and show keyboard focus
+  &:hover,
+  &:focus-visible {
+    outline-color: $gold-accent;
+  }
 }
 
 .lightbox-overlay {

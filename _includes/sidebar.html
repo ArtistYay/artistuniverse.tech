@@ -1,84 +1,45 @@
-<aside class="sidebar">
-  <!-- About Section -->
-  <div class="sidebar-section about-section">
-    <h3>And thus a star was born...</h3>
-    <p>Wah gwan everyone! I'm {{ site.author }}, a Cloud Security Engineer focused on all things security in the cloud, DevSecOps, and Security Automation.</p>
-    <a href="{{ '/about/' | relative_url }}" class="read-more-link">
-      Read more <i class="fas fa-arrow-right"></i>
-    </a>
-    
-    <div class="social-icons">
-      <a href="https://github.com/ArtistYay" target="_blank" title="GitHub">
-        <i class="fab fa-github"></i>
-      </a>
-      <a href="https://www.youtube.com/@ArtistUniverseUntouched" target="_blank" title="YouTube">
-        <i class="fab fa-youtube"></i>
-      </a>
-      <a href="https://linkedin.com/in/athinat" target="_blank" title="LinkedIn">
-        <i class="fab fa-linkedin"></i>
-      </a>
-      <a href="/feed.xml" target="_blank" title="RSS">
-        <i class="fas fa-rss"></i>
-      </a>
-      <a href="mailto:athinathomas@protonmail.com" title="Email">
-        <i class="fas fa-envelope"></i>
-      </a>
+<aside class="sidebar" aria-label="About {{ site.author }}">
+  <!-- Profile -->
+  <div class="sidebar-section profile-section">
+    <img class="profile-photo" src="{{ '/assets/images/headshot-web.jpg' | relative_url }}" alt="{{ site.author }}">
+    <div class="profile-heading">
+      <h2 class="profile-name">{{ site.author }}</h2>
+      <p class="profile-aka">aka Artist</p>
     </div>
+    <p class="profile-bio">Wah gwan everyone! I'm a security engineer working on AI security, with roots in cloud security, DevSecOps and security automation.</p>
+    <a href="{{ '/about/' | relative_url }}" class="read-more-link">
+      Read more about me <i class="fas fa-arrow-right" aria-hidden="true"></i>
+    </a>
   </div>
 
-  <!-- Recently Viewed -->
-  <div class="sidebar-section recently-viewed-section">
-    <h3>Recently Viewed</h3>
-    <ol id="recently-viewed-list">
-      <li style="color: #a0aec0; font-size: 13px; list-style: none;">No articles viewed yet</li>
-    </ol>
+  <!-- Follow -->
+  <div class="sidebar-section follow-section">
+    <h3>Follow</h3>
+    <ul class="follow-list">
+      <li><a href="https://github.com/ArtistYay" target="_blank" rel="noopener"><span class="follow-icon"><i class="fab fa-github" aria-hidden="true"></i></span>GitHub</a></li>
+      <li><a href="https://www.youtube.com/@ArtistUniverseUntouched" target="_blank" rel="noopener"><span class="follow-icon"><i class="fab fa-youtube" aria-hidden="true"></i></span>YouTube</a></li>
+      <li><a href="https://linkedin.com/in/athinat" target="_blank" rel="noopener"><span class="follow-icon"><i class="fab fa-linkedin-in" aria-hidden="true"></i></span>LinkedIn</a></li>
+      <li><a href="https://linktr.ee/AthinaThomas" target="_blank" rel="noopener"><span class="follow-icon"><i class="fas fa-link" aria-hidden="true"></i></span>Linktree</a></li>
+      <li><a href="{{ '/feed.xml' | relative_url }}" target="_blank"><span class="follow-icon"><i class="fas fa-rss" aria-hidden="true"></i></span>RSS feed</a></li>
+      <li><a href="mailto:{{ site.email }}"><span class="follow-icon"><i class="fas fa-envelope" aria-hidden="true"></i></span>Email</a></li>
+    </ul>
   </div>
 
-  <!-- Tags -->
+  <!-- Tags (each tag gets its own colour, see _sidebar.scss) -->
   <div class="sidebar-section tags-section">
     <h3>Tags</h3>
     <div class="tag-cloud">
       {% assign sorted_tags = site.tags | sort %}
       {% if sorted_tags.size > 0 %}
         {% for tag in sorted_tags %}
-          <a href="{{ site.baseurl }}/tags/{{ tag[0] | slugify }}" class="tag">
+          <a href="{{ '/tags.html' | relative_url }}#{{ tag[0] | slugify }}" class="tag tag-{{ tag[0] | slugify }}">
             <span class="tag-count">{{ tag[1].size }}</span>
             <span class="tag-name">{{ tag[0] }}</span>
           </a>
         {% endfor %}
       {% else %}
-        <p style="color: #a0aec0; font-size: 13px;">No tags yet. Add tags to your posts!</p>
+        <p class="no-tags">No tags yet. Add tags to your posts!</p>
       {% endif %}
     </div>
   </div>
 </aside>
-
-<!-- Recently Viewed tracker -->
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  const currentPage = window.location.pathname;
-  const pageTitle = document.querySelector('h1.post-title')?.textContent || document.title;
-
-  // Track the current page only if it's a post
-  if (document.querySelector('.post')) {
-    let recentlyViewed = JSON.parse(localStorage.getItem('recentlyViewed') || '[]');
-    recentlyViewed = recentlyViewed.filter(item => item.url !== currentPage);
-    recentlyViewed.unshift({
-      url: currentPage,
-      title: pageTitle,
-      date: new Date().toISOString()
-    });
-    recentlyViewed = recentlyViewed.slice(0, 5);
-    localStorage.setItem('recentlyViewed', JSON.stringify(recentlyViewed));
-  }
-
-  // Render the recently-viewed list
-  const recentlyViewedList = document.getElementById('recently-viewed-list');
-  const recentlyViewed = JSON.parse(localStorage.getItem('recentlyViewed') || '[]');
-  if (recentlyViewedList && recentlyViewed.length > 0) {
-    recentlyViewedList.innerHTML = recentlyViewed.map(item => `
-      <li><a href="${item.url}">${item.title}</a></li>
-    `).join('');
-  }
-});
-</script>

@@ -23,15 +23,15 @@ During the hackathon, I was panicking—my team was mostly security-driven, and 
     
 Overall, I learned a lot, got valuable career advice, and felt more confident by the end. After we wrapped up, the event transitioned to presentations and awards. The energy carried over as the conference continued with more sessions and learning opportunities.
 
-![Hackathon Team]({{ site.url }}{{ site.baseurl }}/assets/images/hackathon.png)
+![Hackathon Team]({{ site.url }}{{ site.baseurl }}/assets/images/hackathon-web.jpg)
 
 And here is a screenshot of the app/website
 
-![Hackathon App]({{ site.url }}{{ site.baseurl }}/assets/images/hackathonApp.png)
+![Hackathon App]({{ site.url }}{{ site.baseurl }}/assets/images/hackathonApp-web.png)
 
 At the end of the event, we won first place! The team decided I should take home the golden clippy, which was a great way to conclude the hackathon and move into the next phase of learning at the conference.
 
-![Hackathon Trophy]({{ site.url }}{{ site.baseurl }}/assets/images/trophy.png)
+![Hackathon Trophy]({{ site.url }}{{ site.baseurl }}/assets/images/trophy-web.jpg)
 
 # Day 1
 
@@ -187,9 +187,9 @@ The infrastructure patterns for multi-tenant security operations often mirror wh
 
 Thank you, Mona, for these gems!
 
-![Mona Talk]({{ site.url }}{{ site.baseurl }}/assets/images/monaSlide1.png)
+![Mona Talk]({{ site.url }}{{ site.baseurl }}/assets/images/monaSlide1-web.jpg)
 
-![Mona Talk]({{ site.url }}{{ site.baseurl }}/assets/images/monaSlide2.png)
+![Mona Talk]({{ site.url }}{{ site.baseurl }}/assets/images/monaSlide2-web.jpg)
 
 ## Neourdiversity in Tech
 
@@ -199,8 +199,8 @@ To top it all off, I was able to sit in on a presentation about the highs and lo
 
 This conference had a lot of great people, amazing talks, and even satisfying food. I really enjoyed myself! If anyone wants to come to the next one, there will be another Workplace Ninjas US conference in Arizona in February 2027. Here are some flicks during the conference!
 
-![Scholorship Winners!]({{ site.url }}{{ site.baseurl }}/assets/images/scholorshipWinners.png)
+![Scholorship Winners!]({{ site.url }}{{ site.baseurl }}/assets/images/scholorshipWinners-web.jpg)
 
-![Golden Clippy Award winners!]({{ site.url }}{{ site.baseurl }}/assets/images/goldenClippy.png)
+![Golden Clippy Award winners!]({{ site.url }}{{ site.baseurl }}/assets/images/goldenClippy-web.jpg)
 
-![Last night in Dallas]({{ site.url }}{{ site.baseurl }}/assets/images/lastPic.png)
+![Last night in Dallas]({{ site.url }}{{ site.baseurl }}/assets/images/lastPic-web.jpg)

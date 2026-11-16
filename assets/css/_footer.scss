@@ -1,136 +1,32 @@
 // ---------------------------------------------------------------------------------------
-// FOOTER - Footer Section Styling
+// FOOTER - single centered line: copyright + "Powered by Jekyll"
 // ---------------------------------------------------------------------------------------
 
-$footer-bg: #1c1b18;
-$footer-text: rgba(255, 255, 255, 0.75);
-$footer-text-muted: rgba(255, 255, 255, 0.5);
-$footer-border: rgba(255, 255, 255, 0.1);
+$footer-bg: #3d3a33;                       // soft warm charcoal (was near-black #1c1b18)
+$footer-text: rgba(255, 255, 255, 0.78);   // ~6:1 contrast on $footer-bg, passes WCAG AA for small text
 
 footer {
   background: $footer-bg;
   color: $footer-text;
-  padding: $spacing-2xl 0;
+  padding: $spacing-lg $spacing-md;
   margin-top: $spacing-3xl;
-  border-top: 1px solid $footer-border;
+  text-align: center;
 
-  .footer-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 $spacing-lg;
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: $spacing-2xl;
-
-    @media (max-width: $breakpoint-mobile) {
-      grid-template-columns: 1fr;
-      gap: $spacing-xl;
-    }
+  .footer-copy {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.6;
+    color: $footer-text;
   }
 
-  .footer-logo {
-    display: inline-block;
-    font-size: 20px;
-    font-weight: 700;
-    color: white;
+  a {
+    color: #ffffff;
     text-decoration: none;
-    margin-bottom: $spacing-md;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.35);
 
     &:hover {
-      color: $footer-text;
-    }
-  }
-
-  .footer-about {
-    p {
-      font-size: 14px;
-      line-height: 1.7;
-      margin: 0 0 $spacing-md 0;
-    }
-  }
-
-  .footer-section {
-    h3 {
-      font-size: 12px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: $footer-text-muted;
-      margin: 0 0 $spacing-md 0;
-    }
-
-    ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-
-      li {
-        margin-bottom: $spacing-sm;
-
-        a {
-          color: $footer-text;
-          text-decoration: none;
-          font-size: 14px;
-          transition: color 0.2s ease;
-          display: flex;
-          align-items: center;
-          gap: 8px;
-
-          &:hover {
-            color: white;
-          }
-        }
-      }
-    }
-  }
-
-  .footer-social {
-    display: flex;
-    gap: $spacing-md;
-    margin-top: $spacing-sm;
-
-    a {
-      color: $footer-text;
-      font-size: 18px;
-      text-decoration: none;
-      transition: color 0.2s ease;
-
-      &:hover {
-        color: white;
-      }
-    }
-  }
-
-  .footer-bottom {
-    max-width: 1200px;
-    margin: $spacing-xl auto 0;
-    padding: $spacing-lg $spacing-lg 0;
-    border-top: 1px solid $footer-border;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: $spacing-sm;
-
-    p {
-      margin: 0;
-      font-size: 13px;
-      color: $footer-text-muted;
-    }
-
-    a {
-      color: $footer-text;
-      text-decoration: none;
-
-      &:hover {
-        color: white;
-        text-decoration: underline;
-      }
-    }
-
-    @media (max-width: $breakpoint-mobile) {
-      flex-direction: column;
-      text-align: center;
+      color: $gold-accent;
+      border-bottom-color: $gold-accent;
     }
   }
 }

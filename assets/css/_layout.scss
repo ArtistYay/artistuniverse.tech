@@ -4,11 +4,12 @@
 
 .container {
   width: 100%;
-  margin: 0;
+  max-width: $page-max-width;
+  margin: 0 auto;
   padding: $spacing-xl 40px;
   display: grid;
-  grid-template-columns: 1fr 400px;
-  gap: 40px;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: $column-gap;
 
   @media (max-width: $breakpoint-desktop) {
     grid-template-columns: 1fr;
@@ -23,6 +24,11 @@
   @media (max-width: $breakpoint-mobile) {
     padding: $spacing-md 20px;
   }
+}
+
+// Article pages only (body class set in _layouts/default.html)
+.article-page .container {
+  max-width: $article-page-max-width;
 }
 
 .content {
