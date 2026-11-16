@@ -10,21 +10,21 @@ hide_title: true
   <div class="about-row">
     <img src="/assets/images/cloud.gif" alt="" class="icon-gif gif-lightbox">
     <p>
-      I am a <strong>Cloud Security & DevSecOps Engineer</strong> specializing in building secure cloud delivery systems across Azure and AWS. With four years of experience spanning financial services, healthcare, media, and real estate, I embed security into the design, automation, and deployment of infrastructure. Not as an afterthought, but as a foundation.
+      I am a <strong>Security Engineer</strong> specializing in cloud and AI. I've been at it for four years now spanning from different industries like financial services, healthcare, media, and real estate.
     </p>
   </div>
 
   <div class="about-row">
     <img src="/assets/images/security.gif" alt="" class="icon-gif gif-lightbox">
     <p>
-      My work centers on three disciplines: <strong> cloud security, DevSecOps, & security automation</strong>. I believe security should be <strong> frictionless for engineering teams</strong>. Whether it is a Terraform policy-as-code gate catching misconfigurations at commit time, a SOAR playbook reducing mean time to resolution, or a federated identity model enforcing least privilege across hybrid cloud, I build solutions that hold up in production.
+      Mostly focused in Microsoft 365 & Azure Security but I am knowledgable in AWS as well.
     </p>
   </div>
 
   <div class="about-row">
     <img src="/assets/images/open.gif" alt="" class="icon-gif gif-lightbox">
     <p>
-      Currently open to <strong> full-time Cloud Security, DevSecOps, and Security Automation Engineering roles</strong>.
+      Currently open to <strong> full-time Cloud and AI Security Engineering roles</strong>.
     </p>
   </div>
 </div>

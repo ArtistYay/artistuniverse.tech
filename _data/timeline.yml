@@ -8,12 +8,17 @@
 #   date:       YYYY-MM-DD, required. Start date for ranges, earned date for certs.
 #               Only the month and year are shown.
 #   end:        YYYY-MM-DD, or "present". Optional (makes it a range).
+#               Work, project and community entries with no end show "– Present" automatically
+#               (unless status: archived or ongoing: false). Add an end date to replace it.
+#   ongoing:    false = finished but end date unknown; shows the start date only, no "Present"
+#   start:      YYYY-MM-DD shown before `date` (e.g. "Mar 2024 – Jul 2026"); placement still uses `date`
 #   end_label:  text to show instead of the end date (e.g. "2026") when the month is unknown
 #   precision:  year = only the year of `date` is known; shows "2021" instead of "Jan 2021"
 #   summary:    one or two sentences (optional)
 #   highlights: short bullet list (optional, keep to 3)
-#   learned:    "What I learned" note, first person, 1-2 sentences (optional)
+#   learned:    "Key takeaways" note, first person, 1-2 sentences (optional)
 #   link:       URL (optional), link_label: text for it (default "Details")
+#   links:      extra links shown beside it, a list of { url: ..., label: ... } (optional)
 #   status:     expired | in-progress | archived (optional, shows a label)
 #   hidden:     true = keep in this file but don't show on the site
 #
@@ -25,11 +30,17 @@
 # Source of truth for work entries: Resume/Athina_Thomas_General_Security_Engineer.pdf (Oct 2026).
 # Current role: employer intentionally not named, and kept high level (internal detection design).
 - type: work
-  title: Senior Associate Security Engineer, AI Cloud Security
+  title: Senior Associate Security Engineer
   learned: "Shadow AI is a category, so I hunt specific behaviors instead of chasing it as a whole. Local coding agents run as the user and never appear in sign-in logs, vendor docs and the real tenant schema don't always match, and a threat and a policy violation belong to different teams."
   date: 2026-08-01
   end: present
   summary: Building Microsoft-based detection for unauthorized AI tools and agents on a new AI security posture team, using Microsoft Sentinel, Defender advanced hunting and Purview.
+  # From the 2026 brag document, kept generic (no internal names, counts or findings).
+  highlights:
+    - Built the team's first AI agent inventory metric in KQL and drafted its first AI risk baseline, both signed off by my manager.
+    - Proposed a ranked, evidence-backed list of AI hunting targets that set the team's detection priorities.
+    - Built a hunt for AI agents with sensitive purposes, fixed a mismatch between vendor schema docs and the live environment, and reviewed results by hand before calling it detection-ready.
+    - Recommended Communication Compliance over DLP for flagging AI assistant misuse, so prompt content stays in the compliance tool and only the alert signal moves on.
 
 - type: work
   title: Associate Cloud Security Consultant
@@ -39,24 +50,24 @@
   end: 2026-09-01
   highlights:
     - Automated 100+ registry-level security settings that Intune can't set natively, using PowerShell; adopted as a reusable accelerator on later Slalom Intune migrations.
-    - Designed a tiered Active Directory administration model (Tier 0/1/2) for a government contractor preparing for a compliance audit.
+    - Led Active Directory tiering for a government contractor preparing for a compliance audit, authoring the Tier 0/1/2 classification criteria, classifying every directory object, and delivering the implementation playbook and CIS baseline GPOs.
     - Piloted phishing-resistant authentication (Microsoft Authenticator and FIDO2) for a global nonprofit, with runbooks the client used to finish the rollout.
     - Remediated 94,000 vulnerabilities across a 200+ server hybrid Windows estate with zero unplanned outages.
 
-# Short role after the WarnerMedia internship. It's on the 2022 resumes but not on
-# newer ones, so it's hidden until you decide whether you want it shown.
+# Short role after the WarnerMedia internship (from the 2022 resumes, "Cyber Defense International LLC").
 - type: work
-  title: Security Operations Center Analyst
-  org: Cyber Defense International
+  title: Security Operations Center Analyst (Cloud)
+  org: Cyber Defense International LLC, Chamblee, GA
   date: 2022-02-01
   end: 2022-03-01
-  hidden: true
+  summary: Analyzed potential threats across the security tool stack to determine impact, scope and recovery.
+  learned: "Following escalation and handoff procedures between analysts and leadership, and documenting each incident's history, status and impact so the next person could pick it up."
 
 - type: work
   title: Tier 1 SOC Analyst (Internship)
   learned: "How a real SOC runs: triaging alerts across EDR, firewall and email tools, rebuilding who, what, when and where in Carbon Black and SentinelOne, querying Splunk with SPL, and documenting incidents so the next person can act on them."
   org: WarnerMedia
-  date: 2021-06-01   # NOTE: older resumes say Jul 2021 (one says Aug); confirm
+  date: 2021-06-01   
   end: 2022-01-01
   highlights:
     - Resolved 277+ security incidents (phishing, endpoint compromise, malicious links) with Cortex XSOAR, correlating Carbon Black, Palo Alto and Proofpoint data.
@@ -73,10 +84,10 @@
 
 # ===== Education =====
 
-# Started 2024 (month unknown), conferred July 2026.
-# Placed at completion (conferred July 2026). Started 2024.
+# Started March 2024, conferred July 2026.
 - type: education
   title: B.S., Cloud Computing
+  start: 2024-03-01
   learned: "Finished a full degree while working full time as a consultant. The coursework put structure around what I was doing on the job: network and security fundamentals, cloud platform design, securing cloud environments and Python for automation."
   org: Western Governors University
   date: 2026-07-01
@@ -103,7 +114,7 @@
   title: College transfer credits, 14 courses
   learned: "How to pace myself through a heavy course load: 14 courses in under two months, alongside full-time work, to move my degree forward faster."
   org: Sophia Learning and Study.com
-  date: 2024-04-04
+  date: 2024-03-01
   end: 2024-05-29
   summary: Completed 14 college-level courses in under two months for transfer credit, including Programming in Python, Database Programming, Introduction to Relational Databases, Introduction to Web Development and Advanced Technical Writing.
   link: https://www.credly.com/users/athina-thomas
@@ -204,8 +215,6 @@
   link: https://www.credly.com/badges/a6487a0d-26bb-486e-b7da-d8c78263f772/public_url
   link_label: Credly badge
 
-# From older resumes (year only). Neither is on Credly.
-# Both run on 3-year cycles, so they're marked expired; change if you renewed them.
 - type: certification
   title: AWS Certified Cloud Practitioner
   learned: "AWS fundamentals: core services, the shared responsibility model, security basics and billing."
@@ -226,17 +235,21 @@
 # transcript, verified 2026-11-16.
 - type: certification
   title: "Microsoft Certified: DevOps Engineer Expert (AZ-400)"
+  link_label: Microsoft credential
+  link: https://learn.microsoft.com/api/credentials/share/en-us/ArtistYay-1017/2074C89035A599B3?sharingId=C45DD1ECABC54DFC
   learned: "DevOps end to end: source control strategy, CI/CD in Azure DevOps and GitHub Actions, infrastructure as code, and building security and compliance checks into the pipeline."
   org: Microsoft
   date: 2024-10-06   # expires 2027-10-06
 
 - type: certification
   title: "Microsoft Certified: Azure Developer Associate (AZ-204)"
+  link_label: Microsoft credential
+  link: https://learn.microsoft.com/api/credentials/share/en-us/ArtistYay-1017/514FE1D218FBF8D1?sharingId=C45DD1ECABC54DFC
   learned: "Building on Azure as a developer: App Service, Functions, storage, authentication with Entra ID and managed identities, Key Vault and monitoring."
   org: Microsoft
   date: 2024-08-04   # expires 2027-08-04
 
-- type: certification
+- type: training
   title: "Microsoft Applied Skills: Configure SIEM security operations using Microsoft Sentinel"
   learned: "Setting up Sentinel hands on in a lab: connecting data sources, building analytics rules and automating responses."
   org: Microsoft
@@ -244,6 +257,8 @@
 
 - type: certification
   title: "Microsoft Certified: Azure Administrator Associate (AZ-104)"
+  link_label: Microsoft credential
+  link: https://learn.microsoft.com/api/credentials/share/en-us/ArtistYay-1017/DDE15C42B7C658C1?sharingId=C45DD1ECABC54DFC
   learned: "Running Azure day to day: identity and governance, storage, compute, virtual networking and monitoring."
   org: Microsoft
   date: 2023-03-01   # renewed, expires 2028-03-01
@@ -264,6 +279,8 @@
   org: Microsoft Learn
   date: 2026-04-10
   summary: Information protection, data loss prevention, retention, insider risk management, audit and search, and protecting data in AI environments.
+  link: /cybersecurity/2026/05/04/microsoft-purview-data-protection.html
+  link_label: Read the post
 
 - type: training
   title: Microsoft security architecture, identity and compliance, 18 learning paths
@@ -287,6 +304,7 @@
   date: 2024-10-17
   link: https://www.credly.com/badges/d15bc6ab-8734-4945-85eb-c2f8cb0653d1/public_url
   link_label: Credly badge
+  links: [{ url: "/cybersecurity/2026/02/10/defeating-the-midnight-breach-microsoft-ccp-blue-team-ctf.html", label: "Read the CTF write-up" }]
 
 - type: training
   title: Implementing Copilot for Security, deep-dive workshop
@@ -329,11 +347,11 @@
   link_label: Credly badge
 
 - type: training
-  title: "Kusto Detective Agency, Case #1"
+  title: "Kusto Detective Agency"
   learned: "KQL by solving a detective puzzle against a large dataset. It's the query language I now hunt with every day in Sentinel and Defender."
   org: Microsoft Azure Data Explorer
   date: 2022-11-20
-  summary: KQL investigation challenge (onboarding and Case #1).
+  summary: "KQL investigation challenge (onboarding and case #1)."
   link: https://www.credly.com/badges/5d8dce36-c75b-4c8d-b075-7af20d7d60d0/public_url
   link_label: Credly badge
 
@@ -371,10 +389,48 @@
 
 # Add new training here (course, provider, month).
 
+# From the 2026 brag document ("Books / Courses"). No key takeaways yet: add your own.
+- type: training
+  title: Wiz Sales Enablement
+  org: Wiz
+  date: 2026-06-16
+  learned: "How Wiz positions its cloud security platform with customers, and the cloud risks it's built to find and prioritize."
+
+- type: training
+  title: AI Coding Assistant Enablement Bootcamp (Slalom)
+  date: 2026-06-12
+  learned: "Using AI coding assistants responsibly: I own the design and the security requirements, and I review every AI-generated change before it ships."
+
+- type: training
+  title: GitHub Copilot 101
+  org: GitHub
+  date: 2026-01-01
+  precision: year
+  learned: "The basics of GitHub Copilot in the editor: code suggestions, chat, and writing prompts that give it enough context to be useful."
+
+- type: training
+  title: "Practical Cloud Security (book)"
+  date: 2026-01-01
+  precision: year
+  learned: "A practical tour of cloud security fundamentals across providers: asset management, identity and access, data protection, vulnerability management, network security and incident response."
+
 # ===== Projects =====
+
+# YouTube (@ArtistUniverseUntouched): 13 Exercism Python videos, Jan 16 - Apr 8, 2026,
+# grouped into one entry instead of 13. Takeaway from the video descriptions.
+- type: project
+  title: Exercism Python challenges on YouTube
+  org: ArtistUniverse Untouched
+  date: 2026-01-16
+  end: 2026-04-08
+  summary: A 13-video series working through Exercism's Python challenges on camera, from Currency Exchange to Chaitana's Colossal Coaster.
+  learned: "Thinking a problem through before turning it into code, and coming back to finish when I get stuck. Collatz Conjecture frustrated me in part 1, so I returned and finished it in part 2."
+  link: https://www.youtube.com/@ArtistUniverseUntouched/videos
+  link_label: Watch on YouTube
 
 - type: project
   title: Git Client from Scratch (CodeCrafters)
+  ongoing: false
   learned: "How Git actually stores data: blobs, trees and commits as zlib-compressed objects addressed by SHA-1. Also practical Python lessons on bytes versus strings, and to solve only the stage in front of me instead of jumping ahead."
   date: 2026-07-08
   summary: A working Git client in Python with no Git libraries, covering blob, tree and commit objects, plus cloning over Git's Smart HTTP protocol with packfile parsing.
@@ -383,6 +439,7 @@
 
 - type: project
   title: Azure AppSec Pipeline
+  status: in-progress
   learned: "Structured JSON logging so app logs are useful once they reach Sentinel, Docker layer caching, Terraform variable validation that catches mistakes at plan time, and one codebase with a tfvars file per environment instead of copied code."
   date: 2026-05-02
   summary: Connects CI/CD and the SIEM so deployment and scan results sit next to runtime detections. Azure infrastructure across five reusable Terraform modules, a managed identity scoped to a single role, custom Azure Policy as an independent enforcement layer, and OIDC planned so no static secrets live in CI/CD.
@@ -391,45 +448,127 @@
 
 - type: project
   title: Defender for Cloud Assessment Tool
+  end: 2026-08-01
   learned: "Turning a repeatable manual assessment into a tool: signing in through the browser, pulling Defender for Cloud and CIS benchmark results, and packaging them as one HTML report a client can act on."
   date: 2026-04-19
   status: archived   # repo archived on GitHub
   summary: Python CLI that snapshots Defender for Cloud (secure score, Defender plan coverage, all 89 CIS Azure Foundations Benchmark rules) and outputs a self-contained HTML report with a remediation tracker. Cut a full Azure security assessment from days to under 10 minutes.
+  highlights:
+    - Demoed it to the Microsoft Security practice at Slalom, and leadership flagged it for the accelerator program but later decided to archive it in Aug 2026.
   link: https://github.com/ArtistUniverse/mdc-assessment-tool
   link_label: GitHub
 
 - type: project
-  title: Docs-as-Code Security Notes
+  title: notes.artistuniverse.tech
   learned: "Writing down errors, fixes and the reasons behind them as I go. Building the notes as code with MkDocs and automated publishing means my project writeups always have a record behind them."
   date: 2025-03-04
-  summary: Knowledge base built with MkDocs, Obsidian and the Material theme, published automatically to notes.artistuniverse.tech.
+  summary: Knowledge base built with MkDocs, Obsidian and the Material theme, published automatically to my public knowledge base.
   link: https://notes.artistuniverse.tech
   link_label: Visit
 
-# TODO: dates for these resume projects, then remove hidden.
-- type: project
-  title: Hybrid Cloud Identity & Access Governance
-  date: 2025-01-01
-  summary: Federated Active Directory with AWS IAM Identity Center and Microsoft Entra ID over SAML 2.0, with a multi-account AWS Organization enforcing least privilege.
-  hidden: true
+# Dates marked "first seen" come from the earliest resume that mentions the project
+# (year only). Change them if you know the real date.
 
+# Sources: homelab build log (Nov 2026) and TheGuardian.pdf diagram (Apr 2026).
+# First seen as "Advanced Multi-Cloud Security Homelab" on the Aug 2025 resume.
+# Replaces the earlier "Hybrid Cloud Identity" and "Security Homelab" placeholders.
+# Kept high level on purpose: no IPs, internal domain names or account IDs.
+- type: project
+  title: TheGuardian®️
+  date: 2025-01-01
+  precision: year
+  end: present
+  summary: An on-prem Proxmox lab tied into Azure and AWS, designed in tiers (identity, servers, workstations and an isolated AI-agent network) to practice enterprise security end to end.
+  highlights:
+    - pfSense segmenting the lab into VLANs, and a Windows Server 2025 Active Directory domain running DNS and DHCP, with GPOs for AppLocker, restricted local admins and advanced auditing.
+    - Hybrid identity with Microsoft Entra Cloud Sync on a dedicated Tier 0 sync server, password hash sync, and a hybrid-joined Windows 11 client.
+    - Microsoft Sentinel collecting Entra audit logs, Azure Activity and Windows security events through the Azure Monitor Agent, with budget and policy guardrails on both clouds.
+    - An AWS landing zone in Terraform (org-kickstart) with a security account, organization CloudTrail and GuardDuty, in progress.
+  learned: "Entra roles and Azure RBAC are separate systems, hybrid join only works in a set order, and a misleading error can really be a permissions problem. Most important: never connect an AI tool with root or admin rights. I found an AWS connector running as root and rebuilt its access as a read-only sandbox role."
+
+- type: project
+  title: Scriptz-R-4-Kidz
+  date: 2026-07-14
+  summary: The scripts and queries from my IT career, sorted by language, including Active Directory risk assessments, a CIS baseline deployer for Intune through Microsoft Graph, Python utilities and KQL hunts.
+  learned: "Writing scripts other people can run safely: deploys that skip unchanged policies so they're safe to re-run, -WhatIf support, and clear warnings to read and test in a lab first."
+  link: https://github.com/ArtistYay/Scriptz-R-4-Kidz
+  link_label: GitHub
+
+# Is AI Really Scary? appears only on the Jan 2026 resume, marked "(Archived)", and its
+# repo is now private. It sounds like the Terraform Beginner Bootcamp site (S3 + CDN,
+# Terraform Cloud state). Hidden until you confirm whether it's the same project.
 - type: project
   title: Is AI Really Scary?
-  date: 2024-01-01
-  summary: AWS S3 static site provisioned entirely with Terraform through a CI/CD pipeline, with tflint and tfsec gates and remote state.
+  date: 2023-01-01
+  precision: year
+  status: archived
+  summary: AWS S3 static site provisioned entirely with Terraform through a CI/CD pipeline, with tflint and tfsec checks and remote state.
   hidden: true
+
+# Repo name: terraform-beginner-bootcamp-2023 (now private). Called "Terraform
+# Automation" / "Terraform Cloud Project" on 2024-2026 resumes.
+- type: project
+  title: Terraform Beginner Bootcamp 2023
+  ongoing: false
+  date: 2023-01-01
+  precision: year
+  summary: Provisioned an S3 static website with a CDN on AWS using Terraform, with remote state in Terraform Cloud and Gitpod workspaces set up by bash scripts.
+  learned: "Terraform from the ground up: providers, modules and remote state, plus a real Git workflow with branches, tags and semantic versioning."
+
+# First seen on the Apr 2024 resume (not on the Oct 2022 one).
+- type: project
+  title: Azure Sentinel attack map
+  ongoing: false
+  date: 2021-01-01
+  precision: year
+  summary: Exposed RDP on a Windows Server VM to draw brute-force attempts, enriched the failed sign-ins with a PowerShell script and an IP geolocation API, and mapped where attacks came from in Microsoft Sentinel.
+  learned: "How quickly an exposed service gets attacked, how to bring custom logs into Log Analytics, and how to turn enriched data into a Sentinel map."
+
+# The next three are first seen on the 2022 resumes.
+- type: project
+  title: Cloud Resume Challenge
+  ongoing: false
+  date: 2022-01-01
+  precision: year
+  summary: A resume website on AWS using S3, CloudFront, Route 53 and API Gateway, deployed through a CI/CD pipeline.
+  learned: "How the pieces of a serverless web app connect on AWS, from DNS and the CDN to an API, and deploying through a pipeline instead of the console."
 
 - type: project
-  title: Security Homelab
-  date: 2025-01-01
-  summary: Proxmox, Terraform, GitLab, Tailscale and DNS for prototyping security automation.
-  hidden: true
+  title: Three-tier AWS VPC from scratch
+  ongoing: false
+  date: 2022-01-01
+  precision: year
+  summary: A VPC built by hand with six subnets across three Availability Zones.
+  learned: "VPC networking without a wizard: planning CIDR ranges, giving each tier its own subnets, and spreading them across Availability Zones."
 
-# Also on 2022-2024 resumes but undated: Cloud Resume Challenge, Azure Sentinel
-# RDP attack map, Terraform S3 + CDN site. Add with a date if you want them shown.
+- type: project
+  title: Python port scanner, team capstone
+  ongoing: false
+  date: 2021-01-01
+  precision: year
+  summary: Capstone project with a team of seven, a Python port scanner showing the source and destination ports and IP addresses of the local machine's connections.
+  learned: "Python networking basics and splitting a build across a team of seven."
+
+- type: project
+  title: ArtistUniverse blog (this site)
+  date: 2022-01-17
+  summary: Started in January 2022 to document what I'm learning. Now built with Jekyll and hosted on GitHub Pages.
+  learned: "Explaining what I learn in writing, and building and maintaining the site myself with Jekyll, Liquid templates and SCSS."
+  link: /
+  link_label: Read the blog
+
+# Oct 2022 resume: "3+ years experience engineering a detection and monitoring homelab".
+- type: project
+  title: Detection and monitoring homelab
+  ongoing: false
+  date: 2019-01-01
+  precision: year
+  summary: My first lab, built with pfSense, Security Onion, Splunk, Ubuntu and a Windows VM, with Splunk forwarders collecting the Windows logs and malware traffic captures replayed into Security Onion.
+  learned: "How logs get from an endpoint into a SIEM, and how to investigate real malware traffic, years before I did it for a job."
 
 - type: project
   title: CatPipeline, AWS CI/CD for containers
+  ongoing: false
   learned: "How CI/CD fits together in AWS, from a commit to a running container behind a load balancer, and the small things that break pipelines: YAML needs spaces, not tabs, and deploy settings are case-sensitive."
   date: 2022-07-04
   summary: CodeCommit, CodeBuild, ECR and ECS Fargate behind a load balancer, taking code from commit to a running container automatically.
@@ -458,21 +597,38 @@
   org: Year Up, Atlanta
   date: 2021-06-01
 
-# TODO: dates for these, then remove hidden.
+# Dates and links from the 2026 brag document. LinkedIn tracking parameters removed.
 - type: recognition
   title: Rockstar Women in AI & Security spotlight
-  date: 2026-01-01
-  hidden: true
+  org: Rockstar Women in AI & Security
+  date: 2026-02-02
+  summary: Featured in the Rockstar Women in AI & Security spotlight series.
+  link: https://www.linkedin.com/posts/rockstar-women-in-ai-security_rockstarwomen-womenintech-aiandsecurity-activity-7424157718443106304-D5k8
+  link_label: See the spotlight
 
 - type: recognition
   title: Featured on Welkas World
-  date: 2026-01-01
-  hidden: true
+  org: Welkas World
+  date: 2026-02-25
+  summary: "Featured in \"Meet the Scholars: Incredible Voices Shaping the Future of Tech.\""
+  link: https://www.welkasworld.com/post/meet-the-scholars-incredible-voices-shaping-the-future-of-tech
+  link_label: Read the feature
+  learned: "Telling my own story out loud: a closed door with the Air Force pointed me toward tech. My advice to anyone starting out is to tune out the negativity and pair belief with action, because prayers without actions are just dreams."
+
+- type: recognition
+  title: Scholarship to attend Workplace Ninjas US 2025
+  org: Workplace Ninjas US, Dallas, TX
+  date: 2025-12-08
+  summary: Attended the Workplace Ninjas US 2025 Summit on a scholarship, where my team also won the hackathon.
+  link: /cybersecurity/2025/12/20/my-experience-with-the-ninjas-of-microsoft.html
+  link_label: Read the post
+  learned: "Use everything an event offers. My highlight was booking one-on-one time with a speaker, something few conferences allow."
 
 # ===== Community =====
 
 - type: community
-  title: TEALS volunteer, 2023–24 school year
+  title: Volunteer
+  ongoing: false
   learned: "Supporting a high school teacher learning to teach computer science, a few hours a week. I learned inclusive teaching practices and how to explain technical ideas to students seeing them for the first time."
   org: Microsoft TEALS
   date: 2024-04-11
@@ -482,7 +638,9 @@
 
 # Joined 2022 (2024 resume: "Community Builder (2022 - Present)"; Jan 2026 resume: "Alumni").
 - type: community
-  title: AWS Community Builder (now alumni)
+  title: AWS Community Builder
+  end_label: "2023"
+  end: 2023-12-01
   learned: "Learning in public: writing about AWS security and identity, answering questions and mentoring people starting out in cloud security."
   org: Amazon Web Services
   date: 2022-01-01
@@ -491,14 +649,16 @@
 
 # TODO: dates for these, then remove hidden.
 - type: community
-  title: InfraGard Atlanta Members Alliance, member
-  org: InfraGard
+  title: Member
+  org: InfraGard Atlanta Members Alliance
   date: 2024-01-01
+  precision: year  
   summary: Public-private alliance of government, industry, academia and law enforcement sharing threat intelligence and lessons learned.
-  hidden: true
+  learned: "How the public and private sectors share threat intelligence, and seeing security problems from the point of view of government, academia and law enforcement, not just industry."
 
 - type: community
-  title: Microsoft Security product feedback (6 submissions)
+  title: Member
   org: Microsoft Security Partner Connection Program
-  date: 2026-01-01
-  hidden: true
+  date: 2022-09-07
+  summary: Took part in Microsoft Security Advisors surveys and previews for product feedback (6 submissions), including DevSecOps CLI scanning for Defender, Defender for Cloud documentation, multicloud resource coverage, and posture management.
+  learned: "Seeing security products before release, and how feedback from previews and surveys shapes what Microsoft builds next."

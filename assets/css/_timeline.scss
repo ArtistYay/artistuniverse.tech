@@ -220,7 +220,7 @@ $tl-dot-half: 18px; // half of $tl-dot-size (avoids deprecated "/" division)
     }
   }
 
-  // "What I learned" note under each entry
+  // "Key takeaways" note under each entry
   .tl-learned {
     margin: 10px 0 0;
     padding: 8px 12px;
@@ -246,6 +246,16 @@ $tl-dot-half: 18px; // half of $tl-dot-size (avoids deprecated "/" division)
       line-height: 1.55;
       color: #4f4c45;
     }
+  }
+
+  // Row of one or more links under an entry
+  .tl-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 20px;
+    margin-top: 6px;
+
+    .tl-link { margin-top: 0; }
   }
 
   .tl-link {

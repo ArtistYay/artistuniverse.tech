@@ -170,21 +170,6 @@
       .post-header  { grid-area: header; }
       .post-content { grid-area: content; }
 
-      // Screenshots: let image paragraphs grow past the 820px text width, evenly on
-      // both sides, out to the edges of the article column (never into the gaps).
-      // 100cqw = width of .post-box; minus TOC column, gap and text width = spare room.
-      container-type: inline-size;
-
-      .post-content p:has(> img) {
-        $breakout: max(0px, calc((100cqw - 220px - #{$column-gap} - 820px) / 2));
-        margin-left: calc(-1 * #{$breakout});
-        margin-right: calc(-1 * #{$breakout});
-
-        > img {
-          margin-left: auto;
-          margin-right: auto;
-        }
-      }
 
       .toc-box {
         grid-area: toc;
@@ -342,11 +327,14 @@
       }
     }
 
-    // Images
+    // Images / screenshots: capped so they sit inside the text column as figures.
+    // Aspect ratio is kept; click-to-enlarge (post.html) shows the full size.
     img {
-      max-width: 100%;
+      max-width: min(100%, 720px);
+      max-height: 480px;
+      width: auto;
       height: auto;
-      margin: $spacing-lg 0;
+      margin: $spacing-lg auto;
       border-radius: $border-radius-md;
       box-shadow: $shadow-md;
     }

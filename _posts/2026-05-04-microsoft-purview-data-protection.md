@@ -6,7 +6,7 @@ categories: Cybersecurity
 tags: [azure, cloud]
 ---
 
-# Your company’s data has a leak. Here’s how Microsoft is trying to fix it.
+## Your company’s data has a leak. Here’s how Microsoft is trying to fix it.
 
 *A non-technical look at data protection, compliance roles, and why your IT team cares about sensitive information*
 

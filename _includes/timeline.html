@@ -52,13 +52,28 @@
             <span class="tl-type">{{ tl_singular | split: key | last | split: "|" | first }}</span>
             {%- comment -%} precision: year -> show only the year (month unknown) {%- endcomment -%}
             {%- if item.precision == "year" -%}{%- assign tl_fmt = "%Y" -%}{%- else -%}{%- assign tl_fmt = "%b %Y" -%}{%- endif %}
+            {%- comment -%}
+              `start` (optional) is shown before `date`, e.g. a degree started Mar 2024 and finished Jul 2026.
+              The entry is still placed in the timeline by `date`.
+            {%- endcomment %}
             <time datetime="{{ item.date | date: '%Y-%m' }}">
+              {%- if item.start %}{{ item.start | date: "%b %Y" }} – {% endif -%}
               {{- item.date | date: tl_fmt -}}
               {%- if item.end -%}
                 {%- if item.end_label %} – {{ item.end_label }}
                 {%- elsif item.end == "present" %} – Present
                 {%- else %} – {{ item.end | date: "%b %Y" }}
                 {%- endif -%}
+              {%- comment -%}
+                No end date on something that can be ongoing (work, project, community) = still going.
+                One-time items (certs, training, awards, education) and archived projects are left alone.
+                Adding `end:` to an entry replaces "Present".
+              {%- endcomment -%}
+              {%- else -%}
+                {%- assign tl_ongoing = false -%}
+                {%- if item.type == "work" or item.type == "project" or item.type == "community" -%}{%- assign tl_ongoing = true -%}{%- endif -%}
+                {%- if item.status == "archived" or item.ongoing == false or item.start -%}{%- assign tl_ongoing = false -%}{%- endif -%}
+                {%- if tl_ongoing %} – Present{% endif -%}
               {%- endif -%}
             </time>
             {%- if item.status == "expired" %}<span class="tl-status tl-status-expired">Expired</span>{% endif -%}
@@ -80,18 +95,35 @@
 
           {%- if item.learned %}
           <div class="tl-learned">
-            <span class="tl-learned-label"><i class="fas fa-lightbulb" aria-hidden="true"></i> What I learned</span>
+            <span class="tl-learned-label"><i class="fas fa-lightbulb" aria-hidden="true"></i> Key takeaways</span>
             <p>{{ item.learned }}</p>
           </div>
           {%- endif -%}
 
-          {%- if item.link -%}
-            {%- assign href = item.link -%}
-            {%- assign first_char = item.link | slice: 0 -%}
-            {%- if first_char == "/" -%}{%- assign href = item.link | relative_url -%}{%- endif %}
-          <a class="tl-link" href="{{ href }}"{% if first_char != "/" %} target="_blank" rel="noopener"{% endif %}>
-            {{- item.link_label | default: "Details" }} <i class="fas fa-arrow-right" aria-hidden="true"></i>
-          </a>
+          {%- comment -%}
+            Links: `link` + `link_label` is the main one; `links` (optional) is a list of
+            { url, label } shown beside it. Paths starting with "/" are pages on this site
+            (same tab); anything else opens in a new tab.
+          {%- endcomment -%}
+          {%- if item.link or item.links %}
+          <div class="tl-links">
+            {%- if item.link -%}
+              {%- assign href = item.link -%}
+              {%- assign first_char = item.link | slice: 0 -%}
+              {%- if first_char == "/" -%}{%- assign href = item.link | relative_url -%}{%- endif %}
+            <a class="tl-link" href="{{ href }}"{% if first_char != "/" %} target="_blank" rel="noopener"{% endif %}>
+              {{- item.link_label | default: "Details" }} <i class="fas fa-arrow-right" aria-hidden="true"></i>
+            </a>
+            {%- endif -%}
+            {%- for extra in item.links -%}
+              {%- assign href = extra.url -%}
+              {%- assign first_char = extra.url | slice: 0 -%}
+              {%- if first_char == "/" -%}{%- assign href = extra.url | relative_url -%}{%- endif %}
+            <a class="tl-link" href="{{ href }}"{% if first_char != "/" %} target="_blank" rel="noopener"{% endif %}>
+              {{- extra.label | default: "Details" }} <i class="fas fa-arrow-right" aria-hidden="true"></i>
+            </a>
+            {%- endfor %}
+          </div>
           {%- endif %}
         </div>
       </li>
