@@ -1,11 +1,13 @@
 ---
+layout: post
+title: 'I connected "secure before deploy" to "detect after deploy" on Azure'
+date: 2026-11-22 12:00:00 -0500
+categories: Cybersecurity
 tags:
   - Cybersecurity
   - Microsoft Azure
   - DevOps
 ---
-
-# I connected "secure before deploy" to "detect after deploy" on Azure
 
 Most companies have a CI/CD pipeline and a SIEM, and the two rarely talk to each other. The pipeline knows what got deployed and whether it passed a scan. The SIEM knows something strange happened at runtime. Neither one has the other's context, so when an incident lands, the first hour goes to working out what was running and where it came from.
 
