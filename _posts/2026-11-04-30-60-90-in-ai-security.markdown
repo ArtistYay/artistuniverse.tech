@@ -7,124 +7,305 @@ tags: [AI, Cybersecurity]
 author: admin
 ---
 
-# 30 days in AI security: the plan versus what happened
-
-I started a new job on a small, new team. The work is finding and governing shadow AI in the Microsoft ecosystem, meaning the AI tools and agents people use at work that nobody approved. I came from cloud security consulting, mostly on the Microsoft side: identity, endpoint management, some DLP work. I had never done AI security. Nobody else on the team had either. My manager told me in the interview that the people six months in have about as much experience as anyone in this field.
-
-I wrote a 30/60/90 plan before my first day. This post covers the first 30. I've left out my employer, names, numbers and anything specific to the environment, so some of it is vaguer than I'd like.
-
+# My first 90 days in AI security: the plan versus what happened
+ 
+A few months ago I started a new job on a small, new team. The work is finding and governing shadow AI, meaning the AI tools and agents people use at work that nobody approved. I came from cloud security consulting, mostly on the Microsoft side: identity, endpoint management, some SIEM work. I had never done AI security. Nobody else on the team had either. My manager told me in the interview that the people six months in have about as much experience as anyone in this field.
+ 
+I wrote a 30/60/90 plan before my first day. Part one covers the first 30 days, part two covers days 31 to 60, and part three covers days 61 to 90. I've left out my employer, names, numbers and anything specific to the environment, so some of it is vaguer than I'd like.
+ 
+# Part one: days 1 to 30
+ 
 ## Before day one
-
+ 
 I ran a mock interview and it showed me exactly where I was weak. My identity and access answers were fine. My AI answers were not. I explained prompt injection as if it were SQL injection, and I mixed up content safety filters with data sensitivity labels. When I didn't know the AI-specific control, I reached for MFA and Zero Trust, which is what you say when you don't know the answer.
-
+ 
 So I studied the vocabulary first. Direct prompt injection (a user typing something hostile) can be partly handled with input filtering, hardened system prompts and output validation. Indirect injection, where the hostile text arrives inside a document or web page the model reads, has no clean fix. I needed that distinction before I could follow half the conversations I was about to sit in.
-
+ 
 I also asked a lot of people. A cloud security community I belong to, former colleagues, a few public threads. I kept one research log and noted every time two unrelated people told me the same thing, because that's how I separated consensus from one person's opinion. Three different sources described the same two-layer model: first control which AI apps get in, then control what data can reach the ones you allowed.
-
+ 
 One more thing happened before I started. The written job description read like a governance role, and the interview had sounded hands-on. I had already accepted, and I spent a few days anxious about it. Then I asked my manager directly. The answer made the job smaller and more doable than I'd feared: the logging and security tooling already existed, and my part was getting our team access to it and making it useful for AI. I should have asked on day one of worrying instead of day four.
-
+ 
 ## The plan
-
+ 
 - Days 1 to 30: learn how things work today and change nothing. Deliver a written map of how shadow AI detection currently works, plus a short list of specific hunting targets agreed with my manager.
 - Days 31 to 60: get one real detection running against one of those targets, and draft a triage procedure someone else could follow.
 - Days 61 to 90: make it repeatable, with a documented escalation path.
-
 My manager's measure of success was not a technical bar. It was whether the process got easier than it was when I started. I come back to that sentence a lot.
-
+ 
 ## What I learned
-
+ 
 ### Half my plan assumed data I didn't have
-
+ 
 Most of the detection queries I'd collected from the community depended on one endpoint telemetry source. It wasn't available to me. I found that out in week two, after I'd planned around it.
-
+ 
 The fix is boring: before anything else, list what your workspace is collecting.
-
+ 
 ```kql
 Usage
 | where TimeGenerated > ago(30d)
 | summarize TotalMB = sum(Quantity), LastSeen = max(TimeGenerated) by DataType
 | sort by TotalMB desc
 ```
-
+ 
 The first time I ran this it returned nothing. I assumed it was a permissions problem and carried that assumption for over a week. It was the portal's time picker, which was applying its own filter on top of the one in my query. Since then I treat an empty result as a claim that needs evidence. "Nothing came back" usually means I can't see it, which is a different statement from "it isn't happening."
-
+ 
 ### "Shadow AI" is a category, and you can't hunt a category
-
+ 
 This was the best advice I got before starting, and it held up. You can't search for "shadow AI." You can search for a named coding agent running on laptops, or for AI resources created in the cloud outside the approved path. So the first real deliverable was turning a vague mandate into a ranked list of specific targets and getting my manager to agree to it. We settled on five.
-
+ 
 ### I did the steps out of order
-
-A friend gave me a sequence: inventory what's already collected, read the existing alert rules to learn how the organization builds them, and only then go hunting. Her point was that I shouldn't design anything new. I should alert on data that's already there and copy the house style.
-
-I skipped to the hunting because it's the fun part. It did produce a real finding. But I still couldn't answer the two basic questions the rest of my work depended on, and I had to go back. The second step, reading the logic of existing rules, was still on my todo list. She told me it was the step people skip. I skipped it.
-
+ 
+A mentor gave me a sequence: inventory what's already collected, read the existing alert rules to learn how the organisation builds them, and only then go hunting. His point was that I shouldn't design anything new. I should alert on data that's already there and copy the house style.
+ 
+I skipped to the hunting because it's the fun part. It did produce a real finding. But I still couldn't answer the two basic questions the rest of my work depended on, and I had to go back. The second step, reading the logic of existing rules, still wasn't done when day 30 arrived. He'd told me it was the step people skip. I skipped it.
+ 
 ### Local AI agents don't have an identity
-
+ 
 This one changed how I scoped the work. A coding agent on someone's laptop runs as that person. It has no account of its own, so it will never appear in sign-in logs, interactive or otherwise. Cloud-hosted agents and service principals do show up there. These are two separate problems with two separate data sources, and if you blend them you'll spend weeks looking in the wrong table.
-
+ 
 A related mistake I made: cloud activity logs give you a caller ID, not a name, and there's no single place to resolve it. I checked the user sign-in table, then the service principal table, found nothing, and concluded the caller was a person. It was a managed identity, which logs to its own table.
-
+ 
 ```kql
 // Human users
 SigninLogs
 | where TimeGenerated > ago(90d)
 | where UserId == "<GUID>"
 | project TimeGenerated, UserPrincipalName, AppDisplayName
-
+ 
 // App-registration service principals
 AADServicePrincipalSignInLogs
 | where TimeGenerated > ago(90d)
 | where ServicePrincipalId == "<GUID>"
 | project TimeGenerated, ServicePrincipalName, ResourceDisplayName
-
+ 
 // Managed identities (separate table, easy to miss)
 AADManagedIdentitySignInLogs
 | where TimeGenerated > ago(90d)
 | where ServicePrincipalId == "<GUID>"
 | project TimeGenerated, ServicePrincipalName, ResourceDisplayName
 ```
-
+ 
 Check all three before you decide what something is.
-
+ 
 ### For the first month, access is the job
-
+ 
 I expected to spend my time writing queries. I spent a lot of it requesting roles, tracing tickets, and learning that the role I'd been granted didn't do what its name suggested. One "viewer" role let me see reports and nothing underneath them.
-
+ 
 What worked was describing the goal instead of naming a role. When I asked for a specific role, the person who owned it asked what I was trying to accomplish, and answering that got me further than the role name had. Now I open with the goal.
-
+ 
 ### Words matter more than I expected
-
+ 
 I write "potentially unauthorized" in every escalation and never the definitive version. A definitive claim implies an investigation happened, and investigating isn't my team's role.
-
-Product names matter too. Two security products with nearly the same name are easy to swap in conversation, and people notice when you do. An approved tool is also not the same as an approved AI feature inside that tool. And a use case being approved doesn't mean the software behind it is in the approved software inventory. In a large organization those can be separate records owned by separate teams.
-
+ 
+Product names matter too. Two security products with nearly the same name are easy to swap in conversation, and people notice when you do. An approved tool is also not the same as an approved AI feature inside that tool. And a use case being approved doesn't mean the software behind it is in the approved software inventory. In a large organisation those can be separate records owned by separate teams.
+ 
 ## Where I was at day 30
-
+ 
 Done:
-
+ 
 - A written map of how detection works today, organised by device, user and network. Laying it out that way made the gaps show up as findings instead of things I'd forgotten to mention.
 - Five named hunting targets, agreed with my manager.
 - A small library of queries that run against data I can reach, with the broken ones corrected.
-- A first draft of baseline metrics for AI risk.
+- A first draft of baseline metrics for AI risk, waiting on review.
 - A recurring call with the vendor's security architect, who has answered questions I'd have spent weeks guessing at.
 
 Not done:
-
-- Any detection running in development. That was always a day 60 goal, but I'd hoped to be closer.
-- Several access requests.
+ 
+- Reading how existing alert rules are built.
+- Any detection running in production. That was always a day 60 goal, but I'd hoped to be closer.
 
 ## The nerves
-
+ 
 I was scared before I started and I'm sometimes scared now. What helps is a pattern from my consulting years: every time I hit real uncertainty in the middle of a project, it turned out fine, and the fear had been bigger than the danger. Nobody has written the documentation for this work yet. Writing it down is a large part of what I was hired to do, so not knowing is the normal condition of the job and not a sign I'm behind.
-
+ 
 ## If you're starting something similar
-
+ 
 1. Find out what data you can reach before you plan anything around it.
 2. Turn the category into named targets and get them agreed in writing.
 3. Read how the existing alerts are built before you write your own.
 4. Look at real data and see what the activity looks like before you write a rule for it.
 5. Document as you go. You may be the first person to write any of it down.
-
-## Next
-
-Days 31 to 60 are about one detection working end to end against one named target, and a triage procedure a teammate could follow without me. I'll write the next post when I get there.
+---
+ 
+# Part two: days 31 to 60
+ 
+Day 60 landed on a Friday. The plan said I'd have one detection running in production and a draft triage procedure. I had neither. What I did have was a working hunt I'd tuned once, my first AI alert triaged, a walkthrough given to my team, and a much clearer picture of who owns what. Most of this part is about the plan running into the org chart.
+ 
+## What I learned
+ 
+### The documentation and my environment disagreed, and my environment won
+ 
+My first real hunt ran against a table that lists the AI agents in the tenant. I wrote it from Microsoft's documentation and it kept failing. Several column names in the docs didn't match the ones in my workspace. I spent too long assuming my query was wrong before I asked the table itself.
+ 
+```kql
+AgentsInfo
+| getschema
+```
+ 
+I now run that before writing anything against a table I haven't used. The second surprise was that the table writes a new row every time an agent changes, so counting rows gives you a number several times larger than the number of agents. Take the latest row per agent first:
+ 
+```kql
+AgentsInfo
+| summarize arg_max(Timestamp, *) by AgentId
+```
+ 
+### Hunting for purpose instead of tools
+ 
+When my manager reviewed my baseline, he suggested a first use case: published agents whose purpose suggests sensitive work, like HR, legal or financial decisions. The hunt reads each agent's name, description and instructions and checks them against a list of terms. Here's a cut-down version with a sample term list. The column names are the ones my tenant uses, so check yours.
+ 
+```kql
+let WordTerms = dynamic(["payroll", "salary", "termination", "performance review", "legal advice", "litigation"]);
+AgentsInfo
+| summarize arg_max(Timestamp, *) by AgentId
+| where PublishedStatus == "Published" and LifecycleStatus == "Active"
+| extend SearchText = tolower(strcat(coalesce(Name, ""), " ", coalesce(Description, ""), " ", coalesce(Instructions, "")))
+| mv-expand Term = WordTerms to typeof(string)
+| where SearchText has Term
+| summarize MatchReason = make_set(Term) by AgentId, Name, Platform
+```
+ 
+The first version matched thousands of agents, far too many to review. Tuning taught me more than building did.
+ 
+- `contains` matches a term anywhere, including inside other words. `has` matches whole terms. Switching cut the results by less than a tenth. That was smaller than I hoped, and it told me the noise wasn't partial matches. It was common words doing exactly what I'd asked.
+- A few terms drove most of the volume. Taking them out cut the results by almost a third. I put them back, because they're central to what the business does, and dropping them would hide the agents that matter most. A smaller number isn't the goal.
+- The hunt finds topics, not authority. An agent that explains a policy and an agent that makes decisions under it both match. My next idea is to count a sensitive term only when the agent also mentions approving, denying or deciding.
+I labeled my first result by hand. An agent that sounded alarming from its name turned out to be an approved advisory use. Labeling a sample is how you learn what a real hit looks like.
+ 
+### Check what already exists before you build
+ 
+Twice I went to build something and found it already there. The SIEM already had AI-related alert rules. They turned out to be vendor template content rather than anything built in-house, so they told me nothing about the house style I was supposed to copy, but I'd have duplicated them if I hadn't looked. The case management system also already had a case type for my team's findings, waiting for someone to use it. "Does this exist?" is now the question I ask before "how do I build it?"
+ 
+### A threat and a policy violation go to different places
+ 
+This was the biggest lesson of the month. I met the engineer whose team builds detections in the SIEM. His team handles cyber threats, like someone trying to slip hostile instructions into an AI assistant. Someone asking an assistant for something they shouldn't is a different thing. That's misuse, a policy problem, and it belongs with insider threat or data protection. Also, only detections that go through a formal process (testing, a pre-production stage, sign-off) get picked up by the team that works alerts around the clock.
+ 
+My hunt is a policy check. The route I'd planned for it, submitting it as a detection rule, probably isn't the right one, and that's the main reason nothing was in production at Day 60. It may end up as a regular review rather than a rule. Where it lives isn't my decision, so I took it to my manager.
+ 
+It also gave me a one-sentence description of my team's job: we find it and route it to the team that owns it. We don't investigate, and we don't change other teams' tools.
+ 
+### Ownership is harder than detection
+ 
+When I asked who owns the guardrails on our AI assistant, part of the answer was the vendor. The built-in protections aren't something you can edit the way you'd edit a policy in your own tools. There's also no written split of responsibilities yet between my team and the team that builds AI security controls. The working agreement is that they build and we monitor, including the places where no control exists yet. I wrote it down and sent it to my manager so it isn't just a hallway understanding.
+ 
+Two things from Microsoft's docs I didn't know before this month:
+ 
+- In Copilot Studio, each agent has its own [content moderation level](https://learn.microsoft.com/microsoft-copilot-studio/knowledge-copilot-studio#moderation). It filters harm categories like hate and violence, not business topics. An agent can be perfectly polite while doing something it shouldn't.
+- Purview's [default DLP policy for Microsoft 365 Copilot](https://learn.microsoft.com/purview/dlp-microsoft365-copilot-location-default-policy) ships in simulation mode, which logs matches without blocking anything. Whether yours is still in simulation mode is worth knowing.
+### My first AI alert
+ 
+One of Microsoft's built-in alerts fired for a potential jailbreak attempt in Copilot. I didn't write the rule behind it. It comes with the product, and my part was triage. The SIEM only holds metadata about AI interactions. The prompt itself lives in the data protection tool, so that's where I read it. Someone had asked how to set permissions on a database feature that can run operating system commands. It's a risky feature, but it was a reasonable question, so I didn't escalate it. The alert name sounded much worse than the prompt behind it, and I couldn't have judged either one without reading the prompt.
+ 
+### Write for the person reading it
+ 
+I wrote two documents for my manager and got told they weren't professional. They weren't. They had notes to myself, internal tracking codes, sentences about the document's own history, and one guess written up as if it were fact. I rewrote both with a header, a purpose, a short summary and a table of open questions. Later I rewrote a walkthrough at a more basic level for teammates who are technical but new to Microsoft. The facts stayed the same, but a different reader needed a different document.
+ 
+### One new person a week
+ 
+I meet one new stakeholder a week, and I open with a short message: here's what I work on, what are you running into, and is there anything I can take off your plate? Starting with how I can help gets better meetings than starting with what I need.
+ 
+### When the week falls apart
+ 
+A holiday in the middle of a week, a walkthrough postponed, meetings moving around. What kept me going was planning each day in 25-minute blocks, with a tiny first step and one line saying what "good enough" looks like that day. Before switching tasks I write down where I left off and what's next.
+ 
+At the end of one week I was sure I'd made almost no progress. Then I listed what I'd actually done: fixed the schema problem, got the query working, labeled the first agent, learned how cases get filed. I keep a running list of wins now, because I'm a bad judge of my own progress on a Friday afternoon.
+ 
+## Where I was at day 60
+ 
+Done:
+ 
+- The sensitive-purpose agent hunt, built and tuned once.
+- A small query repository. It holds only queries I've actually run, each with a comment saying what question it answers.
+- A walkthrough for my team on getting access and where to look.
+- My first AI alert, triaged.
+- Hunting targets, the current-state map and the baseline, all signed off by my manager.
+- A first conversation with detection engineering about how requests get in.
+Not done:
+ 
+- A detection in production. Who owns the hunt is still open.
+- A written triage procedure. I'd triaged one alert by hand, but hadn't written the steps down for anyone else.
+- Reconciling agent counts between two different views of the same tenant.
+So I missed both Day 60 deliverables as I'd written them. The plan assumed building the detection would be the hard part. It wasn't. The hard part was working out where a finding goes once I've found it.
+ 
+## If you're starting something similar (the 60-day version)
+ 
+1. Ask the table for its schema before you trust the docs.
+2. Count entities, not rows.
+3. Decide whether you're looking at a threat or a policy violation before you choose where a detection goes.
+4. Check whether it already exists.
+5. Write down working agreements, even informal ones.
+---
+ 
+# Part three: days 61 to 90
+ 
+Day 90 fell on a Sunday. Of the four things on my Day 90 list, only the triage piece got done, and not in the shape I'd planned. The other three (a test case in our case management system, a narrower version of my hunt, and a Day 90 summary for my manager) didn't happen. But this was also the month I turned in an assessment of who owns AI alerts across our Microsoft tools, every gap I'd found got an owner, and by day 85 every owner had fixed theirs. Both of those are true, and I'm still working out how I feel about them.
+ 
+## What I learned
+ 
+### My hunt was right to come back empty
+ 
+I took a random sample of 30 agents from the tuned hunt and labeled each one by hand. All 30 were normal business use. My first reaction was that I'd wasted a month. It took me a day to see it as a result.
+ 
+The hunt finds what an agent is about. It doesn't find what anyone does with it, and an agent that answers HR questions is supposed to talk about HR. So it isn't ready to be an alert. I told my manager it should stay a scheduled review until I can narrow it to agents whose instructions also mention approving, denying or deciding something.
+ 
+Thirty agents doesn't prove the rest are clean. It is enough to tell you whether a rule would mostly page someone about nothing, and this one would have.
+ 
+### Building inspector, not security guard
+ 
+Around day 70 I had a morning where I sat at my desk and asked, seriously, what I was there to do. I'd been treating every AI alert as mine to review. My manager answered it in one line: I'm the building inspector, not the security guard. I check that the alerts exist, find where they don't or where nobody acts on them, and get the owner to fix it. I don't work individual alerts and I don't investigate people.
+ 
+That sentence changed my to-do list more than anything in my playbook did. About half of what was on it belonged to someone else.
+ 
+### Triage turned out to be an ownership question
+ 
+I'd planned to write a triage procedure as a list of steps. What I actually needed first was an answer to a different question: when an AI alert shows up, whose is it? I'd triaged my first AI alert back in month two. Reading the prompt and deciding it wasn't malicious was the easy part. The hard part was knowing where it should have gone if it had been.
+ 
+So I wrote an assessment of AI abuse and unsanctioned AI across Defender, Purview and Sentinel, and turned it in. For each tool it explains who owns an AI alert when one lands there, and where it goes next. A cyber threat and a policy violation go to different teams, and the assessment says which. With that written down, triage is mostly lookup: read the prompt, decide whether it's a threat or misuse, and route it to the owner the assessment names.
+ 
+### A gap needs an owner before it needs a fix
+ 
+The same assessment checked, for each tool, whether the AI alerts exist, where the gaps are, and who owns the fix. It came to eight gaps. Some were alerts with no review process behind them. Some had no owner at all. One was a data feed that had stopped flowing.
+ 
+Finding them took a couple of weeks. Getting each one to the right person took longer, because for some of them there wasn't an obvious person. I took ownership questions to my manager instead of guessing, and I kept meeting people one at a time, opening with how I could help. By day 85, all eight were fixed by their owners.
+ 
+### "Fixed" needs evidence
+ 
+My last two weeks didn't go to my Day 90 list. They went to reviewing the evidence each owner sent back and checking it against the security standard the fix was supposed to meet. I hadn't planned for that work at all. It's the obvious last step, though. Without it, I'd just be taking each team's word that the gap was gone.
+ 
+### When the job changes, change the goals in writing
+ 
+I wrote my Day 90 goals before I understood the job. One of them was a detection running in production, which stopped making sense once my hunt came back clean and my role turned into inspection. I meant to ask my manager whether the Day 90 goals should change to match. I never asked. So on paper I missed most of my Day 90 goals while doing the work my manager actually wanted. That was a 15-minute conversation, and it's on me that I didn't have it in week 11.
+ 
+### The tools move under you
+ 
+Microsoft Sentinel [stops being supported in the Azure portal after March 31, 2027](https://learn.microsoft.com/azure/sentinel/overview#microsoft-sentinel-in-the-azure-portal-retirement-timeline) and will only be available in the Defender portal. If you're saving hunts in the Azure portal today, check that each one still runs in Defender advanced hunting. I've added that to my own list.
+ 
+## Where I was at day 90
+ 
+Done:
+ 
+- An assessment of AI abuse and unsanctioned AI across Defender, Purview and Sentinel, turned in. It says who owns AI alerts in each tool and where they go.
+- A working triage process: read the prompt, decide threat or misuse, route to the owner the assessment names.
+- All eight coverage gaps fixed by their owners, with each owner's evidence checked against the standard.
+- A random sample of the hunt labeled by hand, and a recommendation to keep it as a scheduled review instead of an alert.
+Not done:
+ 
+- A test case in the case management system.
+- The narrower version of the hunt.
+- A Day 90 summary for my manager.
+## Did the process get easier?
+ 
+That was my manager's measure from the first interview. When I started, nobody had written down how shadow AI detection worked, "shadow AI" wasn't a list of anything specific, and most of the gaps had no owner because nobody knew they were there. Now there's a written map, a list of named targets, an assessment that says who owns AI alerts in each tool, and eight gaps that were found and fixed. I think that counts as easier. I'll find out whether he agrees when I send him the summary I still owe him.
+ 
+## How I feel at 90 days
+ 
+Mixed. I know what my job is now, which I didn't at day 30 or even day 60. I also missed most of the deliverables I wrote for myself, three phases in a row, and some days that's all I can see.
+ 
+Where I've landed is that the plan was a guess made before I knew the job, and the work my manager asked for got done. The answer isn't to stop planning. It's to reopen the plan, out loud and with my manager, as soon as the job changes.
+ 
+## If you're starting something similar (the 90-day version)
+ 
+1. Label a sample of your hunt by hand before you turn it into an alert.
+2. Ask your manager to describe your role in one sentence, and put it at the top of your plan.
+3. Get every gap an owner before you worry about how it gets fixed.
+4. When someone says a fix is done, ask for the evidence and check it against the standard.
+5. When the job changes, rewrite your goals that same week, with your manager.
